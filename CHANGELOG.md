@@ -53,7 +53,7 @@ Najnovije je na vrhu.
 
 **Tehnički**
 
-- `styles.css` dobio oznaku verzije — bez toga su preglednici nakon pusha služili staru kopiju stila, pa se izmjene nisu vidjele
+- `styles.css`, hero video i poster dobili oznaku verzije — bez toga preglednik nakon pusha služi staru kopiju datoteke jer joj se ime nije promijenilo, pa se izmjene ne vide. Vrijedi za svaku datoteku koja se zamijeni na istom imenu
 - Padajući izbornik dobio nevidljivi most preko praznine i odgodu zatvaranja od 280 ms; prije je nestajao prije nego što se stigne kliknuti stavku
 - Uvedena lokalna test-stranica koja učitava naslovnu u tri okvira širine 360, 390 i 768px. Sve mjere u ovom popisu — dodirne mete, horizontalni scroll, veličine fonta, kontrast — izmjerene su na njoj prije objave, ne procijenjene
 

@@ -62,7 +62,7 @@ nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
 .hero{position:relative;background:var(--ink);color:#fff;min-height:min(90vh,800px);min-height:min(90svh,800px);display:flex;align-items:stretch;overflow:hidden}
 /* hero-bg je fallback ispod videa. Video mora biti potpuno neproziran, inace se
    dvije slike mijesaju i izgleda kao da video "prosijava" kroz staticnu sliku. */
-.hero-bg{position:absolute;inset:0;background:url('videos/hero-poster.jpg') center/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:url('videos/hero-poster.jpg?v=2') center/cover no-repeat}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;z-index:1}
 /* zatamnjenje ide s lijeva na desno: tekst dobiva podlogu, desna polovica kadra ostaje cista */
 .hero::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(96deg,rgba(18,16,14,.93) 0%,rgba(18,16,14,.86) 28%,rgba(18,16,14,.52) 56%,rgba(18,16,14,.14) 82%,rgba(18,16,14,.06) 100%)}
