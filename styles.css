@@ -305,9 +305,9 @@ footer a:hover{color:var(--brass-lt)}
   /* dodirne mete: poveznice u podnozju i zaglavlju bile su visoke 17-24px */
   footer ul{gap:0}
   footer ul a{display:block;padding:13px 0}
-  .f-bot a{display:inline-block;padding:8px 0}
+  .f-bot a{display:inline-block;padding:12px 0}
   .hd-phone{padding:11px 4px}
-  .tier h3 a{display:inline-block;padding:5px 0}
+  .tier h3 a{display:inline-block;padding:11px 0}
   .rev-src,.card-cap{-webkit-tap-highlight-color:transparent}
 
   /* prikaz cijene na vrhu ekrana dok se skrola kroz opcije konfiguratora */
@@ -316,7 +316,7 @@ footer a:hover{color:var(--brass-lt)}
 }
 @media(max-width:640px){
   .wrap{padding:0 20px}
-  .logo{font-size:19px}
+  .logo{font-size:19px;padding:6px 0}
   .logo span{font-size:8.5px;letter-spacing:.16em}
   header .wrap{gap:12px}
   .trust .wrap{grid-template-columns:1fr 1fr}
