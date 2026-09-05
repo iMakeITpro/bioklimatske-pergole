@@ -19,3 +19,6 @@ _video-izbor/
 
 # izvorna Tarasola fotografija (na stranici je optimizirana verzija)
 images/Tarasola.jpg
+
+# lokalna test-stranica za mjerenje
+_test.html
