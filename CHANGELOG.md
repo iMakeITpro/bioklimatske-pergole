@@ -5,6 +5,19 @@ Najnovije je na vrhu.
 
 ---
 
+## 6. rujna 2026. — četvrti krug
+
+**Podstranice modela**
+
+- Podstranica Sunbreaker 500 dobila **interaktivni prikaz konstrukcije** — pet oznaka na fotografiji, klik otvara detalj o tom dijelu: rotirajuće lamele, nosiva greda, stup s odvodnjom, plastifikacija, statika i temeljenje
+- Na desktopu se detalj otvara kao oblačić uz oznaku, a oblačić se sam prebacuje na lijevu stranu kad je oznaka u desnoj polovici fotografije. Na mobitelu se otvara u panelu ispod fotografije, jer bi oblačić iskakao izvan ekrana
+- Oznake su pravi gumbi veličine 44px, dostupni tipkovnicom, zatvaraju se tipkom Escape ili klikom izvan
+- **Tekst oznaka je privremen** i zamjenjuje se vrijednostima iz SELT tehničkog lista
+- Pregledane sve fotografije s klijentove stranice. Dvije koje koristimo na karticama nisu prikladne za ovakav prikaz: na jednoj je pergola uz sam rub i odrezana, na drugoj zauzima petinu kadra. Uzeta je fotografija iz galerije referenci na kojoj je cijela konstrukcija u tročetvrtinskom pogledu
+- **Otvoreno:** nazivi datoteka su generički, pa Josip mora potvrditi koja fotografija prikazuje koji model prije nego prikaz ide na obje podstranice
+
+---
+
 ## 5. rujna 2026. — treći krug
 
 **Hero**
@@ -96,6 +109,8 @@ Najnovije je na vrhu.
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
 | Brojke iz SELT deklaracije: 130 km/h, 200 kg/m², 187 projekata | Josip |
 | Je li „500R" iz zapisnika isti model kao „Sunbreaker 500" | Josip |
+| Potvrda koja fotografija prikazuje koji model (SB400 / SB500) | Josip |
+| Tekst oznaka u interaktivnom prikazu — iz SELT tehničkog lista | Josip |
 | Sadržaj podstranica — tehnički listovi, presjeci, odvodnja, galerije, snimke montaže | Faza 2 |
 | Skraćivanje usporedne tablice i galerije na naslovnoj (zapisnik t. 7) | Faza 2 |
 | Uklanjanje `noindex` prije objave | nakon potvrde brojki |

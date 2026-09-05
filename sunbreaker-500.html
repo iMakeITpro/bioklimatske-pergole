@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 
@@ -54,6 +54,32 @@
     <div class="hero-actions" style="margin-top:34px">
       <a href="index.html#konfigurator" class="btn btn-primary">Izračunajte cijenu →</a>
       <a href="upit.html" class="btn btn-ghost" style="color:var(--ink)">Zatraži ponudu</a>
+    </div>
+  </div>
+</section>
+
+<!-- INTERAKTIVNI PRIKAZ -->
+<section id="prikaz" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Interaktivni prikaz</div>
+      <h2>Što točno dobivate.</h2>
+      <p class="lead">Kliknite na oznaku i pogledajte detalj konstrukcije. Podaci su privremeni — zamjenjuju se vrijednostima iz SELT tehničkog lista.</p>
+    </div>
+
+    <div class="hotspot" id="hotspot">
+      <img src="https://bioklimatskepergole.hr/wp-content/uploads/2022/06/bioklimatske-pergole-2.jpg"
+           alt="Bioklimatska pergola SELT Sunbreaker 500, slobodnostojeća izvedba" loading="lazy">
+      <div class="hs-pop" id="hsPop" role="dialog" aria-live="polite" hidden>
+        <button class="hs-close" id="hsClose" aria-label="Zatvori">&times;</button>
+        <h3 id="hsNaslov"></h3>
+        <p id="hsTekst"></p>
+      </div>
+    </div>
+
+    <div class="hs-panel" id="hsPanel" aria-live="polite">
+      <h3 id="hsNaslovM">Odaberite oznaku na fotografiji</h3>
+      <p id="hsTekstM">Svaka oznaka otvara detalj o tom dijelu konstrukcije.</p>
     </div>
   </div>
 </section>
@@ -113,6 +139,63 @@
 </div>
 
 <script>
+
+// ---------- interaktivni prikaz ----------
+(function(){
+  const okvir = document.getElementById('hotspot');
+  if(!okvir) return;
+  const tocke = [
+    {x:52, y:18, naslov:'Rotirajuće lamele',
+     tekst:'Aluminijske lamele rotiraju 0–135°. Otvorene propuštaju svjetlo i zrak, zatvorene čine vodonepropusan krov.'},
+    {x:78, y:13, naslov:'Nosiva greda',
+     tekst:'Pojačani obodni profil nosi lamele i preuzima opterećenje vjetra i snijega. Vjetar klase 6 prema EN 13561.'},
+    {x:85, y:52, naslov:'Stup s odvodnjom',
+     tekst:'Voda s krova otječe skriveno kroz unutrašnjost stupa. Nema vidljivih oluka ni cijevi uz konstrukciju.'},
+    {x:6,  y:50, naslov:'Plastifikacija',
+     tekst:'Qualicoat Seaside premaz za primorske lokacije. 36 standardnih RAL boja u osnovnoj cijeni.'},
+    {x:35, y:60, naslov:'Statika i temeljenje',
+     tekst:'Svaki projekt dobiva statički proračun ovlaštenog inženjera i izvedbu temelja prilagođenu podlozi.'}
+  ];
+
+  const pop = document.getElementById('hsPop');
+  const naslov = document.getElementById('hsNaslov'), tekst = document.getElementById('hsTekst');
+  const naslovM = document.getElementById('hsNaslovM'), tekstM = document.getElementById('hsTekstM');
+  let aktivna = null;
+
+  tocke.forEach((t,i)=>{
+    const b = document.createElement('button');
+    b.className = 'hs-dot';
+    b.style.left = t.x + '%';
+    b.style.top  = t.y + '%';
+    b.setAttribute('aria-label', t.naslov);
+    b.addEventListener('click', e => { e.stopPropagation(); otvori(i,b); });
+    okvir.appendChild(b);
+  });
+  const dots = [...okvir.querySelectorAll('.hs-dot')];
+
+  function otvori(i, gumb){
+    const t = tocke[i];
+    if(aktivna === i){ zatvori(); return; }
+    aktivna = i;
+    dots.forEach((d,j)=>d.classList.toggle('aktivna', j===i));
+    naslov.textContent = naslovM.textContent = t.naslov;
+    tekst.textContent  = tekstM.textContent  = t.tekst;
+    // oblacic ide lijevo od tocke ako je tocka u desnoj polovici
+    pop.classList.toggle('lijevo', t.x > 55);
+    pop.style.left = t.x + '%';
+    pop.style.top  = t.y + '%';
+    pop.hidden = false;
+    document.getElementById('hsPanel').classList.add('ima');
+  }
+  function zatvori(){
+    aktivna = null;
+    dots.forEach(d=>d.classList.remove('aktivna'));
+    pop.hidden = true;
+  }
+  document.getElementById('hsClose').addEventListener('click', zatvori);
+  document.addEventListener('click', e=>{ if(!pop.contains(e.target)) zatvori(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') zatvori(); });
+})();
 function toggleNav(btn){
   const open = document.body.classList.toggle('nav-open');
   btn.setAttribute('aria-expanded', open);
