@@ -617,6 +617,7 @@ calc();
     document.getElementById('cfgGate').hidden = true;
     document.getElementById('cfgResult').hidden = false;
     calc();
+    if(typeof osvjeziMbar === 'function') osvjeziMbar();
   });
   polja.forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
 })();
@@ -640,11 +641,15 @@ document.addEventListener('keydown', e=>{
 // ---------- prikaz cijene na vrhu ekrana tijekom konfiguratora (mobitel/tablet) ----------
 const cfgSection = document.getElementById('konfigurator');
 const cfgMbarEl = document.getElementById('cfgMbar');
+let cfgUVidu = false;
+// traka s cijenom pri vrhu ima smisla tek kad cijena postoji — prije toga bi pisala "Nakon upita"
+function osvjeziMbar(){
+  const prikazi = cfgUVidu && cfgUnlocked;
+  cfgMbarEl.classList.toggle('show', prikazi);
+  cfgSection.classList.toggle('cfgbar-active', prikazi);
+}
 new IntersectionObserver(entries=>{
-  entries.forEach(en=>{
-    cfgMbarEl.classList.toggle('show', en.isIntersecting);
-    cfgSection.classList.toggle('cfgbar-active', en.isIntersecting);
-  });
+  entries.forEach(en=>{ cfgUVidu = en.isIntersecting; osvjeziMbar(); });
 },{rootMargin:'-81px 0px -1px 0px'}).observe(cfgSection);
 
 // ---------- lebdeca traka: tek nakon sto hero izade iz vidnog polja ----------
@@ -653,10 +658,20 @@ new IntersectionObserver(entries=>{
   const bar  = document.querySelector('.mcta');
   if(!hero || !bar) return;
   bar.classList.add('mcta-off');
+  // isIntersecting je istinit dok je vidljiv i jedan piksel — zato mjerimo omjer
   new IntersectionObserver(es=>{
-    es.forEach(e=>bar.classList.toggle('mcta-off', e.isIntersecting));
-  },{threshold:.18}).observe(hero);
+    es.forEach(e=>bar.classList.toggle('mcta-off', e.intersectionRatio > 0.12));
+  },{threshold:[0,.12,.3,.6]}).observe(hero);
 })();
+
+// ---------- URL bez hasha ----------
+// bez ovoga stranica se pri sljedecem otvaranju vraca na sidro (npr. #konfigurator)
+if(!location.hash){ window.scrollTo(0,0); }
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    setTimeout(()=>history.replaceState(null,'',location.pathname+location.search), 700);
+  });
+});
 
 // ---------- galerija filter ----------
 document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{

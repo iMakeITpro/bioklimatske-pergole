@@ -54,7 +54,7 @@ nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
 
 /* ---------- hero ---------- */
 /* hero: sadrzaj sjeda uz donji rub kako bi srediste kadra ostalo slobodno */
-.hero{position:relative;background:var(--ink);color:#fff;min-height:min(90vh,800px);display:flex;align-items:center;overflow:hidden}
+.hero{position:relative;background:var(--ink);color:#fff;min-height:min(90vh,800px);min-height:min(90svh,800px);display:flex;align-items:center;overflow:hidden}
 /* hero-bg je fallback ispod videa. Video mora biti potpuno neproziran, inace se
    dvije slike mijesaju i izgleda kao da video "prosijava" kroz staticnu sliku. */
 .hero-bg{position:absolute;inset:0;background:url('videos/hero-poster.jpg') center/cover no-repeat}
@@ -318,6 +318,11 @@ footer a:hover{color:var(--brass-lt)}
   .f-top{grid-template-columns:1fr}
   .cfg-sticky{position:static}
   .seg{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:20px}
+  .hero-actions .btn{width:100%;justify-content:center}
+  .hero{min-height:auto}
+  .hero .wrap{padding-top:78px;padding-bottom:56px}
+  .hero-meta{gap:6px 20px;margin-top:28px;padding-top:18px}
 }
 
 /* podstranice — placeholder */
