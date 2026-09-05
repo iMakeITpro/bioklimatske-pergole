@@ -9,7 +9,9 @@ Najnovije je na vrhu.
 
 **Hero**
 
-- Video se sada vrti **i na mobitelu**, iz manje datoteke (960px, 1,3 MB umjesto 2,5 MB). Poster i dalje nosi prvi prikaz, video se dohvaća tek nakon iscrtavanja stranice
+- **Novi hero isječak bez ljudi** — na traženje kolege. Iz pune snimke montaže uzet je kadar od 153. do 157. sekunde, gdje kamera kreće ispod krova od lamela i otvara se prema fasadi. Petlja ide naprijed pa unatrag, pa nema vidljivog reza pri ponavljanju. Prethodni isječak počinjao je prerano i hvatao montera u kadru
+- Video se sada vrti **i na mobitelu**, iz manje datoteke (960px, 1,1 MB umjesto 2,2 MB). Poster i dalje nosi prvi prikaz, video se dohvaća tek nakon iscrtavanja stranice
+- Provjeren kontrast bijelog naslova preko novog kadra: 7,5:1 u najsvjetlijoj točki, 9,8:1 u prosjeku (prag za velike naslove je 3:1)
 - Uklonjen odlomak „Konfigurirajte pergolu u 60 sekundi…"
 - Uklonjen donji red s podacima „Cijena odmah nakon konfiguratora · Ponuda u 3–4 dana · RH · SI · DE"
 - Naslov drži gornji rub, gumb donji — video dobiva sredinu kadra
