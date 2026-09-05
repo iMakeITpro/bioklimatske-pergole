@@ -636,6 +636,17 @@ new IntersectionObserver(entries=>{
   });
 },{rootMargin:'-81px 0px -1px 0px'}).observe(cfgSection);
 
+// ---------- lebdeca traka: tek nakon sto hero izade iz vidnog polja ----------
+(function(){
+  const hero = document.querySelector('.hero');
+  const bar  = document.querySelector('.mcta');
+  if(!hero || !bar) return;
+  bar.classList.add('mcta-off');
+  new IntersectionObserver(es=>{
+    es.forEach(e=>bar.classList.toggle('mcta-off', e.isIntersecting));
+  },{threshold:.18}).observe(hero);
+})();
+
 // ---------- galerija filter ----------
 document.querySelectorAll('.fbtn').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('act'));
