@@ -304,3 +304,8 @@ footer a:hover{color:var(--brass-lt)}
   .cfg-sticky{position:static}
   .seg{grid-template-columns:1fr}
 }
+
+/* podstranice — placeholder */
+.sub-hero{padding:clamp(70px,9vw,130px) 0 clamp(60px,8vw,110px);background:var(--paper-2);border-bottom:1px solid var(--line-d)}
+.sub-hero h1{font-size:clamp(30px,4.2vw,52px);margin-bottom:20px}
+.sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
