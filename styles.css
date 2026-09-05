@@ -302,12 +302,23 @@ footer a:hover{color:var(--brass-lt)}
   .fbtn{padding:15px 20px}
   .fg input,.fg select,.fg textarea{font-size:16px}
 
+  /* dodirne mete: poveznice u podnozju i zaglavlju bile su visoke 17-24px */
+  footer ul{gap:0}
+  footer ul a{display:block;padding:13px 0}
+  .f-bot a{display:inline-block;padding:8px 0}
+  .hd-phone{padding:11px 4px}
+  .tier h3 a{display:inline-block;padding:5px 0}
+  .rev-src,.card-cap{-webkit-tap-highlight-color:transparent}
+
   /* prikaz cijene na vrhu ekrana dok se skrola kroz opcije konfiguratora */
   .cfg-mbar.show{display:flex}
   #konfigurator.cfgbar-active .cfg{margin-top:60px}
 }
 @media(max-width:640px){
   .wrap{padding:0 20px}
+  .logo{font-size:19px}
+  .logo span{font-size:8.5px;letter-spacing:.16em}
+  header .wrap{gap:12px}
   .trust .wrap{grid-template-columns:1fr 1fr}
   .tr-i:nth-child(odd){border-left:0}
   .tr-i:nth-child(n+3){border-top:1px solid var(--line)}
