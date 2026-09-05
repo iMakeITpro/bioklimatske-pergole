@@ -55,6 +55,7 @@ Najnovije je na vrhu.
 
 - `styles.css` dobio oznaku verzije — bez toga su preglednici nakon pusha služili staru kopiju stila, pa se izmjene nisu vidjele
 - Padajući izbornik dobio nevidljivi most preko praznine i odgodu zatvaranja od 280 ms; prije je nestajao prije nego što se stigne kliknuti stavku
+- Uvedena lokalna test-stranica koja učitava naslovnu u tri okvira širine 360, 390 i 768px. Sve mjere u ovom popisu — dodirne mete, horizontalni scroll, veličine fonta, kontrast — izmjerene su na njoj prije objave, ne procijenjene
 
 ---
 
