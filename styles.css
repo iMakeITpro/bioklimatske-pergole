@@ -29,10 +29,6 @@ img{max-width:100%;display:block}
 .btn-sm{padding:12px 22px;font-size:12px}
 
 /* ---------- header ---------- */
-.topbar{background:var(--ink);color:#C9C1B8;font-size:12.5px;letter-spacing:.04em}
-.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:20px}
-.topbar b{color:var(--brass-lt);font-weight:600}
-.topbar .tb-r{display:flex;gap:24px;align-items:center}
 header{position:sticky;top:0;z-index:90;background:rgba(250,248,245,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-d);transition:.3s}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:80px;gap:24px}
 .logo{font-family:var(--serif);font-size:21px;letter-spacing:-.01em;line-height:1.1}
@@ -95,9 +91,12 @@ section{padding:clamp(64px,8vw,110px) 0}
 .tier.feat{border-color:var(--brass);box-shadow:0 18px 44px rgba(176,141,87,.14)}
 .tier-tag{position:absolute;top:16px;left:16px;z-index:3;background:var(--brass);color:#fff;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;white-space:nowrap;box-shadow:0 4px 14px rgba(18,16,14,.28)}
 /* gumbi u karticama: puna sirina i vidljiv prijelaz na svijetloj podlozi */
-.tier .btn{width:100%;justify-content:center}
-.tier .btn-ghost{color:var(--ink);border-color:var(--line-d)}
-.tier .btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:translateY(-2px);box-shadow:0 12px 28px rgba(18,16,14,.18)}
+.tier .btn{width:100%;justify-content:center;transition:.28s ease}
+.tier .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-d)}
+.tier .btn-ghost:hover{background:var(--brass);color:#fff;border-color:var(--brass);transform:translateY(-2px);box-shadow:0 12px 28px rgba(176,141,87,.32)}
+/* srednja kartica: vec ispunjena bojom koju ostale dobiju na prijelaz, hover samo potamni */
+.tier .btn-primary{background:var(--brass);color:#fff;border-color:var(--brass)}
+.tier .btn-primary:hover{background:#96764a;border-color:#96764a;transform:translateY(-2px);box-shadow:0 12px 28px rgba(176,141,87,.38)}
 .tier h3{margin-bottom:6px}
 .tier-media{margin:-36px -30px 26px;aspect-ratio:4/3;overflow:hidden;background:var(--paper-2)}
 .tier-media img{width:100%;height:100%;object-fit:cover;transition:.6s cubic-bezier(.2,.7,.3,1)}
@@ -299,7 +298,6 @@ footer a:hover{color:var(--brass-lt)}
   .tr-i:nth-child(n+3){border-top:1px solid var(--line)}
   .grid-g,.frow,.steps{grid-template-columns:1fr}
   .card.big{grid-column:span 1}
-  .topbar .tb-r span.hide-s{display:none}
   .mcta{display:flex}
   body{padding-bottom:calc(54px + env(safe-area-inset-bottom,0px))}
   .f-top{grid-template-columns:1fr}
