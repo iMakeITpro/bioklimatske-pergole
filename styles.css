@@ -76,7 +76,8 @@ nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
 .hero-link{display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;letter-spacing:.03em;color:#fff;padding:14px 0 12px;white-space:nowrap;transition:color .25s}
 .hero-link:hover{color:var(--brass-lt)}
 .hero h1 em{font-style:italic;color:var(--brass-lt)}
-.hero-actions{display:flex;flex-direction:column;align-items:stretch;gap:14px}
+/* desktop: gumb i poveznica jedno pored drugog; na mobitelu poveznica ide pod gumb, centrirana */
+.hero-actions{display:flex;flex-direction:row;align-items:center;gap:22px}
 
 /* ---------- trust strip ---------- */
 .trust{background:var(--ink-2);border-top:1px solid var(--line);color:#fff}
@@ -283,7 +284,7 @@ footer a:hover{color:var(--brass-lt)}
   .tiers,.revs,.gcols{grid-template-columns:1fr}
   .hero-inner{max-width:100%}
   .hero .wrap{padding-top:110px;padding-bottom:56px}
-  .hero-actions{gap:16px}
+  .hero-actions{gap:20px}
   .steps{grid-template-columns:repeat(2,1fr);gap:32px 0}
   .grid-g{grid-template-columns:repeat(2,1fr)}
   .card.big{grid-column:span 2}
@@ -332,7 +333,10 @@ footer a:hover{color:var(--brass-lt)}
   .f-top{grid-template-columns:1fr}
   .cfg-sticky{position:static}
   .seg{grid-template-columns:1fr}
-  .hero-actions{align-self:stretch;gap:16px}
+  .hero-actions{flex-direction:column;align-items:stretch;align-self:stretch;gap:16px}
+  /* na mobitelu gumb je pune sirine — tekst se centrira, strelica ide van */
+  .hero-actions .btn{justify-content:center}
+  .hero-actions .strelica{display:none}
   .hero .wrap{padding-top:96px;padding-bottom:48px}
 }
 
