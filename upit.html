@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zatražite ponudu | TT Gradnja – bioklimatske pergole SELT</title>
+<meta name="description" content="Besplatan izlazak na teren, 3D vizualizacija i fiksna ponuda stavku po stavku. Javljamo se u roku 3–4 dana.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div><b>★ 4,9/5</b> &nbsp;·&nbsp; 87 recenzija &nbsp;·&nbsp; <span class="hide-s">187 izvedenih projekata od 2016.</span></div>
+    <div class="tb-r">
+      <span class="hide-s">Ovlašteni SELT zastupnik za RH</span>
+      <a href="tel:+385993637777"><b>099 363 7777</b></a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="logo">TT&nbsp;Gradnja<span>Bioklimatske pergole</span></a>
+    <nav>
+      <ul>
+        <li><a href="index.html#cijene">Cijene</a></li>
+        <li><a href="index.html#konfigurator">Konfigurator</a></li>
+        <li><a href="index.html#modeli">Modeli</a></li>
+        <li><a href="index.html#reference">Reference</a></li>
+        <li><a href="index.html#proces">Proces</a></li>
+        <li><a href="index.html#faq">Pitanja</a></li>
+      </ul>
+    </nav>
+    <div class="hd-cta">
+      <a href="tel:+385993637777" class="hd-phone">099 363 7777</a>
+      
+      <button class="burger" aria-label="Izbornik" aria-expanded="false" onclick="toggleNav(this)">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- UPIT -->
+<section id="upit" class="alt" style="padding-top:clamp(48px,6vw,80px)">
+  <div class="wrap">
+    <div class="form-split reveal">
+      <div class="fs-l">
+        <div>
+          <div class="eyebrow">Besplatna procjena</div>
+          <h2>Izlazak na teren i 3D vizualizacija — bez obveze.</h2>
+          <p>Popunjavanje traje 40 sekundi. Javljamo se isti radni dan.</p>
+          <ul class="fs-list">
+            <li><b>1.</b> Telefonski razgovor od 15 min — provjera je li projekt izvediv</li>
+            <li><b>2.</b> Izlazak na teren i mjerenje u roku 5 radnih dana</li>
+            <li><b>3.</b> Fotorealistična 3D vizualizacija na vašem objektu</li>
+            <li><b>4.</b> Fiksna ponuda stavku po stavku, vrijedi 30 dana</li>
+          </ul>
+        </div>
+        <div class="fs-contact">
+          <a href="tel:+385993637777">099 363 7777</a>
+          <small>Radnim danom 08–18 h · subotom 09–13 h · odgovaramo i na WhatsApp</small>
+        </div>
+      </div>
+      <div class="fs-r">
+        <form id="frm" onsubmit="return sendForm(event)">
+          <div class="frow">
+            <div class="fg"><label for="ime">Ime i prezime *</label><input id="ime" required placeholder="Ana Anić"></div>
+            <div class="fg"><label for="tel">Telefon *</label><input id="tel" type="tel" required placeholder="09x xxx xxxx"></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label for="mail">E-mail *</label><input id="mail" type="email" required placeholder="ana@primjer.hr"></div>
+            <div class="fg"><label for="loc">Lokacija objekta *</label><input id="loc" required placeholder="Grad ili mjesto"></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label for="pov">Okvirna površina</label>
+              <select id="pov"><option>Do 15 m²</option><option selected>15 – 25 m²</option><option>25 – 40 m²</option><option>40 – 60 m²</option><option>Više od 60 m²</option><option>Ne znam još</option></select>
+            </div>
+            <div class="fg"><label for="bud">Okvirni budžet</label>
+              <select id="bud"><option>15.000 – 20.000 €</option><option selected>20.000 – 30.000 €</option><option>30.000 – 50.000 €</option><option>Više od 50.000 €</option><option>Trebam prvo procjenu</option></select>
+            </div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label for="rok">Kada želite montažu?</label>
+              <select id="rok"><option>Što prije</option><option selected>U sljedeća 3 mjeseca</option><option>Sljedeća sezona</option><option>Još istražujem</option></select>
+            </div>
+            <div class="fg"><label for="obj">Tip objekta</label>
+              <select id="obj"><option selected>Obiteljska kuća</option><option>Vila / apartman za najam</option><option>Ugostiteljski objekt</option><option>Hotel</option><option>Poslovni prostor</option></select>
+            </div>
+          </div>
+          <div class="fg"><label for="por">Napomena (podloga, izloženost vjetru, posebni zahtjevi)</label><textarea id="por" placeholder="Npr. postojeća betonska terasa 4×5 m, izloženo buri, želim ZIP tende s dvije strane…"></textarea></div>
+          <label class="chk"><input type="checkbox" required><span>Suglasan/na sam da me TT Gradnja kontaktira radi izrade ponude, sukladno <a href="#" style="color:var(--brass);text-decoration:underline">Izjavi o privatnosti</a>. Podatke ne dijelimo s trećim stranama.</span></label>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Pošalji upit →</button>
+          <div class="f-note">🔒 &nbsp;Bez newslettera, bez prodaje podataka. Prosječno vrijeme odgovora: 3 h 20 min.</div>
+          <div class="form-ok" id="ok">✓ <b>Upit zaprimljen.</b> Javljamo se na navedeni broj danas do 18 h. Ako vam odgovara ranije, slobodno nazovite 099 363 7777.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <div class="logo">TT&nbsp;Gradnja<span>Bioklimatske pergole</span></div>
+        <p style="max-width:36ch;font-size:14px">TT Gradnja d.o.o., Slavonski Brod. Ovlašteni zastupnik SELT-a za Hrvatsku od 2016. Montaža na području cijele RH, Slovenije i Njemačke.</p>
+        <div class="f-cert">★ 4,9/5 · 87 Google recenzija</div>
+      </div>
+      <div>
+        <h4>Proizvodi</h4>
+        <ul>
+          <li><a href="index.html#modeli">Sunbreaker 400</a></li>
+          <li><a href="index.html#modeli">Sunbreaker 500</a></li>
+          <li><a href="index.html#modeli">Tarasola Technic View Pro</a></li>
+          <li><a href="#">ZIP tende i staklene stijenke</a></li>
+          <li><a href="#">Sjenila za sunce</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Informacije</h4>
+        <ul>
+          <li><a href="index.html#cijene">Cjenik</a></li>
+          <li><a href="upit.html">Zatraži ponudu</a></li>
+          <li><a href="index.html#konfigurator">Konfigurator cijene</a></li>
+          <li><a href="index.html#proces">Kako izgleda proces</a></li>
+          <li><a href="index.html#faq">Česta pitanja</a></li>
+          <li><a href="#">Jamstveni uvjeti (PDF)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+385993637777">099 363 7777</a></li>
+          <li><a href="tel:+38535412388">035 412 388</a></li>
+          <li><a href="#">info@bioklimatskepergole.hr</a></li>
+          <li style="margin-top:10px"><a href="https://bioklimatskepergole.si">🇸🇮 Slovenija</a></li>
+          <li><a href="https://bioklimatischepergolen.de">🇩🇪 Deutschland</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 TT Gradnja d.o.o. · Demo prototip</span>
+      <span>Uvjeti korištenja · Izjava o privatnosti · Kolačići</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mcta">
+  <a href="tel:+385993637777" class="c1">Nazovi</a>
+  <a href="index.html#konfigurator" class="c2">Izračunaj cijenu</a>
+</div>
+
+<script>
+function toggleNav(btn){
+  const open = document.body.classList.toggle('nav-open');
+  btn.setAttribute('aria-expanded', open);
+}
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{
+  document.body.classList.remove('nav-open');
+  document.querySelector('.burger').setAttribute('aria-expanded','false');
+}));
+const yrEl = document.getElementById('yr');
+if(yrEl) yrEl.textContent = new Date().getFullYear();
+
+function sendForm(e){
+  e.preventDefault();
+  document.getElementById('ok').style.display='block';
+  const b = e.target.querySelector('button[type=submit]');
+  b.textContent='✓ Poslano'; b.disabled=true;
+  document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
+  return false;
+}
+</script>
+</body>
+</html>

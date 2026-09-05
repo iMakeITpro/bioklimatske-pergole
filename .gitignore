@@ -1,1 +1,21 @@
 .DS_Store
+
+# Medijski izvori — ne idu na GitHub
+*.mp4
+!videos/hero.mp4
+
+# Interni klijentski dokumenti — NIKAD javno
+*.pdf
+*.docx
+*.xlsx
+Kartice_pregleda_csv*/
+
+# Stare radne kopije
+bioklimatskepergole/
+bioklimatskepergole1/
+
+# Privremeni izbor videa
+_video-izbor/
+
+# izvorna Tarasola fotografija (na stranici je optimizirana verzija)
+images/Tarasola.jpg
