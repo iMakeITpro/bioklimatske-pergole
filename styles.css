@@ -37,6 +37,17 @@ nav ul{display:flex;gap:32px;list-style:none;font-size:14px;font-weight:500}
 nav a{position:relative;padding:6px 0;color:var(--ink-2)}
 nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--brass);transition:.3s}
 nav a:hover::after{width:100%}
+/* padajuci izbornik za modele */
+nav .has-sub{position:relative}
+nav .caret{font-size:9px;opacity:.55;margin-left:3px}
+nav .sub{display:none;position:absolute;top:calc(100% + 10px);left:-20px;min-width:262px;background:var(--paper);border:1px solid var(--line-d);box-shadow:0 20px 44px rgba(18,16,14,.14);padding:8px 0;flex-direction:column;gap:0;z-index:70}
+nav .has-sub:hover .sub,nav .has-sub:focus-within .sub{display:flex}
+nav .sub a{display:block;padding:11px 22px;font-size:14px;white-space:nowrap;color:var(--ink-2)}
+nav .sub a::after{display:none}
+nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
+/* naslov kartice kao poveznica */
+.tier h3 a{color:inherit;transition:color .25s}
+.tier h3 a:hover{color:var(--brass)}
 .hd-cta{display:flex;align-items:center;gap:18px}
 .hd-phone{font-size:15px;font-weight:600;white-space:nowrap}
 .burger{display:none;background:none;border:0;font-size:24px;cursor:pointer}
@@ -284,6 +295,8 @@ footer a:hover{color:var(--brass-lt)}
   body.nav-open nav{display:block}
   nav ul{flex-direction:column;gap:0;padding:8px 28px 16px}
   nav a{display:block;padding:14px 2px}
+  nav .sub{display:flex;position:static;min-width:0;background:transparent;border:0;box-shadow:none;padding:0 0 10px 18px}
+  nav .sub a{padding:11px 2px;font-size:13.5px;color:var(--muted)}
 
   /* tap targeti i unos na mobitelu/tabletu */
   .fbtn{padding:15px 20px}
