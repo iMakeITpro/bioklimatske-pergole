@@ -7,6 +7,12 @@ Najnovije je na vrhu.
 
 ## 6. rujna 2026. — četvrti krug
 
+**Redoslijed sekcija**
+
+- Sekcija o jamstvima premještena **ispred recenzija** — čovjek prvo dobije razloge zašto je investicija sigurna, pa tek onda tuđe riječi kao potvrdu
+- Presložen ritam pozadina da tamna sekcija ne padne ispod tamne: proces (tamno) → jamstva (krem) → recenzije (svijetlo) → pitanja (krem) → podnožje (tamno). Nijedne dvije susjedne sekcije više nemaju istu pozadinu
+- Kartice jamstava prilagođene svijetloj podlozi — bijela ispuna, tamniji obrub i tamnija mjed za velike brojke. Kontrast provjeren: brojka 5,8:1, naslov 19:1, tekst 5,9:1 (prag 4,5:1). Iste kartice i dalje rade na tamnoj podlozi, ako ih negdje vratimo
+
 **Obrasci**
 
 - **Oba obrasca sada stvarno šalju** — konfigurator i stranica upita, preko Web3Formsa na `helpdesk@makeitpro.hr`. Dosad su samo ispisivali „Upit zaprimljen" bez obzira na sve, a nijedan podatak nigdje nije odlazio
