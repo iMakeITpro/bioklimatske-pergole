@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 <script src="slanje.js?v=2"></script>
 </head>
 <body>
@@ -69,6 +69,7 @@
       </div>
       <div class="fs-r">
         <form id="frm" onsubmit="return sendForm(event)">
+          <div class="mrav" aria-hidden="true"><label>Ne ispunjavajte<input type="text" name="botcheck" id="upBot" tabindex="-1" autocomplete="off"></label></div>
           <div class="frow">
             <div class="fg"><label for="ime">Ime i prezime *</label><input id="ime" required placeholder="Ana Anić"></div>
             <div class="fg"><label for="tel">Telefon *</label><input id="tel" type="tel" required placeholder="09x xxx xxxx"></div>
@@ -172,6 +173,7 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
 
 async function sendForm(e){
   e.preventDefault();
+  if(document.getElementById('upBot').value){ return false; } // bot
   const gumb = e.target.querySelector('button[type=submit]');
   const izvorniTekst = gumb.textContent;
   gumb.disabled = true; gumb.textContent = 'Šaljem…';

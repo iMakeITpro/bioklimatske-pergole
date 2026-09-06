@@ -370,3 +370,6 @@ footer a:hover{color:var(--brass-lt)}
   .hs-panel p{font-size:14.5px;margin:0}
   .hs-panel:not(.ima) h3{color:var(--muted)}
 }
+
+/* zamka za botove — polje je skriveno, ali ne preko display:none jer to boti prepoznaju */
+.mrav{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}

@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 <script src="slanje.js?v=2"></script>
 </head>
 <body>
@@ -254,6 +254,7 @@
               <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0">Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
             </div>
             <form id="cfgForm" class="cfg-form" novalidate>
+                <div class="mrav" aria-hidden="true"><label>Ne ispunjavajte<input type="text" name="botcheck" id="cfBot" tabindex="-1" autocomplete="off"></label></div>
               <div class="frow">
                 <div class="fg"><label for="cfIme">Ime *</label><input id="cfIme" required autocomplete="given-name" placeholder="Ana"></div>
                 <div class="fg"><label for="cfPrez">Prezime *</label><input id="cfPrez" required autocomplete="family-name" placeholder="Anić"></div>
@@ -609,6 +610,7 @@ calc();
       if(!dobro) ok = false;
     });
     if(!ok){ polja.find(el=>el.classList.contains('err')).focus(); return; }
+    if(document.getElementById('cfBot').value){ return; } // bot
     // cijena se prikazuje odmah — slanje ide u pozadini da korisnik ne ceka mrezu
     cfgUnlocked = true;
     document.getElementById('cfgGate').hidden = true;
