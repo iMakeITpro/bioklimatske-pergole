@@ -54,6 +54,7 @@
 </script>
 
 <link rel="stylesheet" href="styles.css?v=12">
+<script src="slanje.js?v=2"></script>
 </head>
 <body>
 
@@ -608,11 +609,37 @@ calc();
       if(!dobro) ok = false;
     });
     if(!ok){ polja.find(el=>el.classList.contains('err')).focus(); return; }
+    // cijena se prikazuje odmah — slanje ide u pozadini da korisnik ne ceka mrezu
     cfgUnlocked = true;
     document.getElementById('cfgGate').hidden = true;
     document.getElementById('cfgResult').hidden = false;
     calc();
     if(typeof osvjeziMbar === 'function') osvjeziMbar();
+
+    const [ime,prezime,mail,tel] = polja.map(el=>el.value.trim());
+    const oprema = [...document.querySelectorAll('.opt input:checked')].map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
+    const model = document.querySelector('input[name=model]:checked').value;
+    const tip   = document.querySelector('input[name=tip]:checked').value === 'zid' ? 'uz zid objekta' : 'slobodnostojeća';
+    posaljiObrazac({
+      subject: 'Konfigurator — ' + ime + ' ' + prezime + ' · SB' + model,
+      from_name: 'Konfigurator bioklimatskih pergola',
+      Ime: ime, Prezime: prezime, Email: mail, Telefon: tel,
+      Model: 'Sunbreaker ' + model,
+      Montaza: tip,
+      Dimenzije: document.getElementById('wv').textContent + ' × ' + document.getElementById('dv').textContent,
+      Povrsina: document.getElementById('area').textContent,
+      Oprema: oprema,
+      Okvirna_ponuda: document.getElementById('total').textContent,
+      Izvor: location.href
+    }).then(r=>{
+      if(!r.ok){
+        const n=document.createElement('p');
+        n.className='cfg-disc';
+        n.style.color='#E0A899';
+        n.textContent='Podatke nismo uspjeli poslati. Cijena je prikazana, ali nas nazovite na 099 363 7777 da vas upišemo.';
+        document.getElementById('cfgResult').appendChild(n);
+      }
+    });
   });
   polja.forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
 })();

@@ -7,6 +7,14 @@ Najnovije je na vrhu.
 
 ## 6. rujna 2026. — četvrti krug
 
+**Obrasci**
+
+- **Oba obrasca sada stvarno šalju** — konfigurator i stranica upita, preko Web3Formsa na `helpdesk@makeitpro.hr`. Dosad su samo ispisivali „Upit zaprimljen" bez obzira na sve, a nijedan podatak nigdje nije odlazio
+- Konfigurator uz kontakt podatke šalje i cijelu konfiguraciju: model, tip montaže, dimenzije, površinu, odabranu opremu i izračunatu okvirnu ponudu. U mailu se odmah vidi što je čovjek slagao
+- Cijena se korisniku prikazuje odmah, slanje ide u pozadini da ne čeka mrežu. Ako slanje padne, ispod cijene se pojavi napomena s telefonom
+- Poruka o uspjehu više ne laže: ako slanje ne uspije, obrazac to kaže i nudi telefon i e-mail
+- Ključ stoji u dijeljenoj datoteci `slanje.js`, na jednom mjestu za oba obrasca — zamjena na Josipovu adresu je izmjena jedne linije
+
 **Podstranice modela**
 
 - Podstranica Sunbreaker 500 dobila **interaktivni prikaz konstrukcije** — pet oznaka na fotografiji, klik otvara detalj o tom dijelu: rotirajuće lamele, nosiva greda, stup s odvodnjom, plastifikacija, statika i temeljenje
@@ -104,7 +112,7 @@ Najnovije je na vrhu.
 | Stavka | Čeka |
 |---|---|
 | Cijene u konfiguratoru su izmišljene — treba stvarna kalkulacija | Josip |
-| Obrasci ne šalju nikamo — treba ključ s web3forms.com | Antonio |
+| Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
 | Stvarne Google recenzije umjesto izmišljenih imena i ocjene 4,9/87 | Josip |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
 | Brojke iz SELT deklaracije: 130 km/h, 200 kg/m², 187 projekata | Josip |

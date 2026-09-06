@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=12">
+<script src="slanje.js?v=2"></script>
 </head>
 <body>
 
@@ -169,12 +170,33 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{
 const yrEl = document.getElementById('yr');
 if(yrEl) yrEl.textContent = new Date().getFullYear();
 
-function sendForm(e){
+async function sendForm(e){
   e.preventDefault();
-  document.getElementById('ok').style.display='block';
-  const b = e.target.querySelector('button[type=submit]');
-  b.textContent='✓ Poslano'; b.disabled=true;
-  document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
+  const gumb = e.target.querySelector('button[type=submit]');
+  const izvorniTekst = gumb.textContent;
+  gumb.disabled = true; gumb.textContent = 'Šaljem…';
+  const v = id => { const el=document.getElementById(id); return el ? el.value.trim() : ''; };
+  const r = await posaljiObrazac({
+    subject: 'Upit sa stranice — ' + v('ime'),
+    from_name: 'Bioklimatske pergole — obrazac',
+    Ime: v('ime'), Telefon: v('tel'), Email: v('mail'), Lokacija: v('loc'),
+    Povrsina: v('pov'), Budzet: v('bud'), Rok: v('rok'), Tip_objekta: v('obj'),
+    Napomena: v('por') || '—',
+    Izvor: location.href
+  });
+  const ok = document.getElementById('ok');
+  if(r.ok){
+    ok.style.display = 'block';
+    gumb.textContent = '✓ Poslano';
+    ok.scrollIntoView({behavior:'smooth', block:'center'});
+  }else{
+    gumb.disabled = false; gumb.textContent = izvorniTekst;
+    ok.style.display = 'block';
+    ok.style.background = 'rgba(201,122,107,.10)';
+    ok.style.borderColor = 'rgba(201,122,107,.4)';
+    ok.style.color = '#8C4436';
+    ok.innerHTML = '<b>Slanje nije uspjelo.</b> Nazovite nas na 099 363 7777 ili pišite na info@bioklimatskepergole.hr — javljamo se isti radni dan.';
+  }
   return false;
 }
 </script>
