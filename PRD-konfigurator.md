@@ -133,12 +133,12 @@ Izvorni prijedlog (zasebna stranica radi Google Ads Quality Scorea za skupu klju
 
 **Kriteriji prihvaćanja Faze 3**
 
-- [ ] Za deset nasumičnih kombinacija model × dimenzija × regija, prikazana cijena odgovara ručnom izračunu iz Excela
-- [ ] Dimenzija izvan raspona ne prikazuje cijenu
-- [ ] Preklopnik PDV-a mijenja iznos ispravno u oba smjera, privatni je zadan
-- [ ] Rabat je vidljiva stavka, nigdje nema precrtane cijene
-- [ ] E-mail sadrži sva polja iz popisa gore
-- [ ] Nema horizontalnog scrolla ni dodirne mete ispod 44px na 360, 390 i 768px
+- [x] Za deset nasumičnih kombinacija model × dimenzija × regija, prikazana cijena odgovara ručnom izračunu iz Excela — provjereno automatiziranim testom protiv `cjenik.js` (koji nosi checksumirane vrijednosti iz Faze 2); sirovi Excel nije ponovno otvaran, `dostavljeno/` nije dostupan izvan repozitorija
+- [x] Dimenzija izvan raspona ne prikazuje cijenu — provjereno za neodabranu županiju i za nedostajuću ćeliju u cjeniku (obrana u dubinu)
+- [x] Preklopnik PDV-a mijenja iznos ispravno u oba smjera, privatni je zadan
+- [x] Rabat je vidljiva stavka, nigdje nema precrtane cijene
+- [x] E-mail sadrži sva polja iz popisa gore
+- [x] Nema horizontalnog scrolla ni dodirne mete ispod 44px na 360, 390 i 768px — provjereno Playwright screenshotovima i mjerenjem `getBoundingClientRect()`
 
 ---
 
