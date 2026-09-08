@@ -142,18 +142,28 @@ Na naslovnici, na mjestu gdje je konfigurator sada, ostaje kratak blok s odabiro
 
 ---
 
-## Blokira Fazu 3 — treba od klijenta
+## Blokira Fazu 3 — odgovori klijenta (Josip, 8.9.2026.)
 
-| # | Pitanje | Zašto blokira |
+| # | Pitanje | Odgovor |
 |---|---|---|
-| 1 | **Duplirane projekcije 4500 i 4750** u sve tri SB500 tablice, s različitim cijenama | Sustav ne zna koju cijenu uzeti |
-| 2 | **Je li transport već u cijeni u tablici** ili se dodaje iz zasebnog stupca | Razlika 1.500–3.000 € po ponudi |
-| 3 | **Je li rabat od 10 % u svim tablicama** ili samo gdje piše „uključeni rabat" | Dvostruko odbijanje popusta |
-| 4 | **Je li `SB_550` zapravo SB500** za Split–Dubrovnik | Kriva cijena za cijelu južnu Hrvatsku |
-| 5 | **Koje županije spadaju u koju regiju** | Bez toga nema odabira lokacije |
-| 6 | Cijene za opremu koja sada piše „na upit" | Te stavke ostaju bez izračuna |
+| 1 | Duplirane projekcije 4500 i 4750 u sve tri SB500 tablice | Riješeno — klijent poslao nove, ispravljene SB500 tablice (bez duplikata, niz 3000–7000 mm u koraku 250). Stare arhivirane u `dostavljeno/_staro/`. |
+| 2 | Je li transport već u cijeni u tablici | **Ne.** Transport i montaža uvijek se prikazuju zasebno, kako i piše u tablici. |
+| 3 | Je li rabat od 10 % u svim tablicama | **Da** — cijene u svim tablicama već imaju odbijeni rabat. Rabat se **ne odnosi** na transport/montažu, samo na cijenu same pergole. |
+| 4 | Je li `SB_550` zapravo SB500 za Split–Dubrovnik | **Da**, sve je SB500. Nova tablica ispravno preimenovana. |
+| 5 | Koje županije spadaju u koju regiju | Vidi tablicu ispod — klijent potvrdio "točno". |
+| 6 | Cijene za opremu koja piše „na upit" | Klijent predlaže da ostane „na upit" za sada — cijena bi znatno porasla (npr. staklene stijenke koštaju koliko i sama pergola), komunicira se uživo/telefonski. Ne blokira Fazu 3 — PRD već predviđa „na upit" tijek za stavke bez cijene (vidi Oprema s poznatom cijenom gore). |
 
-Faze 1 i 2 mogu ići bez ovih odgovora. Faza 3 ne može.
+Sve stavke riješene 8.9.2026. Faza 3 može krenuti.
+
+### Mapiranje županija → regija (potvrđeno)
+
+| Regija (naziv iz cjenika) | Županije |
+|---|---|
+| Kontinentalna Hrvatska do Karlovca | Grad Zagreb, Zagrebačka, Krapinsko-zagorska, Varaždinska, Koprivničko-križevačka, Međimurska, Bjelovarsko-bilogorska, Virovitičko-podravska, Požeško-slavonska, Brodsko-posavska, Osječko-baranjska, Vukovarsko-srijemska, Sisačko-moslavačka, Karlovačka |
+| Od Karlovca do Šibenika | Primorsko-goranska, Istarska, Ličko-senjska, Zadarska, Šibensko-kninska |
+| Od Splita do Dubrovnika | Splitsko-dalmatinska, Dubrovačko-neretvanska |
+
+Pokriva svih 21 hrvatskih jedinica (20 županija + Grad Zagreb), bez preklapanja i bez praznina.
 
 ---
 
