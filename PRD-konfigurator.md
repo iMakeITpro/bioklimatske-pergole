@@ -127,9 +127,9 @@ Zadržati postojeće slanje preko Web3Formsa. Dodati u poruku: **županiju, regi
 
 ### Gdje živi
 
-Konfigurator prelazi na **vlastitu stranicu**. Razlog nije prostor nego oglasi: najskuplja ključna riječ je „bioklimatska pergola cijena", a ti klikovi sada padaju na naslovnicu gdje je kalkulator negdje ispod. Zasebna adresa znači da oglas vodi ravno na njega, što ulazi u Quality Score i pojeftinjuje klik.
+**Izmjena (8.9.2026., odluka klijenta):** Konfigurator ostaje na naslovnici (`index.html`), na mjestu gdje je i sada — ne seli se na zasebnu stranicu. Konfigurator je glavna funkcija cijele stranice i ne smije se micati s landinga.
 
-Na naslovnici, na mjestu gdje je konfigurator sada, ostaje kratak blok s odabirom modela i gumbom koji vodi na punu stranicu s prenesenim izborom.
+Izvorni prijedlog (zasebna stranica radi Google Ads Quality Scorea za skupu ključnu riječ „bioklimatska pergola cijena", da oglas vodi ravno na konfigurator) ovime je svjesno odbačen u korist zadržavanja konfiguratora na landingu.
 
 **Kriteriji prihvaćanja Faze 3**
 
