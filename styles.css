@@ -125,9 +125,10 @@ section{padding:clamp(64px,8vw,110px) 0}
 .price-note{margin-top:30px;font-size:13.5px;color:var(--muted);border-left:2px solid var(--brass);padding-left:16px;max-width:70ch}
 
 /* configurator */
-.cfg{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border:1px solid var(--line);background:var(--ink-2)}
+.cfg{border:1px solid var(--line);background:var(--ink-2)}
 .cfg-left{padding:clamp(28px,3.5vw,46px)}
-.cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);border-left:1px solid var(--line);position:relative}
+.cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);position:relative}
+.cfg-natrag-cijena{margin-bottom:22px;min-height:44px}
 .fld{margin-bottom:28px}
 .fld > label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-lt);font-weight:600;margin-bottom:12px}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -148,7 +149,6 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .opt input{accent-color:var(--brass);width:17px;height:17px;cursor:pointer;flex:0 0 auto}
 .opt .on{flex:1;font-size:14.5px;color:#fff}
 .opt .op{font-size:13px;color:var(--brass-lt);font-variant-numeric:tabular-nums;white-space:nowrap}
-.cfg-sticky{position:sticky;top:110px}
 .cfg-out .lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:600}
 .cfg-total{font-family:var(--serif);font-size:clamp(38px,5vw,56px);color:#fff;font-weight:300;line-height:1;margin:14px 0 6px;font-variant-numeric:tabular-nums}
 .cfg-range{font-size:13.5px;color:var(--brass-lt);margin-bottom:26px}
@@ -302,8 +302,7 @@ footer a:hover{color:var(--brass-lt)}
 .reveal.in{opacity:1;transform:none}
 
 @media(max-width:1024px){
-  .cfg,.form-split{grid-template-columns:1fr}
-  .cfg-right{border-left:0;border-top:1px solid var(--line)}
+  .form-split{grid-template-columns:1fr}
   .tiers,.revs,.gcols{grid-template-columns:1fr}
   .hero-inner{max-width:100%}
   .hero .wrap{padding-top:110px;padding-bottom:56px}
@@ -354,7 +353,6 @@ footer a:hover{color:var(--brass-lt)}
   .mcta{display:flex}
   body{padding-bottom:calc(54px + env(safe-area-inset-bottom,0px))}
   .f-top{grid-template-columns:1fr}
-  .cfg-sticky{position:static}
   .seg{grid-template-columns:1fr}
   .hero-actions{flex-direction:column;align-items:stretch;align-self:stretch;gap:16px}
   /* na mobitelu gumb je pune sirine — tekst se centrira, strelica ide van */

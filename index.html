@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 <script src="slanje.js?v=2"></script>
 <script src="cjenik.js?v=1"></script>
 </head>
@@ -197,7 +197,7 @@
       <span class="cs" data-cs="2">2<small>Dimenzije</small></span>
       <span class="cs" data-cs="3">3<small>Lokacija</small></span>
       <span class="cs" data-cs="4">4<small>Oprema</small></span>
-      <span class="cs" data-cs="5">5<small>Kontakt</small></span>
+      <span class="cs" data-cs="5">5<small>Cijena</small></span>
     </div>
 
     <div class="cfg reveal">
@@ -274,14 +274,15 @@
               <label class="opt upit"><input type="checkbox" data-upit="1" data-n="RAL boja izvan standardne palete"><span class="on">RAL boja izvan standardne palete</span><span class="op">na upit</span></label>
             </div>
           </div>
-          <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" data-goto="3">← Natrag</button><button type="button" class="btn btn-primary" id="cfgNaKontakt">Nastavi na kontakt →</button></div>
+          <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" data-goto="3">← Natrag</button><button type="button" class="btn btn-primary" id="cfgNaKontakt">Nastavi na cijenu →</button></div>
         </div>
 
       </div>
 
-      <div class="cfg-right">
+      <div class="cfg-right" hidden>
         <div class="cfg-sticky">
           <span class="badge-inc">Uključeno: montaža, temeljenje, PDV</span>
+          <button type="button" class="btn btn-ghost btn-sm cfg-natrag-cijena" id="cfgNatragNaOpremu">← Natrag na opremu</button>
 
           <!-- KORAK 5 — obavezni kontakt podaci (zapisnik t. 4) -->
           <div id="cfgGate">
@@ -797,11 +798,19 @@ document.querySelectorAll('.cfg-next, .cfg-back').forEach(btn=>{
 document.getElementById('zupanija').addEventListener('change', function(){
   document.getElementById('cfgNext3').disabled = !this.value;
 });
+// ---------- korak 5 (cijena) zamjenjuje korake 1-4, ne stoji stalno pored njih ----------
 document.getElementById('cfgNaKontakt').addEventListener('click', ()=>{
+  document.querySelector('.cfg-left').hidden = true;
+  document.querySelector('.cfg-right').hidden = false;
   azurirajIndikator(5);
-  const cfIme = document.getElementById('cfIme');
-  cfIme.scrollIntoView({behavior:'smooth', block:'center'});
-  setTimeout(()=>cfIme.focus(), 350);
+  document.getElementById('konfigurator').scrollIntoView({behavior:'smooth', block:'start'});
+  setTimeout(()=>document.getElementById('cfIme').focus({preventScroll:true}), 350);
+});
+document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
+  document.querySelector('.cfg-right').hidden = true;
+  document.querySelector('.cfg-left').hidden = false;
+  azurirajIndikator(4);
+  document.getElementById('konfigurator').scrollIntoView({behavior:'smooth', block:'start'});
 });
 
 // ---------- otkljucavanje okvirne ponude ----------
@@ -815,6 +824,8 @@ document.getElementById('cfgNaKontakt').addEventListener('click', ()=>{
     e.preventDefault();
     let ok = true;
     if(!trenutnaRegija()){
+      document.querySelector('.cfg-right').hidden = true;
+      document.querySelector('.cfg-left').hidden = false;
       prikaziKorak(3);
       document.getElementById('zupanija').focus();
       ok = false;
