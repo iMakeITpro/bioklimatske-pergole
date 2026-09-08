@@ -171,6 +171,26 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cfg-mbar-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .cfg-mbar-val{font-family:var(--serif);font-size:20px;color:var(--brass-lt);font-variant-numeric:tabular-nums;white-space:nowrap}
 
+/* konfigurator — koraci (Faza 3) */
+.cfg-steps{display:flex;gap:6px;margin-bottom:22px}
+.cfg-steps .cs{flex:1;text-align:center;padding:10px 4px;border-bottom:2px solid var(--line);font-family:var(--serif);font-size:18px;color:rgba(255,255,255,.28);transition:.22s}
+.cfg-steps .cs small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px}
+.cfg-steps .cs.done{color:var(--brass-lt);border-bottom-color:var(--brass-dk)}
+.cfg-steps .cs.done small{color:rgba(255,255,255,.45)}
+.cfg-steps .cs.act{color:#fff;border-bottom-color:var(--brass)}
+.cfg-steps .cs.act small{color:var(--brass-lt)}
+.cfg-note{font-size:12.5px;color:rgba(255,255,255,.42);line-height:1.6;margin:0}
+.cfg-nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:26px}
+.btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
+.cfg-left .fg{margin-bottom:0}
+.cfg-left .fg select{background:rgba(255,255,255,.05);border-color:var(--line);color:#fff;font-size:16px}
+.cfg-left .fg select:focus{background:rgba(255,255,255,.09);border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.16)}
+.opt.upit{opacity:.82}
+.opt.upit .op{color:rgba(255,255,255,.4);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+.seg-pdv label{padding:13px 14px}
+.seg-pdv label b{font-size:13.5px}
+.seg-pdv label small{font-size:11px}
+
 /* comparison table */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line-d);background:#fff}
 table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:660px}

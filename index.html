@@ -53,8 +53,9 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=16">
 <script src="slanje.js?v=2"></script>
+<script src="cjenik.js?v=1"></script>
 </head>
 <body>
 
@@ -183,7 +184,7 @@
     <div class="sec-head reveal">
       <div class="eyebrow">Konfigurator</div>
       <h2>Vaša okvirna ponuda u 60 sekundi.</h2>
-      <p class="lead">Odaberite model, dimenzije i opremu, ostavite kontakt — okvirna ponuda prikazuje se odmah. Izračun se temelji na 187 stvarno realiziranih projekata.</p>
+      <p class="lead">Odaberite model, dimenzije, lokaciju i opremu, ostavite kontakt — okvirna ponuda prikazuje se odmah. Izračun se temelji na 187 stvarno realiziranih projekata.</p>
     </div>
 
     <div class="cfg-mbar" id="cfgMbar">
@@ -191,66 +192,102 @@
       <span class="cfg-mbar-val" id="totalMobile">Nakon upita</span>
     </div>
 
+    <div class="cfg-steps reveal" aria-hidden="true">
+      <span class="cs act" data-cs="1">1<small>Model</small></span>
+      <span class="cs" data-cs="2">2<small>Dimenzije</small></span>
+      <span class="cs" data-cs="3">3<small>Lokacija</small></span>
+      <span class="cs" data-cs="4">4<small>Oprema</small></span>
+      <span class="cs" data-cs="5">5<small>Kontakt</small></span>
+    </div>
+
     <div class="cfg reveal">
       <div class="cfg-left">
-        <div class="fld">
-          <label>1. Model</label>
-          <div class="seg">
-            <input type="radio" name="model" id="m400" value="400" checked>
-            <label for="m400"><b>Sunbreaker 400</b><small>Do 4×6 m · vjetar klase 6 · standardna lamela</small></label>
-            <input type="radio" name="model" id="m500" value="500">
-            <label for="m500"><b>Sunbreaker 500</b><small>Do 6×12 m · vjetar klase 6 · pojačana lamela</small></label>
+
+        <!-- KORAK 1 — Model -->
+        <div class="cfg-step" data-step="1">
+          <div class="fld">
+            <label>1. Model</label>
+            <div class="seg">
+              <input type="radio" name="model" id="m400" value="400" checked>
+              <label for="m400"><b>Sunbreaker 400</b><small>Dubina 3,4–7 m · širina do 4 m</small></label>
+              <input type="radio" name="model" id="m500" value="500">
+              <label for="m500"><b>Sunbreaker 500</b><small>Dubina 3–7 m · širina do 5 m</small></label>
+            </div>
           </div>
+          <p class="cfg-note">Treba vam Sunbreaker 700 ili veće od ovoga? <a href="upit.html">Zatražite ponudu na upit →</a></p>
+          <div class="cfg-nav"><span></span><button type="button" class="btn btn-primary cfg-next" data-goto="2">Dalje →</button></div>
         </div>
 
-        <div class="fld">
-          <label>2. Tip montaže</label>
-          <div class="seg">
-            <input type="radio" name="tip" id="t-zid" value="zid" checked>
-            <label for="t-zid"><b>Uz zid objekta</b><small>2 stupa · najekonomičnije</small></label>
-            <input type="radio" name="tip" id="t-slo" value="slo">
-            <label for="t-slo"><b>Slobodnostojeća</b><small>4 stupa · +12 % konstrukcije</small></label>
+        <!-- KORAK 2 — Dimenzije -->
+        <div class="cfg-step" data-step="2" hidden>
+          <div class="fld">
+            <label>2. Dimenzije</label>
+            <div class="rng-row" style="margin-bottom:14px">
+              <span style="font-size:13px;color:rgba(255,255,255,.5);min-width:60px">Dubina</span>
+              <input type="range" id="projekcija">
+              <span class="rng-val" id="projekcijaV">—</span>
+            </div>
+            <div class="rng-row">
+              <span style="font-size:13px;color:rgba(255,255,255,.5);min-width:60px">Širina</span>
+              <input type="range" id="sirina">
+              <span class="rng-val" id="sirinaV">—</span>
+            </div>
           </div>
+          <p class="cfg-note">Samo stvarne izvedive mjere iz proizvodnog cjenika — svaka pozicija klizača je konačna vrijednost, ništa se ne procjenjuje.</p>
+          <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" data-goto="1">← Natrag</button><button type="button" class="btn btn-primary cfg-next" data-goto="3">Dalje →</button></div>
         </div>
 
-        <div class="fld">
-          <label>3. Dimenzije</label>
-          <div class="rng-row" style="margin-bottom:14px">
-            <span style="font-size:13px;color:rgba(255,255,255,.5);min-width:60px">Širina</span>
-            <input type="range" id="w" min="3" max="12" step="0.5" value="4">
-            <span class="rng-val" id="wv">4,0 m</span>
+        <!-- KORAK 3 — Lokacija -->
+        <div class="cfg-step" data-step="3" hidden>
+          <div class="fld" style="margin-bottom:14px">
+            <label>3. Lokacija</label>
+            <div class="fg">
+              <label for="zupanija" style="position:absolute;left:-9999px">Županija</label>
+              <select id="zupanija" required>
+                <option value="" disabled selected>Odaberite županiju</option>
+              </select>
+            </div>
           </div>
-          <div class="rng-row">
-            <span style="font-size:13px;color:rgba(255,255,255,.5);min-width:60px">Dubina</span>
-            <input type="range" id="d" min="3" max="6" step="0.5" value="4">
-            <span class="rng-val" id="dv">4,0 m</span>
-          </div>
-          <div style="margin-top:14px;font-size:13px;color:var(--brass-lt)">Površina: <b id="area">16,0 m²</b></div>
+          <p class="cfg-note">Transport i montaža ovise o udaljenosti od naše baze u Slavonskom Brodu — zato tražimo lokaciju prije konačne cijene.</p>
+          <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" data-goto="2">← Natrag</button><button type="button" class="btn btn-primary cfg-next" data-goto="4" id="cfgNext3" disabled>Dalje →</button></div>
         </div>
 
-        <div class="fld" style="margin-bottom:0">
-          <label>4. Oprema</label>
-          <div class="opts">
-            <label class="opt"><input type="checkbox" data-p="1450" data-n="LED rasvjeta u lamelama"><span class="on">LED rasvjeta u lamelama, dimabilna</span><span class="op">+1.450 €</span></label>
-            <label class="opt"><input type="checkbox" data-p="890" data-n="Senzor kiše i vjetra"><span class="on">Senzor kiše i vjetra, autozatvaranje</span><span class="op">+890 €</span></label>
-            <label class="opt"><input type="checkbox" data-p="1180" data-n="Pametno upravljanje"><span class="on">Pametno upravljanje (app + KNX)</span><span class="op">+1.180 €</span></label>
-            <label class="opt"><input type="checkbox" data-p="230" data-perm2="1" data-n="ZIP tende"><span class="on">ZIP tende, Soltis 92 <small style="color:rgba(255,255,255,.4)">(po m² stranice)</small></span><span class="op">+230 €/m²</span></label>
-            <label class="opt"><input type="checkbox" data-p="620" data-perm2="1" data-n="Klizne staklene stijenke"><span class="on">Klizne staklene stijenke <small style="color:rgba(255,255,255,.4)">(po m² stranice)</small></span><span class="op">+620 €/m²</span></label>
-            <label class="opt"><input type="checkbox" data-p="1690" data-n="IR grijalice 2× 2.400 W"><span class="on">IR grijalice 2× 2.400 W</span><span class="op">+1.690 €</span></label>
-            <label class="opt"><input type="checkbox" data-p="780" data-n="RAL boja po izboru"><span class="on">RAL boja izvan palete od 33 standardnih</span><span class="op">+780 €</span></label>
+        <!-- KORAK 4 — Oprema -->
+        <div class="cfg-step" data-step="4" hidden>
+          <div class="fld" style="margin-bottom:22px">
+            <label>4. Oprema — ulazi u izračun</label>
+            <div class="opts">
+              <label class="opt"><input type="checkbox" data-p="1200" data-n="LED rasvjeta"><span class="on">LED rasvjeta</span><span class="op">+1.200 €</span></label>
+              <label class="opt"><input type="checkbox" data-p="500" data-n="Senzor kiše"><span class="on">Senzor kiše</span><span class="op">+500 €</span></label>
+              <label class="opt"><input type="checkbox" data-p="400" data-n="Senzor vjetra"><span class="on">Senzor vjetra</span><span class="op">+400 €</span></label>
+            </div>
           </div>
+          <div class="fld" style="margin-bottom:0">
+            <label>Oprema na upit — javljamo se s cijenom</label>
+            <div class="opts">
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="Pametno upravljanje"><span class="on">Pametno upravljanje</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="ZIP screen sjenila"><span class="on">ZIP screen sjenila</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="Klizne staklene stijenke"><span class="on">Klizne staklene stijenke</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="IR grijalice"><span class="on">IR grijalice</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="Bočne slide grilje"><span class="on">Bočne slide grilje</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="Bočni brisoleji"><span class="on">Bočni brisoleji</span><span class="op">na upit</span></label>
+              <label class="opt upit"><input type="checkbox" data-upit="1" data-n="RAL boja izvan standardne palete"><span class="on">RAL boja izvan standardne palete</span><span class="op">na upit</span></label>
+            </div>
+          </div>
+          <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" data-goto="3">← Natrag</button><button type="button" class="btn btn-primary" id="cfgNaKontakt">Nastavi na kontakt →</button></div>
         </div>
+
       </div>
 
       <div class="cfg-right">
         <div class="cfg-sticky">
           <span class="badge-inc">Uključeno: montaža, temeljenje, PDV</span>
 
-          <!-- KORAK 1 — obavezni kontakt podaci (zapisnik t. 4) -->
+          <!-- KORAK 5 — obavezni kontakt podaci (zapisnik t. 4) -->
           <div id="cfgGate">
             <div class="cfg-out" style="margin-bottom:22px">
-              <div class="lbl">Vaša konfiguracija</div>
-              <div class="cfg-total" id="cfgSummary" style="font-size:clamp(19px,2.2vw,26px);margin:12px 0 6px">Sunbreaker 400 · 4,0 × 4,0 m</div>
+              <div class="lbl">5. Vaša konfiguracija</div>
+              <div class="cfg-total" id="cfgSummary" style="font-size:clamp(19px,2.2vw,26px);margin:12px 0 6px">Sunbreaker 400 · 3,4 × 1,5 m</div>
               <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0">Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
             </div>
             <form id="cfgForm" class="cfg-form" novalidate>
@@ -268,16 +305,25 @@
             </form>
           </div>
 
-          <!-- KORAK 2 — okvirna ponuda, vidljiva odmah nakon unosa podataka -->
+          <!-- okvirna ponuda, vidljiva odmah nakon unosa podataka -->
           <div id="cfgResult" hidden>
+            <div class="fld seg-pdv-wrap" style="margin-bottom:22px">
+              <label style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-lt);font-weight:600;display:block;margin-bottom:10px">Tip kupca</label>
+              <div class="seg seg-pdv">
+                <input type="radio" name="pdv" id="pdvPriv" value="privatni" checked>
+                <label for="pdvPriv"><b>Privatni</b><small>cijena s PDV-om</small></label>
+                <input type="radio" name="pdv" id="pdvPos" value="poslovni">
+                <label for="pdvPos"><b>Poslovni</b><small>bez PDV-a + PDV zasebno</small></label>
+              </div>
+            </div>
             <div class="cfg-out">
               <div class="lbl">Okvirna ponuda</div>
               <div class="cfg-total" id="total">—</div>
-              <div class="cfg-range" id="range">—</div>
+              <div class="cfg-range" id="range">Izračun je informativan, moguća su odstupanja.</div>
             </div>
             <div class="brk" id="brk"></div>
             <a href="upit.html" class="btn btn-primary" id="cfgcta">Zatraži točnu ponudu za ovu konfiguraciju</a>
-            <p class="cfg-disc">Okvirna cijena može varirati 10–15 % ovisno o montaži i transportu. Konačna cijena utvrđuje se nakon besplatnog izlaska na teren (obično unutar 3 radna dana od prihvaćanja ponude). Ponuda vrijedi 30 dana i cijena se ne mijenja nakon potpisa.</p>
+            <p class="cfg-disc">Konačna cijena utvrđuje se nakon besplatnog izlaska na teren (obično unutar 3 radna dana od prihvaćanja ponude). Ponuda vrijedi 30 dana i cijena se ne mijenja nakon potpisa.</p>
           </div>
         </div>
       </div>
@@ -566,62 +612,197 @@
 })();
 
 // ---------- konfigurator ----------
+// Cijena dolazi isključivo iz cjenik.js (Faza 2) — nema izmišljenih formula ni po m².
 let cfgUnlocked = false; // okvirna ponuda se prikazuje tek nakon obaveznih kontakt podataka (zapisnik t. 4)
-const BASE = {400:{m2:980,min:15400,setup:4200},500:{m2:1180,min:18900,setup:5100}};
+let zadnjiIzracun = null; // {rabatIznos, netoBezPdv, konacno} — za e-mail payload pri submitu
+const PDV_STOPA = 0.25;  // opca stopa PDV-a u RH (2026.)
+const RABAT_UDIO = 0.10; // cjenik.js VEC sadrzi odbijeni rabat (klijent potvrdio 8.9.2026) — ovdje se samo prikazuje kao stavka
+const REGIJE_ZUPANIJE = {
+  'kontinentalna': ['Grad Zagreb','Zagrebačka','Krapinsko-zagorska','Varaždinska','Koprivničko-križevačka','Međimurska','Bjelovarsko-bilogorska','Virovitičko-podravska','Požeško-slavonska','Brodsko-posavska','Osječko-baranjska','Vukovarsko-srijemska','Sisačko-moslavačka','Karlovačka'],
+  'karlovac-sibenik': ['Primorsko-goranska','Istarska','Ličko-senjska','Zadarska','Šibensko-kninska'],
+  'split-dubrovnik': ['Splitsko-dalmatinska','Dubrovačko-neretvanska']
+};
 const fmt = n => new Intl.NumberFormat('hr-HR',{maximumFractionDigits:0}).format(Math.round(n)) + ' €';
 const num = n => new Intl.NumberFormat('hr-HR',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n);
+const mm2m = mm => num(mm/1000)+' m';
+
+// ---------- korak 3: padajuca lista zupanija, grupirana po regiji iz mapiranja gore ----------
+(function popuniZupanije(){
+  const sel = document.getElementById('zupanija');
+  if(!sel) return;
+  Object.keys(REGIJE_ZUPANIJE).forEach(regKey=>{
+    const grp = document.createElement('optgroup');
+    grp.label = CJENIK.regije[regKey];
+    REGIJE_ZUPANIJE[regKey].forEach(naziv=>{
+      const opt = document.createElement('option');
+      opt.value = regKey;
+      opt.dataset.zupanija = naziv;
+      opt.textContent = naziv;
+      grp.appendChild(opt);
+    });
+    sel.appendChild(grp);
+  });
+})();
+
+// ---------- granice klizaca dimenzija — iz stvarnih kljuceva cjenik.js, ne rucno uneseno ----------
+function projekcijeZaModel(model){
+  return Object.keys(CJENIK.cijene[model].kontinentalna.projekcije).map(Number).sort((a,b)=>a-b);
+}
+function sirineZaModel(model){
+  return [...CJENIK.cijene[model].kontinentalna.sirine].sort((a,b)=>a-b);
+}
+function trenutniModel(){
+  return document.querySelector('input[name=model]:checked').value;
+}
+function postaviRasponeDimenzija(){
+  const model = trenutniModel();
+  const proj = projekcijeZaModel(model);
+  const sir = sirineZaModel(model);
+  const elP = document.getElementById('projekcija');
+  const elS = document.getElementById('sirina');
+  const stariP = Number(elP.value), stariS = Number(elS.value);
+  elP.min = proj[0]; elP.max = proj[proj.length-1]; elP.step = proj[1]-proj[0];
+  elS.min = sir[0]; elS.max = sir[sir.length-1]; elS.step = sir[1]-sir[0];
+  // ako trenutna vrijednost ne postoji za novi model (promjena modela), vrati na srednju stvarnu vrijednost
+  elP.value = proj.includes(stariP) ? stariP : proj[Math.floor((proj.length-1)/2)];
+  elS.value = sir.includes(stariS) ? stariS : sir[Math.floor((sir.length-1)/2)];
+}
+document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
+postaviRasponeDimenzija();
+
+function trenutnaRegija(){
+  const v = document.getElementById('zupanija').value;
+  return v || null;
+}
+function odabranaZupanija(){
+  const sel = document.getElementById('zupanija');
+  const opt = sel.selectedOptions[0];
+  return (opt && opt.dataset.zupanija) || '';
+}
+
+// ---------- izracun iz cjenik.js — izvan raspona = null, nikad izmisljena cijena ----------
+function cijenaIzCjenika(){
+  const model = trenutniModel();
+  const projekcija = String(document.getElementById('projekcija').value);
+  const sirina = String(document.getElementById('sirina').value);
+  const regija = trenutnaRegija();
+  if(!regija) return null;
+  const blok = (CJENIK.cijene[model] || {})[regija];
+  const red = blok && blok.projekcije ? blok.projekcije[projekcija] : null;
+  if(!red || red.cijene[sirina] === undefined) return null;
+  return { cijenaPergole: red.cijene[sirina], transport: red.transport };
+}
 
 function calc(){
-  const model = document.querySelector('input[name=model]:checked').value;
-  const tip   = document.querySelector('input[name=tip]:checked').value;
-  const w = parseFloat(document.getElementById('w').value);
-  const d = parseFloat(document.getElementById('d').value);
-  const area = w*d;
-  const cfg = BASE[model];
+  const model = trenutniModel();
+  const projekcija = Number(document.getElementById('projekcija').value);
+  const sirina = Number(document.getElementById('sirina').value);
 
-  document.getElementById('wv').textContent = num(w)+' m';
-  document.getElementById('dv').textContent = num(d)+' m';
-  document.getElementById('area').textContent = num(area)+' m²';
+  document.getElementById('projekcijaV').textContent = mm2m(projekcija);
+  document.getElementById('sirinaV').textContent = mm2m(sirina);
+
+  const zup = odabranaZupanija();
   const sumEl = document.getElementById('cfgSummary');
-  if(sumEl) sumEl.textContent = 'Sunbreaker '+model+' · '+num(w)+' × '+num(d)+' m';
+  if(sumEl) sumEl.textContent = 'Sunbreaker '+model+' · '+mm2m(projekcija)+' × '+mm2m(sirina) + (zup ? ' · '+zup : '');
+
+  const oprSvi = [...document.querySelectorAll('#konfigurator .opt input:checked')];
+  const sCijenom = oprSvi.filter(o=>!o.dataset.upit);
+  const naUpit = oprSvi.filter(o=>o.dataset.upit);
   const subEl = document.getElementById('cfgSummarySub');
   if(subEl){
-    const sel = [...document.querySelectorAll('.opt input:checked')].map(o=>o.dataset.n);
-    subEl.textContent = sel.length ? 'Oprema: '+sel.join(', ') : 'Bez dodatne opreme — uvijek je možete dodati kasnije.';
+    const dijelovi = [];
+    if(sCijenom.length) dijelovi.push('Oprema: '+sCijenom.map(o=>o.dataset.n).join(', '));
+    if(naUpit.length) dijelovi.push('Na upit: '+naUpit.map(o=>o.dataset.n).join(', '));
+    subEl.textContent = dijelovi.length ? dijelovi.join(' · ') : 'Bez dodatne opreme — uvijek je možete dodati kasnije.';
   }
 
-  let konstr = cfg.setup + area*cfg.m2;
-  if(tip==='slo') konstr *= 1.12;
+  const cijena = cijenaIzCjenika();
+  const brk = document.getElementById('brk');
+  const rangeEl = document.getElementById('range');
 
-  const rows = [
-    {l:`Konstrukcija SB${model} · ${num(w)} × ${num(d)} m`, v:konstr},
-  ];
+  if(!cijena){
+    // lokacija jos nije odabrana, ili kombinacija ne postoji u tablici — poziv na kontakt, ne izmisljena cijena
+    zadnjiIzracun = null;
+    brk.innerHTML = '';
+    document.getElementById('total').textContent = 'Javite se izravno';
+    if(rangeEl) rangeEl.textContent = 'Za ovu kombinaciju izračun nije dostupan — nazovite 099 363 7777 ili pošaljite upit, javljamo se s ponudom.';
+    document.getElementById('totalMobile').textContent = cfgUnlocked ? 'Javite se izravno' : 'Nakon upita';
+    return;
+  }
 
-  let opts = 0;
-  document.querySelectorAll('.opt input:checked').forEach(o=>{
-    let p = parseFloat(o.dataset.p);
-    if(o.dataset.perm2){ p = p * (d*2.7); } // pretpostavka: jedna stranica visine 2,7 m
-    opts += p;
-    rows.push({l:o.dataset.n, v:p});
+  const cijenaBezRabata = cijena.cijenaPergole / (1 - RABAT_UDIO);
+  const rabatIznos = cijenaBezRabata - cijena.cijenaPergole;
+
+  let opremaZbroj = 0;
+  const opremaRedovi = sCijenom.map(o=>{
+    const p = parseFloat(o.dataset.p);
+    opremaZbroj += p;
+    return {l:o.dataset.n, v:p};
   });
 
-  const montaza = 1850 + area*95;
-  rows.push({l:'Montaža, temeljenje i puštanje u rad', v:montaza});
+  const netoBezPdv = cijena.cijenaPergole + cijena.transport + opremaZbroj;
+  const poslovni = document.querySelector('input[name=pdv]:checked')?.value === 'poslovni';
+  const konacno = netoBezPdv * (1 + PDV_STOPA);
+  zadnjiIzracun = {rabatIznos, netoBezPdv, konacno};
 
-  let total = konstr + opts + montaza;
-  if(total < cfg.min) total = cfg.min;
+  const rows = [
+    {l:'Cijena konstrukcije SB'+model+' (prije popusta)', v:cijenaBezRabata},
+    {l:'Popust za upit putem konfiguratora (10 %)', v:-rabatIznos},
+    {l:'Transport i montaža' + (zup ? ' — '+CJENIK.regije[trenutnaRegija()] : ''), v:cijena.transport},
+    ...opremaRedovi
+  ];
+  let html = rows.map(r=>`<div class="r"><span>${r.l}</span><span>${r.v<0?'−':''}${fmt(Math.abs(r.v))}</span></div>`).join('');
+  if(poslovni){
+    html += `<div class="r"><span>Osnovica (bez PDV-a)</span><span>${fmt(netoBezPdv)}</span></div>`;
+    html += `<div class="r"><span>PDV (25 %)</span><span>${fmt(netoBezPdv*PDV_STOPA)}</span></div>`;
+    html += `<div class="r tot"><span>Ukupno s PDV-om</span><span>${fmt(konacno)}</span></div>`;
+  } else {
+    html += `<div class="r"><span>PDV</span><span>uključen</span></div>`;
+    html += `<div class="r tot"><span>Ukupno</span><span>${fmt(konacno)}</span></div>`;
+  }
+  if(naUpit.length){
+    html += `<div class="r" style="opacity:.55"><span>Na upit (nije u izračunu)</span><span>${naUpit.map(o=>o.dataset.n).join(', ')}</span></div>`;
+  }
+  brk.innerHTML = html;
 
-  let html = rows.map(r=>`<div class="r"><span>${r.l}</span><span>${fmt(r.v)}</span></div>`).join('');
-  html += `<div class="r"><span>PDV</span><span>uključen</span></div>`;
-  html += `<div class="r tot"><span>Ukupno</span><span>${fmt(total)}</span></div>`;
-  document.getElementById('brk').innerHTML = html;
-
-  document.getElementById('total').textContent = fmt(total);
-  document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(total) : 'Nakon upita';
-  document.getElementById('range').textContent = `Okvirni raspon ponude: ${fmt(total*0.9)} – ${fmt(total*1.15)} (ovisno o montaži i transportu)`;
+  document.getElementById('total').textContent = fmt(konacno);
+  document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(konacno) : 'Nakon upita';
+  if(rangeEl) rangeEl.textContent = 'Izračun je informativan, moguća su odstupanja.';
 }
-document.querySelectorAll('#konfigurator input').forEach(el=>el.addEventListener('input',calc));
+document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',calc));
+document.querySelectorAll('input[name=pdv]').forEach(el=>el.addEventListener('change',calc));
 calc();
+
+// ---------- navigacija kroz korake 1-4 (korak 5 = obrazac desno, kao i dosad) ----------
+function azurirajIndikator(broj){
+  document.querySelectorAll('.cs').forEach(cs=>{
+    const n = Number(cs.dataset.cs);
+    cs.classList.toggle('act', n===broj);
+    cs.classList.toggle('done', n<broj);
+  });
+}
+function prikaziKorak(n){
+  document.querySelectorAll('.cfg-step').forEach(el=>{ el.hidden = (Number(el.dataset.step) !== n); });
+  azurirajIndikator(n);
+}
+document.querySelectorAll('.cfg-next, .cfg-back').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const cilj = Number(btn.dataset.goto);
+    prikaziKorak(cilj);
+    const panel = document.querySelector('.cfg-step[data-step="'+cilj+'"]');
+    const prvi = panel && panel.querySelector('input:not([type=range]),select,button');
+    if(prvi) prvi.focus({preventScroll:true});
+  });
+});
+document.getElementById('zupanija').addEventListener('change', function(){
+  document.getElementById('cfgNext3').disabled = !this.value;
+});
+document.getElementById('cfgNaKontakt').addEventListener('click', ()=>{
+  azurirajIndikator(5);
+  const cfIme = document.getElementById('cfIme');
+  cfIme.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(()=>cfIme.focus(), 350);
+});
 
 // ---------- otkljucavanje okvirne ponude ----------
 (function(){
@@ -633,6 +814,11 @@ calc();
   f.addEventListener('submit', e=>{
     e.preventDefault();
     let ok = true;
+    if(!trenutnaRegija()){
+      prikaziKorak(3);
+      document.getElementById('zupanija').focus();
+      ok = false;
+    }
     polja.forEach(el=>{
       const v = el.value.trim();
       let dobro = v.length > 1;
@@ -641,28 +827,38 @@ calc();
       el.classList.toggle('err', !dobro);
       if(!dobro) ok = false;
     });
-    if(!ok){ polja.find(el=>el.classList.contains('err')).focus(); return; }
+    if(!ok){
+      const prviLosi = polja.find(el=>el.classList.contains('err'));
+      if(prviLosi) prviLosi.focus();
+      return;
+    }
     if(document.getElementById('cfBot').value){ return; } // bot
     // cijena se prikazuje odmah — slanje ide u pozadini da korisnik ne ceka mrezu
     cfgUnlocked = true;
     document.getElementById('cfgGate').hidden = true;
     document.getElementById('cfgResult').hidden = false;
+    azurirajIndikator(5);
     calc();
     if(typeof osvjeziMbar === 'function') osvjeziMbar();
 
     const [ime,prezime,mail,tel] = polja.map(el=>el.value.trim());
-    const oprema = [...document.querySelectorAll('.opt input:checked')].map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
-    const model = document.querySelector('input[name=model]:checked').value;
-    const tip   = document.querySelector('input[name=tip]:checked').value === 'zid' ? 'uz zid objekta' : 'slobodnostojeća';
+    const model = trenutniModel();
+    const oprSvi = [...document.querySelectorAll('#konfigurator .opt input:checked')];
+    const oprema = oprSvi.filter(o=>!o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
+    const opremaUpit = oprSvi.filter(o=>o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'nema';
+    const poslovni = document.querySelector('input[name=pdv]:checked')?.value === 'poslovni';
     posaljiObrazac({
       subject: 'Konfigurator — ' + ime + ' ' + prezime + ' · SB' + model,
       from_name: 'Konfigurator bioklimatskih pergola',
       Ime: ime, Prezime: prezime, Email: mail, Telefon: tel,
       Model: 'Sunbreaker ' + model,
-      Montaza: tip,
-      Dimenzije: document.getElementById('wv').textContent + ' × ' + document.getElementById('dv').textContent,
-      Povrsina: document.getElementById('area').textContent,
+      Dimenzije: document.getElementById('projekcijaV').textContent + ' × ' + document.getElementById('sirinaV').textContent,
+      Zupanija: odabranaZupanija(),
+      Regija: CJENIK.regije[trenutnaRegija()] || '',
       Oprema: oprema,
+      Oprema_na_upit: opremaUpit,
+      Tip_kupca: poslovni ? 'Poslovni' : 'Privatni',
+      Popust: zadnjiIzracun ? fmt(zadnjiIzracun.rabatIznos) : 'nedostupno',
       Okvirna_ponuda: document.getElementById('total').textContent,
       Izvor: location.href
     }).then(r=>{
