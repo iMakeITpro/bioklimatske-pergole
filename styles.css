@@ -376,3 +376,14 @@ footer a:hover{color:var(--brass-lt)}
 
 /* zamka za botove — polje je skriveno, ali ne preko display:none jer to boti prepoznaju */
 .mrav{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+
+/* ---------- video facade (klik ucitava YouTube ugradnju tek na zahtjev) ---------- */
+.video-facade{position:relative;width:100%;max-width:760px;margin:48px auto 0;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);background:#000}
+.vf-btn{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:transparent;cursor:pointer;display:block}
+.vf-btn img{width:100%;height:100%;object-fit:cover;display:block;opacity:.66;transition:.3s}
+.vf-btn:hover img{opacity:.48}
+.vf-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--brass);color:#fff;display:flex;align-items:center;justify-content:center;transition:.28s}
+.vf-play svg{width:20px;height:20px;margin-left:3px}
+.vf-btn:hover .vf-play{background:#9a7a49;transform:translate(-50%,-50%) scale(1.06)}
+.vf-label{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);color:#fff;font-size:13px;font-weight:500;text-align:left}
+.video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0}

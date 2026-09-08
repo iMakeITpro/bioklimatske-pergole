@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 <script src="slanje.js?v=2"></script>
 </head>
 <body>
@@ -384,6 +384,13 @@
       <div class="step"><h3>Proizvodnja u SELT tvornici</h3><p>Izrada po mjeri, plastifikacija, tvornička kontrola. Dobivate fotografije prije otpreme.</p><span class="dur">2–4 tjedna</span></div>
       <div class="step"><h3>Montaža i primopredaja</h3><p>Vlastita ekipa, bez podizvođača. Obuka za korištenje, jamstveni list, servisni kontakt.</p><span class="dur">1–2 dana</span></div>
     </div>
+    <div class="video-facade">
+      <button type="button" class="vf-btn" data-yt="dkhpdibODX8" aria-label="Pokreni video: montaža bioklimatske pergole od početka do kraja">
+        <img src="https://i.ytimg.com/vi/dkhpdibODX8/hqdefault.jpg" alt="" loading="lazy">
+        <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="vf-label">Pogledajte montažu od početka do kraja</span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -539,6 +546,23 @@
   };
   if(document.readyState === 'complete') setTimeout(ucitaj, 200);
   else window.addEventListener('load', () => setTimeout(ucitaj, 200), {once:true});
+})();
+
+// ---------- proces video (facade, ucitava se tek na klik) ----------
+(function(){
+  document.querySelectorAll('.video-facade .vf-btn[data-yt]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-yt');
+      const wrap = btn.closest('.video-facade');
+      const ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.title = btn.getAttribute('aria-label') || 'Video';
+      ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.allowFullscreen = true;
+      wrap.innerHTML = '';
+      wrap.appendChild(ifr);
+    }, {once:true});
+  });
 })();
 
 // ---------- konfigurator ----------
