@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=17">
+<link rel="stylesheet" href="styles.css?v=18">
 <script src="slanje.js?v=2"></script>
 <script src="cjenik.js?v=1"></script>
 </head>
@@ -241,9 +241,12 @@
         <div class="cfg-step" data-step="3" hidden>
           <div class="fld" style="margin-bottom:14px">
             <label>3. Lokacija</label>
-            <div class="fg">
-              <label for="zupanija" style="position:absolute;left:-9999px">Županija</label>
-              <select id="zupanija" required>
+            <div class="fg czup" id="zupWrap">
+              <button type="button" class="czup-btn placeholder" id="zupBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="zupPanel" role="combobox">
+                <span id="zupBtnTxt">Odaberite županiju</span><span class="czup-car" aria-hidden="true">▾</span>
+              </button>
+              <div class="czup-panel" id="zupPanel" role="listbox" aria-label="Županija" hidden></div>
+              <select id="zupanija" required aria-hidden="true" tabindex="-1" class="czup-native">
                 <option value="" disabled selected>Odaberite županiju</option>
               </select>
             </div>
@@ -654,6 +657,112 @@ const mm2m = mm => num(mm/1000)+' m';
   });
 })();
 
+// ---------- vlastiti (ne-nativni) padajuci popis za zupaniju ----------
+// Nativni <select> s puno grupiranih opcija na Windows Chrome/Edge zna nacrtati retke
+// popisa ogromne visine (poznati, nepouzdan browser bug — vidi CHANGELOG 9.9.2026.).
+// Skriveni <select> ostaje jedini izvor istine (value = regKey, dataset.zupanija = naziv),
+// sve postojece funkcije (trenutnaRegija, odabranaZupanija, change/input listeneri) rade
+// nepromijenjeno — ovaj popis samo postavlja option.selected na pravi element i odasilje
+// iste dogadjaje koje bi odaslao i nativni <select>.
+(function izgradiCustomZupanijaPopis(){
+  const sel = document.getElementById('zupanija');
+  const wrap = document.getElementById('zupWrap');
+  const btn = document.getElementById('zupBtn');
+  const btnTxt = document.getElementById('zupBtnTxt');
+  const panel = document.getElementById('zupPanel');
+  if(!sel || !wrap || !btn || !panel) return;
+
+  const stavke = []; // { el, opt } — el = .czup-opt div, opt = pravi <option> u skrivenom selectu
+  let focIdx = -1;
+
+  sel.querySelectorAll('optgroup').forEach((grp, gi)=>{
+    const lbl = document.createElement('div');
+    lbl.className = 'czup-group';
+    lbl.textContent = grp.label;
+    panel.appendChild(lbl);
+    Array.from(grp.children).forEach(opt=>{
+      const div = document.createElement('div');
+      div.className = 'czup-opt';
+      div.setAttribute('role','option');
+      div.setAttribute('aria-selected','false');
+      div.id = 'zupopt-' + stavke.length;
+      div.textContent = opt.dataset.zupanija;
+      panel.appendChild(div);
+      stavke.push({ el: div, opt });
+    });
+  });
+  stavke.forEach((rec, i)=>{ rec.el.addEventListener('click', ()=>odaberi(i)); });
+
+  function osvjeziOznaceno(){
+    stavke.forEach(rec=>{
+      rec.el.classList.toggle('sel', rec.opt.selected);
+      rec.el.setAttribute('aria-selected', rec.opt.selected ? 'true' : 'false');
+    });
+  }
+  function otvoriPanel(){
+    panel.hidden = false;
+    btn.setAttribute('aria-expanded','true');
+    focIdx = stavke.findIndex(rec=>rec.opt.selected);
+    if(focIdx < 0) focIdx = 0;
+    osvjeziFokus();
+  }
+  function zatvoriPanel(){
+    panel.hidden = true;
+    btn.setAttribute('aria-expanded','false');
+    btn.removeAttribute('aria-activedescendant');
+    focIdx = -1;
+  }
+  function osvjeziFokus(){
+    stavke.forEach((rec,i)=>rec.el.classList.toggle('foc', i===focIdx));
+    if(focIdx >= 0){
+      btn.setAttribute('aria-activedescendant', stavke[focIdx].el.id);
+      stavke[focIdx].el.scrollIntoView({block:'nearest'});
+    }
+  }
+  function odaberi(i){
+    if(i < 0 || i >= stavke.length) return;
+    stavke[i].opt.selected = true;
+    btnTxt.textContent = stavke[i].opt.dataset.zupanija;
+    btn.classList.remove('placeholder');
+    osvjeziOznaceno();
+    sel.dispatchEvent(new Event('input', {bubbles:true}));
+    sel.dispatchEvent(new Event('change', {bubbles:true}));
+    zatvoriPanel();
+    btn.focus();
+  }
+
+  btn.addEventListener('click', ()=>{
+    if(panel.hidden) otvoriPanel(); else zatvoriPanel();
+  });
+  btn.addEventListener('keydown', e=>{
+    if(['ArrowDown','ArrowUp','Home','End',' ','Enter','Escape'].includes(e.key)) e.preventDefault();
+    if(panel.hidden){
+      if(['ArrowDown','ArrowUp',' ','Enter'].includes(e.key)) otvoriPanel();
+      return;
+    }
+    if(e.key === 'ArrowDown'){ focIdx = Math.min(stavke.length-1, focIdx+1); osvjeziFokus(); }
+    else if(e.key === 'ArrowUp'){ focIdx = Math.max(0, focIdx-1); osvjeziFokus(); }
+    else if(e.key === 'Home'){ focIdx = 0; osvjeziFokus(); }
+    else if(e.key === 'End'){ focIdx = stavke.length-1; osvjeziFokus(); }
+    else if(e.key === 'Enter' || e.key === ' '){ odaberi(focIdx); }
+    else if(e.key === 'Escape'){ zatvoriPanel(); }
+    else if(e.key.length === 1){
+      // pretraga po prvom slovu (bez preventDefault gore za obicna slova)
+      const slovo = e.key.toLocaleLowerCase('hr');
+      const poc = focIdx < 0 ? 0 : focIdx + 1;
+      let naden = -1;
+      for(let k=0;k<stavke.length;k++){
+        const idx = (poc + k) % stavke.length;
+        if(stavke[idx].opt.dataset.zupanija.toLocaleLowerCase('hr').startsWith(slovo)){ naden = idx; break; }
+      }
+      if(naden >= 0){ focIdx = naden; osvjeziFokus(); }
+    }
+  });
+  document.addEventListener('click', e=>{
+    if(!wrap.contains(e.target)) zatvoriPanel();
+  });
+})();
+
 // ---------- granice klizaca dimenzija — iz stvarnih kljuceva cjenik.js, ne rucno uneseno ----------
 function projekcijeZaModel(model){
   return Object.keys(CJENIK.cijene[model].kontinentalna.projekcije).map(Number).sort((a,b)=>a-b);
@@ -892,7 +1001,7 @@ document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
       document.querySelector('.cfg-right').hidden = true;
       document.querySelector('.cfg-left').hidden = false;
       prikaziKorak(3);
-      document.getElementById('zupanija').focus();
+      (document.getElementById('zupBtn') || document.getElementById('zupanija')).focus();
       ok = false;
     }
     polja.forEach(el=>{
