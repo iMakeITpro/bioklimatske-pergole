@@ -120,7 +120,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">Premium ponuda</div>
-      <h2>Tri razine premium ponude.</h2>
+      <h2>Tri razine <span class="pm-gold">premium</span> ponude.</h2>
       <p class="lead">U svakoj: konstrukcija, plastifikacija, temeljenje, montaža, puštanje u rad i primopredaja. Okvirnu ponudu za svoju konfiguraciju izračunate u konfiguratoru — bez skrivenih troškova, s PDV-om.</p>
     </div>
 
@@ -454,7 +454,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">Jamstvo i sigurnost kupnje</div>
-      <h2>Zašto je premium investicija kod nas manje rizična.</h2>
+      <h2>Zašto odabrati naš <span class="pm-gold">premium</span> proizvod.</h2>
       <p class="lead">Kupujete premium proizvod koji će stajati na vašoj terasi 20 godina. Evo što konkretno stoji iza toga.</p>
     </div>
     <div class="gcols">
@@ -797,7 +797,7 @@ function calc(){
   const rows = [
     {l:'Cijena konstrukcije SB'+model+' (prije popusta)', v:cijenaBezRabata},
     {l:'Popust za upit putem konfiguratora (10 %)', v:-rabatIznos},
-    {l:'Transport i montaža' + (zup ? ' — '+CJENIK.regije[trenutnaRegija()] : ''), v:cijena.transport},
+    {l:'Transport i montaža' + (zup ? ' — '+zup : ''), v:cijena.transport},
     ...opremaRedovi
   ];
   let html = rows.map(r=>`<div class="r"><span>${r.l}</span><span>${r.v<0?'−':''}${fmt(Math.abs(r.v))}</span></div>`).join('');
@@ -994,19 +994,27 @@ function osvjeziMbar(){
   cfgSection.classList.toggle('cfgbar-active', prikazi);
 }
 new IntersectionObserver(entries=>{
-  entries.forEach(en=>{ cfgUVidu = en.isIntersecting; osvjeziMbar(); });
+  entries.forEach(en=>{ cfgUVidu = en.isIntersecting; osvjeziMbar(); osvjeziLebdecuTraku(); });
 },{rootMargin:'-81px 0px -1px 0px'}).observe(cfgSection);
 
-// ---------- lebdeca traka: tek nakon sto hero izade iz vidnog polja ----------
+// ---------- lebdeca traka (poziv/izracunaj): skrivena dok je hero vidljiv ILI dok je
+// korisnik unutar konfiguratora — koraci konfiguratora vec imaju svoju "Dalje"/"Natrag"
+// navigaciju pri dnu, pa bi lebdeca traka tu samo preklapala te gumbe ----------
 (function(){
   const hero = document.querySelector('.hero');
   const bar  = document.querySelector('.mcta');
-  if(!hero || !bar) return;
+  if(!bar) return;
   bar.classList.add('mcta-off');
-  // isIntersecting je istinit dok je vidljiv i jedan piksel — zato mjerimo omjer
-  new IntersectionObserver(es=>{
-    es.forEach(e=>bar.classList.toggle('mcta-off', e.intersectionRatio > 0.12));
-  },{threshold:[0,.12,.3,.6]}).observe(hero);
+  let heroVidljiv = !!hero;
+  window.osvjeziLebdecuTraku = function(){
+    bar.classList.toggle('mcta-off', heroVidljiv || cfgUVidu);
+  };
+  if(hero){
+    // isIntersecting je istinit dok je vidljiv i jedan piksel — zato mjerimo omjer
+    new IntersectionObserver(es=>{
+      es.forEach(e=>{ heroVidljiv = e.intersectionRatio > 0.12; osvjeziLebdecuTraku(); });
+    },{threshold:[0,.12,.3,.6]}).observe(hero);
+  }
 })();
 
 // ---------- URL bez hasha ----------

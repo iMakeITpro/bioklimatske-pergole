@@ -11,6 +11,7 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-heigh
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 h1,h2,h3,.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.08}
 h2{font-size:clamp(30px,4.2vw,52px)}
+.pm-gold{color:var(--brass)}
 h3{font-size:clamp(20px,2.2vw,26px);font-weight:400}
 p{color:var(--muted)}
 a{color:inherit;text-decoration:none}
@@ -291,6 +292,10 @@ td{color:var(--muted)}
 .fg{margin-bottom:20px}
 .fg label{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:8px}
 .fg input,.fg select,.fg textarea{width:100%;padding:14px 16px;border:1px solid var(--line-d);background:var(--paper);font-family:var(--sans);font-size:15px;color:var(--ink);border-radius:var(--r);transition:.2s}
+/* 9.9.2026. — select ne smije imati vertikalni padding: Chrome/Windows ga nasljedjuje u svaku <option>
+   retku padajuceg izbornika, pa popis (npr. 21 zupanija) izgleda kao ogroman prazan okvir. Visina se
+   umjesto toga postavlja izravno, da ostane vizualno identicna .fg input poljima. */
+.fg select{padding-top:0;padding-bottom:0;height:47px}
 .fg input:focus,.fg select:focus,.fg textarea:focus{outline:0;border-color:var(--brass);background:#fff;box-shadow:0 0 0 3px rgba(176,141,87,.12)}
 .fg textarea{resize:vertical;min-height:96px}
 .chk{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:var(--muted);margin:6px 0 22px;line-height:1.5}
