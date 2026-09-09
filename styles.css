@@ -197,9 +197,15 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cfg-left .fg select:focus{background:rgba(255,255,255,.09);border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.16)}
 .opt.upit{opacity:.82}
 .opt.upit .op{color:rgba(255,255,255,.4);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
-.seg-pdv label{padding:13px 14px}
-.seg-pdv label b{font-size:13.5px}
-.seg-pdv label small{font-size:11px}
+/* Zadatak A (9.9.2026.) — Tip kupca: kompaktan switch u obrascu (ne puna .seg kartica), + naznaka uz "Okvirna ponuda" */
+.pill-switch{display:inline-flex;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.03);overflow:hidden}
+.pill-switch input{position:absolute;opacity:0;pointer-events:none}
+.pill-switch label{padding:10px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:.2s;white-space:nowrap}
+.pill-switch label:hover{color:#fff}
+.pill-switch input:checked + label{background:var(--brass);color:#fff}
+.pill-switch input:focus-visible + label{outline:2px solid var(--brass-lt);outline-offset:-2px}
+.cfg-out .lbl-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.cfg-tip-badge{display:inline-block;font-size:11px;letter-spacing:.04em;color:var(--brass-lt);border:1px solid rgba(212,180,131,.3);background:rgba(176,141,87,.10);padding:4px 10px;border-radius:var(--r);white-space:nowrap}
 
 /* comparison table */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line-d);background:#fff}

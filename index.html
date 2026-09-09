@@ -100,7 +100,7 @@
       <h1>Terasa koju koristite <em>365 dana</em> u godini.</h1>
       <div class="hero-actions">
         <a href="#konfigurator" class="btn btn-primary">Izračunajte cijenu <i class="strelica" aria-hidden="true">→</i></a>
-        <a href="#projekti" class="hero-link">Pogledajte 187 realizacija</a>
+        <a href="#projekti" class="hero-link">Pogledajte projekte</a>
       </div>
     </div>
   </div>
@@ -302,6 +302,16 @@
                 <div class="fg"><label for="cfMail">E-mail *</label><input id="cfMail" type="email" required autocomplete="email" placeholder="ana@primjer.hr"></div>
                 <div class="fg"><label for="cfTel">Telefon *</label><input id="cfTel" type="tel" required autocomplete="tel" placeholder="09x xxx xxxx"></div>
               </div>
+              <!-- Zadatak A (9.9.2026.) — Tip kupca premjesten iz #cfgResult ovamo: bira se PRIJE slanja, pa ide u e-mail kao i ostala polja -->
+              <div class="fg fg-tip">
+                <label id="tipKupcaLbl">Tip kupca *</label>
+                <div class="pill-switch" role="radiogroup" aria-labelledby="tipKupcaLbl">
+                  <input type="radio" name="tipKupca" id="tkFiz" value="fizicka" checked>
+                  <label for="tkFiz">Fizička osoba</label>
+                  <input type="radio" name="tipKupca" id="tkPra" value="pravna">
+                  <label for="tkPra">Pravna osoba</label>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
               <p class="cfg-disc">Podatke koristimo za izradu ponude i kontakt u roku 3–4 dana te za daljnju komunikaciju. Ne prosljeđujemo ih trećim stranama.</p>
             </form>
@@ -309,17 +319,11 @@
 
           <!-- okvirna ponuda, vidljiva odmah nakon unosa podataka -->
           <div id="cfgResult" hidden>
-            <div class="fld seg-pdv-wrap" style="margin-bottom:22px">
-              <label style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-lt);font-weight:600;display:block;margin-bottom:10px">Tip kupca</label>
-              <div class="seg seg-pdv">
-                <input type="radio" name="pdv" id="pdvPriv" value="privatni" checked>
-                <label for="pdvPriv"><b>Privatni</b><small>cijena s PDV-om</small></label>
-                <input type="radio" name="pdv" id="pdvPos" value="poslovni">
-                <label for="pdvPos"><b>Poslovni</b><small>bez PDV-a + PDV zasebno</small></label>
-              </div>
-            </div>
             <div class="cfg-out">
-              <div class="lbl">Okvirna ponuda</div>
+              <div class="lbl-row">
+                <div class="lbl">Okvirna ponuda</div>
+                <span class="cfg-tip-badge" id="cfgTipBadge">Fizička osoba · cijena s PDV-om</span>
+              </div>
               <div class="cfg-total" id="total">—</div>
               <div class="cfg-range" id="range">Izračun je informativan, moguća su odstupanja.</div>
             </div>
@@ -391,7 +395,7 @@
       </a>
       <a class="card" data-c="obala vila">
         <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/b760a0cd99db66fd77cd8cdca188b743/Bioklimatska-pergola-SB400-Murter-9-scaled.jpg" alt="Bioklimatska pergola SB400 Murter" loading="lazy">
-        <div class="card-cap"><span>Murter · 2023.</span><b>SB500, 4 × 5 m + ZIP</b></div>
+        <div class="card-cap"><span>Murter · 2023.</span><b>SB400</b></div>
       </a>
       <a class="card" data-c="hotel">
         <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/6fb5595950ea024062904839d9353fd2/2-bioklimatske-pergole-bale-tt-gradnja.jpg" alt="Bioklimatske pergole Bale, Istra" loading="lazy">
@@ -402,16 +406,16 @@
         <div class="card-cap"><span>Zagreb · 2025.</span><b>SB500 uz zid, 4 × 4 m</b></div>
       </a>
       <a class="card" data-c="obala hotel">
-        <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/67362294bf14e21021f414fece752b50/IMG-7030-scaled-1.jpg" alt="Bioklimatska pergola na obali" loading="lazy">
-        <div class="card-cap"><span>Zadar · 2024.</span><b>Hotelska terasa, 62 m²</b></div>
+        <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/67362294bf14e21021f414fece752b50/IMG-7030-scaled-1.jpg" alt="Bioklimatska pergola SB400 Krk" loading="lazy">
+        <div class="card-cap"><span>Krk · 2024.</span><b>SB400</b></div>
       </a>
       <a class="card" data-c="vila">
         <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/585de0b8fc9068df5994ce6e15744834/bioklimatske-pergole-2.jpg" alt="Bioklimatska pergola s LED rasvjetom" loading="lazy">
         <div class="card-cap"><span>Varaždin · 2023.</span><b>SB400, 3 × 5 m, LED</b></div>
       </a>
       <a class="card" data-c="obala vila">
-        <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/bf83b25174d7b68db5ef6b7f8be45fd6/IMG-6447.jpg" alt="Bioklimatska pergola uz bazen" loading="lazy">
-        <div class="card-cap"><span>Rovinj · 2025.</span><b>Uz bazen, SB500, 5 × 6 m</b></div>
+        <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/bf83b25174d7b68db5ef6b7f8be45fd6/IMG-6447.jpg" alt="Bioklimatska pergola SB400 Pelješac" loading="lazy">
+        <div class="card-cap"><span>Pelješac · 2025.</span><b>SB400</b></div>
       </a>
       <a class="card" data-c="hotel vila">
         <img src="https://bioklimatskepergole.hr/wp-content/uploads/slider/cache/d9b9d24925d877929dadf417bb72a263/bioklimatske-pergole-3.jpg" alt="Modularna bioklimatska pergola" loading="lazy">
@@ -770,6 +774,11 @@ function calc(){
   const brk = document.getElementById('brk');
   const rangeEl = document.getElementById('range');
 
+  // Zadatak A (9.9.2026.) — tip kupca se bira u obrascu (#cfgForm), prije slanja; ovdje se samo cita odabir
+  const pravna = document.querySelector('input[name=tipKupca]:checked')?.value === 'pravna';
+  const tipBadge = document.getElementById('cfgTipBadge');
+  if(tipBadge) tipBadge.textContent = pravna ? 'Pravna osoba · cijena bez PDV-a' : 'Fizička osoba · cijena s PDV-om';
+
   if(!cijena){
     // lokacija jos nije odabrana, ili kombinacija ne postoji u tablici — poziv na kontakt, ne izmisljena cijena
     zadnjiIzracun = null;
@@ -791,7 +800,6 @@ function calc(){
   });
 
   const netoBezPdv = cijena.cijenaPergole + cijena.transport + opremaZbroj;
-  const poslovni = document.querySelector('input[name=pdv]:checked')?.value === 'poslovni';
   const konacno = netoBezPdv * (1 + PDV_STOPA);
   zadnjiIzracun = {rabatIznos, netoBezPdv, konacno};
 
@@ -802,25 +810,24 @@ function calc(){
     ...opremaRedovi
   ];
   let html = rows.map(r=>`<div class="r"><span>${r.l}</span><span>${r.v<0?'−':''}${fmt(Math.abs(r.v))}</span></div>`).join('');
-  if(poslovni){
-    html += `<div class="r"><span>Osnovica (bez PDV-a)</span><span>${fmt(netoBezPdv)}</span></div>`;
-    html += `<div class="r"><span>PDV (25 %)</span><span>${fmt(netoBezPdv*PDV_STOPA)}</span></div>`;
-    html += `<div class="r tot"><span>Ukupno s PDV-om</span><span>${fmt(konacno)}</span></div>`;
-  } else {
-    html += `<div class="r"><span>PDV</span><span>uključen</span></div>`;
-    html += `<div class="r tot"><span>Ukupno</span><span>${fmt(konacno)}</span></div>`;
-  }
+  // Zadatak A — glavni "Ukupno" prati odabir iz obrasca: neto za pravnu osobu (zakonski smije bez PDV-a),
+  // s PDV-om za fizicku osobu (potrosacka cijena mora imati PDV). Razrada uvijek prikazuje oba iznosa transparentno,
+  // samo se istaknuti red (.tot) mijenja ovisno o odabiru.
+  html += `<div class="r${pravna?' tot':''}"><span>Osnovica (bez PDV-a)</span><span>${fmt(netoBezPdv)}</span></div>`;
+  html += `<div class="r"><span>PDV (25 %)</span><span>${fmt(netoBezPdv*PDV_STOPA)}</span></div>`;
+  html += `<div class="r${pravna?'':' tot'}"><span>Ukupno s PDV-om</span><span>${fmt(konacno)}</span></div>`;
   if(naUpit.length){
     html += `<div class="r" style="opacity:.55"><span>Na upit (nije u izračunu)</span><span>${naUpit.map(o=>o.dataset.n).join(', ')}</span></div>`;
   }
   brk.innerHTML = html;
 
-  document.getElementById('total').textContent = fmt(konacno);
-  document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(konacno) : 'Nakon upita';
+  const glavniIznos = pravna ? netoBezPdv : konacno;
+  document.getElementById('total').textContent = fmt(glavniIznos);
+  document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(glavniIznos) : 'Nakon upita';
   if(rangeEl) rangeEl.textContent = 'Izračun je informativan, moguća su odstupanja.';
 }
 document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',calc));
-document.querySelectorAll('input[name=pdv]').forEach(el=>el.addEventListener('change',calc));
+document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',calc));
 calc();
 
 // ---------- navigacija kroz korake 1-4 (korak 5 = obrazac desno, kao i dosad) ----------
@@ -851,7 +858,8 @@ document.getElementById('zupanija').addEventListener('change', function(){
 // ---------- treci fix: promjena konfiguracije nakon zakljucavanja cijene ponistava prikazanu ponudu ----------
 // cijena se vise ne update-a tiho dok stoji otkljucana — svaka promjena modela/dimenzija/lokacije/opreme
 // vraca na obrazac i traži novi upit (= nova ponuda, novi conversion), kao kod ozbiljnih stranica.
-// PDV toggle (privatni/poslovni) je samo prikaz iste ponude, ne mijenja konfiguraciju — ostaje živ.
+// Tip kupca (Zadatak A, 9.9.2026.) vise se ne dira ovdje — bira se u #cfgForm prije slanja, pa nakon
+// otkljucavanja nije ni vidljiv/interaktivan, tako da ova funkcija na njega uopce ne mora paziti.
 function ponistiZakljucanuCijenu(){
   if(!cfgUnlocked) return;
   cfgUnlocked = false;
@@ -926,7 +934,7 @@ document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
     const oprSvi = [...document.querySelectorAll('#konfigurator .opt input:checked')];
     const oprema = oprSvi.filter(o=>!o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
     const opremaUpit = oprSvi.filter(o=>o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'nema';
-    const poslovni = document.querySelector('input[name=pdv]:checked')?.value === 'poslovni';
+    const pravna = document.querySelector('input[name=tipKupca]:checked')?.value === 'pravna';
 
     // cetvrti fix — priprema za "korak 4" (ads conversion tracking) iz iduceg chata:
     // ovo je jedini, jasno dokumentirani trenutak potvrde upita. Buduci kod za ads/analytics
@@ -951,7 +959,7 @@ document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
       Regija: CJENIK.regije[trenutnaRegija()] || '',
       Oprema: oprema,
       Oprema_na_upit: opremaUpit,
-      Tip_kupca: poslovni ? 'Poslovni' : 'Privatni',
+      Tip_kupca: pravna ? 'Pravna osoba' : 'Fizička osoba',
       Popust: zadnjiIzracun ? fmt(zadnjiIzracun.rabatIznos) : 'nedostupno',
       Okvirna_ponuda: document.getElementById('total').textContent,
       Izvor: location.href
