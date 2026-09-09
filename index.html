@@ -291,6 +291,7 @@
               <div class="cfg-total" id="cfgSummary" style="font-size:clamp(19px,2.2vw,26px);margin:12px 0 6px">Sunbreaker 400 · 3,4 × 1,5 m</div>
               <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0">Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
             </div>
+            <p class="cfg-gate-note" id="cfgGateNote" hidden>Promijenili ste konfiguraciju od zadnjeg upita — pošaljite ponovno da dobijete ažuriranu okvirnu cijenu.</p>
             <form id="cfgForm" class="cfg-form" novalidate>
                 <div class="mrav" aria-hidden="true"><label>Ne ispunjavajte<input type="text" name="botcheck" id="cfBot" tabindex="-1" autocomplete="off"></label></div>
               <div class="frow">
@@ -323,8 +324,11 @@
               <div class="cfg-range" id="range">Izračun je informativan, moguća su odstupanja.</div>
             </div>
             <div class="brk" id="brk"></div>
-            <a href="upit.html" class="btn btn-primary" id="cfgcta">Zatraži točnu ponudu za ovu konfiguraciju</a>
-            <p class="cfg-disc">Konačna cijena utvrđuje se nakon besplatnog izlaska na teren (obično unutar 3 radna dana od prihvaćanja ponude). Ponuda vrijedi 30 dana i cijena se ne mijenja nakon potpisa.</p>
+            <div class="cfg-hvala" id="cfgHvala">
+              <div class="cfg-hvala-t">Hvala na interesu!</div>
+              <p>Vaš upit je zaprimljen — naš stručnjak će vam se javiti u roku 3–4 dana s konačnom ponudom, nakon besplatnog izlaska na teren.</p>
+            </div>
+            <p class="cfg-disc">Ponuda vrijedi 30 dana od izlaska na teren, a cijena se nakon potpisa ne mijenja.</p>
           </div>
         </div>
       </div>
@@ -616,6 +620,7 @@
 // Cijena dolazi isključivo iz cjenik.js (Faza 2) — nema izmišljenih formula ni po m².
 let cfgUnlocked = false; // okvirna ponuda se prikazuje tek nakon obaveznih kontakt podataka (zapisnik t. 4)
 let zadnjiIzracun = null; // {rabatIznos, netoBezPdv, konacno} — za e-mail payload pri submitu
+let cfgPoslanoRanije = false; // treci fix: je li upit vec jednom poslan u ovoj posjeti — za poruku o promijenjenoj konfiguraciji
 const PDV_STOPA = 0.25;  // opca stopa PDV-a u RH (2026.)
 const RABAT_UDIO = 0.10; // cjenik.js VEC sadrzi odbijeni rabat (klijent potvrdio 8.9.2026) — ovdje se samo prikazuje kao stavka
 const REGIJE_ZUPANIJE = {
@@ -670,6 +675,50 @@ function postaviRasponeDimenzija(){
 }
 document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
 postaviRasponeDimenzija();
+
+// ---------- drugi fix: klizac s par tocaka — vec mali pomak povlacenja odmah "skoci" na sljedecu/prethodnu tocku ----------
+function omoguciOsjetljivoPovlacenje(el){
+  const PRAG_PX = 12; // px povlacenja po jednom koraku — puno manje od geometrijske sirine koraka na traci
+  let polaziste = null; // {x, indeks, vrijednosti}
+  function popisVrijednosti(){
+    const min = Number(el.min), max = Number(el.max), step = Number(el.step) || 1;
+    const n = Math.round((max - min) / step) + 1;
+    return Array.from({length:n}, (_,i)=> min + i*step);
+  }
+  function indeksZaVrijednost(vals, v){
+    let naj = 0, najRaz = Infinity;
+    vals.forEach((val,i)=>{ const r = Math.abs(val-v); if(r<najRaz){ najRaz=r; naj=i; } });
+    return naj;
+  }
+  function korakOdPomaka(dx){
+    if(!dx) return 0;
+    return Math.sign(dx) * Math.round(Math.abs(dx)/PRAG_PX);
+  }
+  el.addEventListener('pointerdown', e=>{
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    polaziste = { x: e.clientX, indeks: indeksZaVrijednost(popisVrijednosti(), Number(el.value)), vrijednosti: popisVrijednosti() };
+    if(el.setPointerCapture) el.setPointerCapture(e.pointerId);
+    e.preventDefault(); // sprijeci native "skok na tocku klika" — mi preuzimamo pomak preko pointermove
+    el.focus({preventScroll:true});
+  });
+  el.addEventListener('pointermove', e=>{
+    if(!polaziste) return;
+    const dx = e.clientX - polaziste.x;
+    const noviIndeks = Math.min(polaziste.vrijednosti.length - 1, Math.max(0, polaziste.indeks + korakOdPomaka(dx)));
+    const novaVrijednost = polaziste.vrijednosti[noviIndeks];
+    if(String(novaVrijednost) !== el.value){
+      el.value = novaVrijednost;
+      el.dispatchEvent(new Event('input', {bubbles:true}));
+    }
+  });
+  const zavrsiPovlacenje = ()=>{ polaziste = null; };
+  el.addEventListener('pointerup', zavrsiPovlacenje);
+  el.addEventListener('pointercancel', zavrsiPovlacenje);
+}
+['projekcija','sirina'].forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) omoguciOsjetljivoPovlacenje(el);
+});
 
 function trenutnaRegija(){
   const v = document.getElementById('zupanija').value;
@@ -798,6 +847,23 @@ document.querySelectorAll('.cfg-next, .cfg-back').forEach(btn=>{
 document.getElementById('zupanija').addEventListener('change', function(){
   document.getElementById('cfgNext3').disabled = !this.value;
 });
+
+// ---------- treci fix: promjena konfiguracije nakon zakljucavanja cijene ponistava prikazanu ponudu ----------
+// cijena se vise ne update-a tiho dok stoji otkljucana — svaka promjena modela/dimenzija/lokacije/opreme
+// vraca na obrazac i traži novi upit (= nova ponuda, novi conversion), kao kod ozbiljnih stranica.
+// PDV toggle (privatni/poslovni) je samo prikaz iste ponude, ne mijenja konfiguraciju — ostaje živ.
+function ponistiZakljucanuCijenu(){
+  if(!cfgUnlocked) return;
+  cfgUnlocked = false;
+  document.getElementById('cfgResult').hidden = true;
+  document.getElementById('cfgGate').hidden = false;
+  document.getElementById('cfgGateNote').hidden = !cfgPoslanoRanije;
+  if(typeof osvjeziMbar === 'function') osvjeziMbar();
+}
+document.querySelectorAll(
+  '#konfigurator input[name=model], #projekcija, #sirina, #zupanija, .opts input'
+).forEach(el=>el.addEventListener('input', ponistiZakljucanuCijenu));
+
 // ---------- korak 5 (cijena) zamjenjuje korake 1-4, ne stoji stalno pored njih ----------
 document.getElementById('cfgNaKontakt').addEventListener('click', ()=>{
   document.querySelector('.cfg-left').hidden = true;
@@ -845,8 +911,11 @@ document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
     }
     if(document.getElementById('cfBot').value){ return; } // bot
     // cijena se prikazuje odmah — slanje ide u pozadini da korisnik ne ceka mrezu
+    const jeRanijeVecPoslano = cfgPoslanoRanije; // treci fix: je li ovo ponovljeni upit nakon promjene konfiguracije
     cfgUnlocked = true;
+    cfgPoslanoRanije = true;
     document.getElementById('cfgGate').hidden = true;
+    document.getElementById('cfgGateNote').hidden = true;
     document.getElementById('cfgResult').hidden = false;
     azurirajIndikator(5);
     calc();
@@ -858,6 +927,20 @@ document.getElementById('cfgNatragNaOpremu').addEventListener('click', ()=>{
     const oprema = oprSvi.filter(o=>!o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
     const opremaUpit = oprSvi.filter(o=>o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'nema';
     const poslovni = document.querySelector('input[name=pdv]:checked')?.value === 'poslovni';
+
+    // cetvrti fix — priprema za "korak 4" (ads conversion tracking) iz iduceg chata:
+    // ovo je jedini, jasno dokumentirani trenutak potvrde upita. Buduci kod za ads/analytics
+    // treba samo osluskivati ovaj event na document-u (npr. gtag('event','conversion',...) ili
+    // fbq('track','Lead')) — nema potrebe dirati ovu funkciju ili dodavati drugi gumb.
+    document.dispatchEvent(new CustomEvent('konfigurator:upit-poslan', {
+      detail: {
+        model: 'Sunbreaker ' + model,
+        zupanija: odabranaZupanija(),
+        cijena: zadnjiIzracun ? zadnjiIzracun.konacno : null,
+        ponovljeniUpit: jeRanijeVecPoslano
+      }
+    }));
+
     posaljiObrazac({
       subject: 'Konfigurator — ' + ime + ' ' + prezime + ' · SB' + model,
       from_name: 'Konfigurator bioklimatskih pergola',

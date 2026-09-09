@@ -27,6 +27,7 @@ img{max-width:100%;display:block}
 .btn-dark{background:var(--ink);color:#fff}
 .btn-dark:hover{background:#000}
 .btn-sm{padding:12px 22px;font-size:12px}
+.btn:focus-visible{outline:2px solid var(--brass-lt);outline-offset:2px}
 
 /* ---------- header ---------- */
 header{position:sticky;top:0;z-index:90;background:rgba(250,248,245,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-d);transition:.3s}
@@ -129,6 +130,9 @@ section{padding:clamp(64px,8vw,110px) 0}
 .cfg-left{padding:clamp(28px,3.5vw,46px)}
 .cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);position:relative}
 .cfg-natrag-cijena{margin-bottom:22px;min-height:44px}
+/* prvi fix — .btn-ghost nasljedivao je tamnu tekst-boju s tijela stranice, na tamnoj podlozi konfiguratora bio je skoro nevidljiv */
+.cfg .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+.cfg .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
 .fld{margin-bottom:28px}
 .fld > label{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-lt);font-weight:600;margin-bottom:12px}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -139,7 +143,7 @@ section{padding:clamp(64px,8vw,110px) 0}
 .seg input:checked + label{border-color:var(--brass);background:rgba(176,141,87,.14)}
 .seg label:hover{border-color:rgba(212,180,131,.5)}
 .rng-row{display:flex;align-items:center;gap:16px}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;min-width:0;height:2px;background:rgba(255,255,255,.18);outline:0}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;min-width:0;height:2px;background:rgba(255,255,255,.18);outline:0;touch-action:none}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--brass);cursor:pointer;border:3px solid var(--ink-2);box-shadow:0 0 0 1px var(--brass)}
 input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--brass);cursor:pointer;border:3px solid var(--ink-2)}
 .rng-val{font-family:var(--serif);font-size:22px;color:#fff;min-width:76px;text-align:right;font-variant-numeric:tabular-nums}
@@ -158,6 +162,12 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .brk .r.tot{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;font-size:15px}
 .brk .r.tot span{color:var(--brass-lt);font-weight:600}
 .cfg-disc{font-size:11.5px;color:rgba(255,255,255,.38);line-height:1.6;margin-top:18px}
+/* cetvrti fix — poruka zahvale zamjenjuje drugi CTA, jedan jasan trenutak potvrde upita */
+.cfg-hvala{margin:24px 0 22px;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-left:3px solid var(--brass-lt)}
+.cfg-hvala-t{font-family:var(--serif);font-size:19px;font-weight:400;color:#fff;margin-bottom:6px}
+.cfg-hvala p{margin:0;font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.72)}
+/* treci fix — upozorenje da je konfiguracija promijenjena od zadnjeg poslanog upita */
+.cfg-gate-note{margin:0 0 18px;padding:12px 14px;font-size:13px;line-height:1.5;color:var(--brass-lt);background:rgba(176,141,87,.12);border:1px solid rgba(176,141,87,.35)}
 /* forma unutar konfiguratora — polja na tamnoj podlozi */
 .cfg-form .fg{margin-bottom:14px}
 .cfg-form .fg label{color:rgba(255,255,255,.55)}
