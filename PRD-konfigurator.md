@@ -178,18 +178,40 @@ Klijent je nakon isprobavanja uživo javio 4 stvari, sve riješeno u istom danu:
 
 Sve provjereno automatiziranim Playwright testom (kontrast gumbova, stvarno povlačenje mišem po koracima, poništavanje ponude nakon promjene županije, PDV toggle koji ostaje živ, custom event pri slanju) i vizualnim screenshotovima.
 
-## FAZA 4 — ads conversion tracking (priprema, još nije počelo)
+## Napomena (nije faza, nije dio plana) — ads conversion tracking
 
-**Status: nije započeto — ovo je priprema za sljedeći chat.** Klijent je u chatu naveo da mu za oglašavanje (ads) treba jedan jasan, ponovljiv trenutak potvrde koji se bilježi kao conversion. Kod je zato već ostavio kuku, ali sama integracija (odabir platforme, GDPR pristanak, stvarni pixel/tag) čeka sljedeću sesiju.
+**Ispravka 8.9.2026.:** ovo je bilo pogrešno zapisano kao "FAZA 4" — klijent je ads/conversion samo usput spomenuo kao razlog za četvrti fix (jedan CTA umjesto dva), ne kao naručenu sljedeću fazu. Ads tracking i sve ostalo oko oglašavanja klijent radi zasebno, kasnije, sam. Ostavljeno ovdje samo kao referenca ako zatreba, **ne kao stavka na popisu za sljedeći chat.**
 
-**Što je već pripremljeno u `index.html`:** nakon svakog uspješnog slanja obrasca (prvog, i svakog ponovljenog ako se korisnik vrati i promijeni konfiguraciju — vidi treći fix gore) stranica odašilje `document.dispatchEvent(new CustomEvent('konfigurator:upit-poslan', {detail:{model, zupanija, cijena, ponovljeniUpit}}))`. Budući kod za ads/analytics treba samo osluškivati taj event na `document` (npr. `gtag('event','conversion',...)` ili `fbq('track','Lead',...)`) — nema potrebe dirati konfigurator ili dodavati drugi gumb; to je jedini „commit" trenutak. Dok nitko ne osluškuje event, kuka je neaktivna — ne šalje se ništa nikamo.
+Ono što već postoji u `index.html` ako ustreba: nakon svakog uspješnog slanja obrasca stranica odašilje `document.dispatchEvent(new CustomEvent('konfigurator:upit-poslan', {detail:{model, zupanija, cijena, ponovljeniUpit}}))`. Kod za ads/analytics bi samo osluškivao taj event na `document` — ali to nije zadatak za sljedeću sesiju osim ako klijent to izričito zatraži.
 
-**Otvoreno — treba odgovor klijenta prije početka Faze 4:**
+---
 
-1. Koja platforma(e) — Google Ads conversion tag, Meta Pixel, oboje, ili GA4 event pa import u Ads? Treba stvarni ID/tag iz klijentovog računa.
-2. GDPR / pristanak na kolačiće — stranica trenutno nema cookie/consent baner niti ikakav postojeći tracking kod (provjereno: nema `gtag`, `dataLayer`, `fbq` ni consent koda u `index.html`). Google Ads i Meta Pixel postavljaju kolačiće koji nisu strogo neophodni, pa prema GDPR-u treba prethodni pristanak korisnika prije učitavanja tih skripti — vjerojatno jednostavan consent banner (npr. Google Consent Mode v2 ako se koristi Google Ads).
-3. Broji li se kao conversion samo prvi upit po posjeti, ili i ponovljeni upiti (`ponovljeniUpit: true`) nakon promjene konfiguracije? Podatak je već dostupan u `e.detail.ponovljeniUpit`, treba samo odluku.
-4. Bilježi li se `e.detail.cijena` kao vrijednost konverzije (npr. Google Ads "value") ili se broji samo event bez vrijednosti?
+## Sljedeći korak (dogovoreno u chatu 9.9.2026.) — priprema za novi chat
+
+Dvije stvari za novi chat, obje NISU implementirane, samo dijagnosticirane/istražene:
+
+### A) Bug: "Tip kupca" (privatni/poslovni) ne radi ono što treba
+
+Prijavljeno u chatu: preklopnik trenutno ništa stvarno ne mijenja, jer:
+
+1. **Glavni prikazani iznos je uvijek isti.** `calc()` u `index.html` uvijek računa `konacno = netoBezPdv * (1 + PDV_STOPA)` (cijena s PDV-om), bez obzira na odabir. Preklopnik samo dodaje/mijenja retke u razradi (`brk`), ali glavni broj "Ukupno" ostaje identičan za oba odabira — vizualno izgleda kao da preklopnik ne radi.
+2. **Odabir nikad ne stiže Josipu.** Preklopnik se nalazi u `#cfgResult`, koji se prikazuje TEK nakon slanja obrasca. `posaljiObrazac()` se poziva odmah pri submitu, kad preklopnik još stoji na zadanoj vrijednosti ("Privatni") — pa e-mail Josipu uvijek javlja "Privatni", bez obzira što korisnik poslije odabere. Josip onda mora sam pitati je li kupac fizička ili pravna osoba.
+
+Klijentov zahtjev: nazivi trebaju biti **"Fizička osoba"** (umjesto "Privatni") i **"Pravna osoba"** (umjesto "Poslovni"); ako je odabrana pravna osoba, glavni prikazani iznos treba automatski biti cijena BEZ PDV-a; podatak treba stvarno stići Josipu u e-mailu (ne da on opet pita); i vizualno treba biti složeno ljepše.
+
+Predloženo rješenje (nije još odobreno, provjeriti s klijentom pa implementirati): premjestiti "Tip kupca" iz `#cfgResult` u `#cfgForm` (isti obrazac gdje se traže ime/prezime/e-mail/telefon) — tako se odabire PRIJE slanja i ide u e-mail kao i ostala polja, bez potrebe za ponovnim slanjem. U `calc()` postaviti glavni "Ukupno" na neto (bez PDV-a) za pravnu osobu, na iznos s PDV-om za fizičku osobu (potrošačka cijena mora imati PDV po zakonu), a razrada ispod i dalje prikazuje oba iznosa transparentno. Preklopnik u `#cfgResult` se uklanja (odluka je već donesena u obrascu); umjesto njega mala, vizualno uređena naznaka uz "Okvirna ponuda" koja cijena je prikazana.
+
+### B) "187 realizacija" → "Projekti", stvarne slike stvarnih projekata
+
+Klijentov zahtjev: gdje god stoji "X realizacija" (npr. "Pogledajte 187 realizacija", naslov "187 realizacija.") promijeniti u "Projekti"; galerija treba prikazivati stvarne projekte sa stvarnim slikama koje već postoje na originalnoj stranici `bioklimatskepergole.hr`.
+
+Već provjereno u ovom chatu:
+- Sekcija `#projekti` u `index.html` (redak ~373) **već** prikazuje 8 stvarnih fotografija, hotlinkanih direktno s `bioklimatskepergole.hr` (wp-content/uploads/slider/cache), sa stvarnim natpisima (Korčula, Murter, Bale, Zagreb, Zadar, Varaždin, Rovinj, Slavonski Brod) — nije placeholder.
+- Postoji neusklađenost: naslov kaže "187 realizacija." a filter ispod kaže "Sve (8)" — to je vjerojatno ono što klijent primjećuje kao "nije stvarno".
+- Pravi, potpuni portfolio klijenta živi na `https://bioklimatskepergole.hr/reference/` — pronađeno, ali još nije detaljno pregledano (koliko stvarno projekata, koje slike, koji su najbolji za istaknuti).
+- "187" se spominje i na drugim mjestima (meta opis, FAQ "187 instalacija" — servisna statistika) — to su vjerojatno drugi kontekst i ne moraju se dirati, ali provjeriti s klijentom.
+
+Sljedeći korak: otvoriti `https://bioklimatskepergole.hr/reference/`, pregledati stvarnu listu projekata, dogovoriti s klijentom hoće li se trenutnih 8 kartica zadržati/proširiti/zamijeniti, i preimenovati CTA/naslov u "Projekti" bez tvrdnje o točnom broju. Nakon toga klijent pregledava i govori gdje staviti "premium" i kako prilagoditi tekst.
 
 ---
 
