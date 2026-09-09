@@ -5,6 +5,68 @@ Najnovije je na vrhu.
 
 ---
 
+## 9. rujna 2026. — sedmi krug
+
+**Konfigurator — 4 ispravka nakon prvog testiranja uživo**
+
+- Gumb „Natrag" na koraku Dimenzije i „Natrag na opremu" na koraku Cijena bili su skoro nevidljivi — tamni tekst na tamnoj podlozi, naslijeđen s tijela stranice. Sada su bijeli, s vidljivim rubom, i dobili su jedinstven zlatni prsten pri tabulatoru umjesto zadanog plavog obruba preglednika
+- Klizači za dubinu i širinu imaju samo 3–6 stvarnih zaustavnih točaka, pa je povlačenje zahtijevalo veliki pomak prsta prije skoka na sljedeću vrijednost. Sada svaki pomak od 12 piksela odmah skoči na sljedeću/prethodnu stvarnu vrijednost, u oba smjera — tipkovnica radi kao prije
+- Otkljucana cijena se više ne mijenja tiho kad se korisnik vrati i promijeni model, dimenzije, županiju ili opremu — vraća na obrazac s porukom „Promijenili ste konfiguraciju od zadnjeg upita", tako da svaka izmjena traži novi upit umjesto da stara cijena samo nestane bez objašnjenja. Kontakt podaci ostaju popunjeni, treba samo ponovno kliknuti gumb. Prebacivanje privatni/poslovni ne broji se kao izmjena konfiguracije i ostaje živo
+- Drugi gumb „Zatraži točnu ponudu" ispod okvirne cijene je uklonjen — bio je suvišan uz „Prikaži okvirnu ponudu" koji već otključava cijenu. Umjesto njega stoji poruka „Hvala na interesu! Vaš upit je zaprimljen — naš stručnjak će vam se javiti u roku 3–4 dana s ponudom."
+
+**Tehnički**
+
+- Nakon svakog uspješnog slanja upita stranica sada odašilje jedan dokumentiran signal (`konfigurator:upit-poslan`) — mjesto na koje se kasnije zakvači eventualno praćenje oglasa, bez diranja konfiguratora
+- Nova specifikacija `PRD-konfigurator.md` — tijek, izračun i zapisnik klijentovih odgovora, referenca za sve buduće izmjene konfiguratora
+
+---
+
+## 8. rujna 2026. — šesti krug
+
+**Konfigurator — stvarna cijena umjesto izmišljene**
+
+- Konfigurator sada radi u pravom tijeku **Model → Dimenzije → Lokacija → Oprema → Cijena**, s brojčanim koracima i indikatorom napretka — dosad je cijena bila izmišljena procjena po m², bez stvarnog cjenika
+- Cijena dolazi isključivo iz stvarnog proizvodnog cjenika (6 tablica: 3× SB400 + 3× SB500), učitanog kao `cjenik.js`. Svaka vrijednost provjerena nasumičnim uzorkom od 24 ćelije protiv izvornog Excela — nema izmišljenih formula ni marži
+- Klizači za dubinu i širinu ograničeni na točno one korake koje proizvodni cjenik pokriva (npr. SB400 dubina 3,4–7 m po 20 cm) — nema pozicije klizača koja ne postoji u tablici; izvan raspona nema cijene, nego poziv na kontakt
+- Lokacija (županija) određuje regiju i transport — sve 21 hrvatska jedinica mapirana u tri regije bez preklapanja
+- Popust od 10 % za upit putem konfiguratora prikazuje se kao zasebna stavka, nikad kao precrtana cijena
+- Preklopnik privatni/poslovni kupac — privatni prikazuje cijenu s PDV-om (zakonska obveza), poslovni bez PDV-a i PDV zasebno
+- Rezultat (cijena i kontakt obrazac) više se ne prikazuje stalno pored koraka 1–4, nego tek kad se stvarno dođe do kraja — peti korak preimenovan iz „Kontakt" u „Cijenu"
+
+**Podaci na stranici (Faza 1 — ispravci potvrđenih podataka)**
+
+- Boje u osnovnoj cijeni: 36 → 33
+- Vjetar SB400: klase 3 → 6
+- Rotacija lamela SB400/SB500: 0–135° → 0–120°
+- Profil stupa SB400: 120×120 → 150×85 mm
+- Servis: „u roku 48 h" → „u prosjeku unutar 72 h"
+- Zastupnik/poslovanje od: 2016. → 2018.
+- Naziv proizvođača posvuda: „ovlašteni SELT zastupnik" → „SELT by Aluprof" (Aluprof je kupio SELT, nije riječ o dva ravnopravna partnera); dodana nova sekcija s tri brojke o Aluprof grupaciji (70+ god. iskustva, 590 mil. € prihoda, 61 zemlja / 6 kontinenata / 2.600 partnera)
+- Proces: korak 1 „isti dan" → „unutar 2 radna dana"; korak 2 „5 radnih dana" → „unutar 3 radna dana od prihvaćanja ponude"; korak 5 montaža „1–3 dana" → „1–2 dana"
+- Usporedna tablica modela: uklonjeni redovi nosivost snijega i uvlačive lamele; dodani profil konstrukcije, integrirani ZIP i rok proizvodnje
+- „Tarasola Technic View Pro" preimenovan u „Sunbreaker 700" na svih 14 stranica (izbornik, kartice, tablica, structured data)
+- Uklonjene marketinške tvrdnje ovisne o staroj, pogrešnoj klasi vjetra SB400 („četverostruka razlika", „pojačana konstrukcija klase 6") — zamijenjene stvarnim razlikama (veći raspon, marinski inox vijci)
+
+**Fotografije**
+
+- Kartice SB400, SB500 i SB700 dobile stvarne fotografije umjesto starih vanjskih WP poveznica i placeholder Tarasola slike
+- Podstranica Sunbreaker 400 dobila naslovnu fotografiju — prije nije imala nikakav medijski sadržaj
+- Podstranica Sunbreaker 500: fotografija u interaktivnom prikazu zamijenjena, 5 oznaka repozicionirano prema novoj slici
+- Podstranica Sunbreaker 700 dobila naslovnu fotografiju
+
+**Podstranica SB400**
+
+- Preneseno 15 tehničkih pitanja i odgovora (širina, rotacija lamela, boje, LED, odvodnja, snijeg...) u novu FAQ sekciju
+- Na naslovnoj, u odjeljku Proces, dodan video montaže — učitava se tek na klik, ne odmah sa stranicom
+
+---
+
+## 6. rujna 2026. — peti krug
+
+- Nazivi sekcija „Projekti" i „Modeli" u izborniku skraćeni
+
+---
+
 ## 6. rujna 2026. — četvrti krug
 
 **Redoslijed sekcija**
@@ -117,14 +179,14 @@ Najnovije je na vrhu.
 
 | Stavka | Čeka |
 |---|---|
-| Cijene u konfiguratoru su izmišljene — treba stvarna kalkulacija | Josip |
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
 | Stvarne Google recenzije umjesto izmišljenih imena i ocjene 4,9/87 | Josip |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
-| Brojke iz SELT deklaracije: 130 km/h, 200 kg/m², 187 projekata | Josip |
+| Brojke iz SELT deklaracije: 130 km/h, 200 kg/m² | Josip |
 | Je li „500R" iz zapisnika isti model kao „Sunbreaker 500" | Josip |
-| Potvrda koja fotografija prikazuje koji model (SB400 / SB500) | Josip |
 | Tekst oznaka u interaktivnom prikazu — iz SELT tehničkog lista | Josip |
 | Sadržaj podstranica — tehnički listovi, presjeci, odvodnja, galerije, snimke montaže | Faza 2 |
 | Skraćivanje usporedne tablice i galerije na naslovnoj (zapisnik t. 7) | Faza 2 |
 | Uklanjanje `noindex` prije objave | nakon potvrde brojki |
+| Preklopnik „Tip kupca" ne mijenja glavni prikazani iznos i odabir ne stiže Josipu u e-mail — treba preimenovati u Fizička/Pravna osoba, premjestiti u obrazac prije slanja i za pravnu osobu automatski prikazati cijenu bez PDV-a | u radu, iduća sesija |
+| „187 realizacija" → „Projekti"; usporediti trenutnih 8 kartica sa stvarnim portfolijem na bioklimatskepergole.hr/reference/ | u radu, iduća sesija |
