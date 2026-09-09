@@ -167,6 +167,32 @@ Pokriva svih 21 hrvatskih jedinica (20 županija + Grad Zagreb), bez preklapanja
 
 ---
 
+## FAZA 3 — dodatna 4 UX ispravka (8.9.2026., nakon prvog testiranja)
+
+Klijent je nakon isprobavanja uživo javio 4 stvari, sve riješeno u istom danu:
+
+1. **Boje** — `.btn-ghost` (gumb „Natrag") na tamnoj podlozi konfiguratora naslijedio je tamnu boju teksta s tijela stranice i bio skoro nevidljiv. Dodan bijeli tekst/rub za `.btn-ghost` unutar `.cfg`, plus jedinstven `:focus-visible` prsten u brand boji (umjesto zadanog plavog obruba preglednika).
+2. **Klizač širine/dubine** — s tek 3–6 stvarnih točaka na traci, povlačenje je zahtijevalo veliki pomak prsta prije nego skoči na sljedeću vrijednost. Riješeno preko `pointerdown`/`pointermove` — klizač sada koristi fiksnu osjetljivost (~12 px povlačenja po koraku) umjesto geometrijske širine koraka na traci, pa i malen pomak odmah skoči na sljedeću/prethodnu stvarnu vrijednost, u oba smjera. Tipkovnica (strelice) i programsko postavljanje vrijednosti (testovi) nisu dirani.
+3. **Cijena se tiho mijenjala** — ako se korisnik nakon otključavanja cijene vrati i promijeni model/dimenzije/lokaciju/opremu, stara je cijena ostajala prikazana i tiho se ažurirala na novu, bez ponovnog upita. Odluka (dogovorena u chatu): svaka promjena konfiguracije nakon otključavanja poništava prikazanu ponudu i vraća na obrazac — traži se **novi upit** za ažuriranu cijenu (kontakt podaci ostaju popunjeni, samo je potrebno ponovno kliknuti „Prikaži okvirnu ponudu"). Uz to se prikazuje poruka „Promijenili ste konfiguraciju od zadnjeg upita…". PDV preklopnik (privatni/poslovni) je izuzet — to je prikaz iste ponude, ne promjena konfiguracije, pa ostaje živ.
+4. **Dvostruki CTA** — „Prikaži okvirnu ponudu" (koji je već otkrivao cijenu) i drugi gumb „Zatraži točnu ponudu" ispod njega bili su suvišni. Drugi gumb je uklonjen; nakon otključavanja cijene prikazuje se poruka zahvale s rokom kontakta („naš stručnjak će vam se javiti u roku 3–4 dana s konačnom ponudom" — usklađeno s već postojećim tekstom u PRD.md i na stranici, ne novi rok).
+
+Sve provjereno automatiziranim Playwright testom (kontrast gumbova, stvarno povlačenje mišem po koracima, poništavanje ponude nakon promjene županije, PDV toggle koji ostaje živ, custom event pri slanju) i vizualnim screenshotovima.
+
+## FAZA 4 — ads conversion tracking (priprema, još nije počelo)
+
+**Status: nije započeto — ovo je priprema za sljedeći chat.** Klijent je u chatu naveo da mu za oglašavanje (ads) treba jedan jasan, ponovljiv trenutak potvrde koji se bilježi kao conversion. Kod je zato već ostavio kuku, ali sama integracija (odabir platforme, GDPR pristanak, stvarni pixel/tag) čeka sljedeću sesiju.
+
+**Što je već pripremljeno u `index.html`:** nakon svakog uspješnog slanja obrasca (prvog, i svakog ponovljenog ako se korisnik vrati i promijeni konfiguraciju — vidi treći fix gore) stranica odašilje `document.dispatchEvent(new CustomEvent('konfigurator:upit-poslan', {detail:{model, zupanija, cijena, ponovljeniUpit}}))`. Budući kod za ads/analytics treba samo osluškivati taj event na `document` (npr. `gtag('event','conversion',...)` ili `fbq('track','Lead',...)`) — nema potrebe dirati konfigurator ili dodavati drugi gumb; to je jedini „commit" trenutak. Dok nitko ne osluškuje event, kuka je neaktivna — ne šalje se ništa nikamo.
+
+**Otvoreno — treba odgovor klijenta prije početka Faze 4:**
+
+1. Koja platforma(e) — Google Ads conversion tag, Meta Pixel, oboje, ili GA4 event pa import u Ads? Treba stvarni ID/tag iz klijentovog računa.
+2. GDPR / pristanak na kolačiće — stranica trenutno nema cookie/consent baner niti ikakav postojeći tracking kod (provjereno: nema `gtag`, `dataLayer`, `fbq` ni consent koda u `index.html`). Google Ads i Meta Pixel postavljaju kolačiće koji nisu strogo neophodni, pa prema GDPR-u treba prethodni pristanak korisnika prije učitavanja tih skripti — vjerojatno jednostavan consent banner (npr. Google Consent Mode v2 ako se koristi Google Ads).
+3. Broji li se kao conversion samo prvi upit po posjeti, ili i ponovljeni upiti (`ponovljeniUpit: true`) nakon promjene konfiguracije? Podatak je već dostupan u `e.detail.ponovljeniUpit`, treba samo odluku.
+4. Bilježi li se `e.detail.cijena` kao vrijednost konverzije (npr. Google Ads "value") ili se broji samo event bez vrijednosti?
+
+---
+
 ## Način rada
 
 Jedna faza po koraku, svaka završava prikazom izmjena i čekanjem potvrde. Ne commitati i ne pushati bez odobrenja; prije commita ispisati `git status` i popis datoteka. Ako rezultat ne valja — vraćanje na checkpoint i ispravak polazišta, ne krpanje.
