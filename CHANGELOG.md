@@ -5,6 +5,47 @@ Najnovije je na vrhu.
 
 ---
 
+## 9. rujna 2026. — osmi krug
+
+**Konfigurator — Tip kupca**
+
+- Preklopnik privatni/poslovni preimenovan u „Fizička osoba" / „Pravna osoba" i premješten iz rezultata u obrazac, prije slanja upita — dosad odabir nije mijenjao glavni prikazani iznos i nije stizao Josipu u e-mail
+- Za pravnu osobu se odmah prikazuje cijena bez PDV-a, uz oznaku „Pravna osoba · cijena bez PDV-a" uz naslov ponude; za fizičku osobu ostaje cijena s PDV-om kao dosad
+- Uklonjen pravokutni obrub oko preklopnika koji je izgledao kao da stoji u tablici
+
+**Konfigurator — klizači i navigacija**
+
+- Klizači za dubinu i širinu sad klize glatko pod prstom/kursorom umjesto skakanja između par zaustavnih točaka (npr. 2,5 m → 3 m → 3,5 m) — vrijednost i cijena i dalje se računaju na najbližu stvarnu točku iz cjenika, tipkovnica radi kao prije
+- Gumb „Natrag na opremu" premješten s vrha na dno ploče s cijenom, u istom stilu kao „Natrag"/„Dalje" na ostalim koracima
+
+**Konfigurator — Lokacija (županija)**
+
+- Padajući popis županija je na Windows Chrome/Edge znao prikazati ogroman, gotovo prazan okvir s tek pokojim vidljivim nazivom — nije bio problem keširanja (provjereno uz potpuno brisanje keša i drugi preglednik), nego kako sam Windows crta taj popis. Popis je zamijenjen vlastitim, koji stranica sama iscrtava — i dalje grupiran po regijama, isti tamni izgled, radi na dodir i tipkovnicu (strelice, Home/End, Enter, Esc, upisivanje slova za skok na naziv)
+- U raščlambi cijene retku „Transport i montaža — Od Splita do Dubrovnika" (naziv cjenovne regije) zamijenio naziv stvarno odabrane županije, npr. „Transport i montaža — Splitsko-dalmatinska" — dosad je tekst zvučao kao da se doprema baš iz Splita u Dubrovnik
+
+**Naslovnica — Projekti**
+
+- „Pogledajte 187 realizacija" u uvodnoj poveznici promijenjeno u „Pogledajte projekte" (ostatak teksta koji spominje 187 namjerno zasad nepromijenjen, po dogovoru)
+- Tri kartice u galeriji ispravljene prema stvarnom portfoliju na bioklimatskepergole.hr/reference/: Murter SB500 → SB400; kartica pogrešno označena „Zadar" zapravo je Krk; kartica pogrešno označena „Rovinj" zapravo je Pelješac
+
+**Sadržaj**
+
+- Naslov „Zašto je premium investicija kod nas manje rizična" promijenjen u „Zašto odabrati naš premium proizvod"; riječ „premium" u tom naslovu i u „Tri razine premium ponude" sad je u istoj bakreno-zlatnoj boji kao i ostali zlatni naglasci na stranici
+
+**Mobitel**
+
+- Lebdeća traka za poziv/izračun pri dnu ekrana više ne preklapa gumb „Dalje" unutar koraka konfiguratora — sklanja se dok je konfigurator u fokusu, isto kao i dok je vidljiv početni dio stranice
+
+**Klijentov pregled**
+
+- Pripremljen prijedlog: `main` grana ostaje čist, ručno objavljen snimak za Josipa (bez svakog pojedinog commita), `iteracija-2` ostaje radna grana s punom poviješću — čeka primjenu i provjeru GitHub Pages postavke izvora (vidi Otvoreno)
+
+**Tehnički**
+
+- Podignuta oznaka verzije CSS datoteke (`styles.css?v=17` → `v=18`) na svih 13 stranica — v=17 je stajao nepromijenjen kroz nekoliko rundi izmjena, pa su preglednici mogli servirati stari kešani izgled
+
+---
+
 ## 9. rujna 2026. — sedmi krug
 
 **Konfigurator — 4 ispravka nakon prvog testiranja uživo**
@@ -188,5 +229,4 @@ Najnovije je na vrhu.
 | Sadržaj podstranica — tehnički listovi, presjeci, odvodnja, galerije, snimke montaže | Faza 2 |
 | Skraćivanje usporedne tablice i galerije na naslovnoj (zapisnik t. 7) | Faza 2 |
 | Uklanjanje `noindex` prije objave | nakon potvrde brojki |
-| Preklopnik „Tip kupca" ne mijenja glavni prikazani iznos i odabir ne stiže Josipu u e-mail — treba preimenovati u Fizička/Pravna osoba, premjestiti u obrazac prije slanja i za pravnu osobu automatski prikazati cijenu bez PDV-a | u radu, iduća sesija |
-| „187 realizacija" → „Projekti"; usporediti trenutnih 8 kartica sa stvarnim portfolijem na bioklimatskepergole.hr/reference/ | u radu, iduća sesija |
+| Primjena squash-merge snimka na `main` granu (čist prikaz za Josipa) i provjera/promjena izvorne grane za GitHub Pages u postavkama repozitorija | Toni |
