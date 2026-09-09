@@ -282,7 +282,6 @@
       <div class="cfg-right" hidden>
         <div class="cfg-sticky">
           <span class="badge-inc">Uključeno: montaža, temeljenje, PDV</span>
-          <button type="button" class="btn btn-ghost btn-sm cfg-natrag-cijena" id="cfgNatragNaOpremu">← Natrag na opremu</button>
 
           <!-- KORAK 5 — obavezni kontakt podaci (zapisnik t. 4) -->
           <div id="cfgGate">
@@ -315,6 +314,7 @@
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
               <p class="cfg-disc">Podatke koristimo za izradu ponude i kontakt u roku 3–4 dana te za daljnju komunikaciju. Ne prosljeđujemo ih trećim stranama.</p>
             </form>
+            <div class="cfg-nav"><button type="button" class="btn btn-ghost cfg-back" id="cfgNatragNaOpremu">← Natrag na opremu</button></div>
           </div>
 
           <!-- okvirna ponuda, vidljiva odmah nakon unosa podataka -->
@@ -664,65 +664,55 @@ function sirineZaModel(model){
 function trenutniModel(){
   return document.querySelector('input[name=model]:checked').value;
 }
+// vraca element niza najblizi zadanoj (sirovoj, moguce necjelobrojnoj) vrijednosti — koristi se svugdje
+// gdje treba "stvarnu" tocku iz cjenik.js umjesto trenutne (kontinuirane) pozicije klizaca
+function najblizaVrijednost(vrijednosti, v){
+  let naj = vrijednosti[0], najRaz = Infinity;
+  vrijednosti.forEach(val=>{ const r = Math.abs(val-v); if(r<najRaz){ najRaz=r; naj=val; } });
+  return naj;
+}
 function postaviRasponeDimenzija(){
   const model = trenutniModel();
   const proj = projekcijeZaModel(model);
   const sir = sirineZaModel(model);
   const elP = document.getElementById('projekcija');
   const elS = document.getElementById('sirina');
-  const stariP = Number(elP.value), stariS = Number(elS.value);
-  elP.min = proj[0]; elP.max = proj[proj.length-1]; elP.step = proj[1]-proj[0];
-  elS.min = sir[0]; elS.max = sir[sir.length-1]; elS.step = sir[1]-sir[0];
-  // ako trenutna vrijednost ne postoji za novi model (promjena modela), vrati na srednju stvarnu vrijednost
-  elP.value = proj.includes(stariP) ? stariP : proj[Math.floor((proj.length-1)/2)];
-  elS.value = sir.includes(stariS) ? stariS : sir[Math.floor((sir.length-1)/2)];
+  const trenutnaP = Number(elP.value), trenutnaS = Number(elS.value);
+  elP.min = proj[0]; elP.max = proj[proj.length-1]; elP.step = 'any';
+  elS.min = sir[0]; elS.max = sir[sir.length-1]; elS.step = 'any';
+  // klizac je sada kontinuiran (glatko povlacenje, ispravak 9.9.2026.) — kod promjene modela vrijednost
+  // se prebacuje na najblizu stvarnu tocku NOVOG modela; kod prve inicijalizacije (NaN) uzima srednju
+  elP.value = isNaN(trenutnaP) ? proj[Math.floor((proj.length-1)/2)] : najblizaVrijednost(proj, trenutnaP);
+  elS.value = isNaN(trenutnaS) ? sir[Math.floor((sir.length-1)/2)] : najblizaVrijednost(sir, trenutnaS);
 }
 document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
 postaviRasponeDimenzija();
 
-// ---------- drugi fix: klizac s par tocaka — vec mali pomak povlacenja odmah "skoci" na sljedecu/prethodnu tocku ----------
-function omoguciOsjetljivoPovlacenje(el){
-  const PRAG_PX = 12; // px povlacenja po jednom koraku — puno manje od geometrijske sirine koraka na traci
-  let polaziste = null; // {x, indeks, vrijednosti}
-  function popisVrijednosti(){
-    const min = Number(el.min), max = Number(el.max), step = Number(el.step) || 1;
-    const n = Math.round((max - min) / step) + 1;
-    return Array.from({length:n}, (_,i)=> min + i*step);
-  }
-  function indeksZaVrijednost(vals, v){
-    let naj = 0, najRaz = Infinity;
-    vals.forEach((val,i)=>{ const r = Math.abs(val-v); if(r<najRaz){ najRaz=r; naj=i; } });
-    return naj;
-  }
-  function korakOdPomaka(dx){
-    if(!dx) return 0;
-    return Math.sign(dx) * Math.round(Math.abs(dx)/PRAG_PX);
-  }
-  el.addEventListener('pointerdown', e=>{
-    if(e.pointerType === 'mouse' && e.button !== 0) return;
-    polaziste = { x: e.clientX, indeks: indeksZaVrijednost(popisVrijednosti(), Number(el.value)), vrijednosti: popisVrijednosti() };
-    if(el.setPointerCapture) el.setPointerCapture(e.pointerId);
-    e.preventDefault(); // sprijeci native "skok na tocku klika" — mi preuzimamo pomak preko pointermove
-    el.focus({preventScroll:true});
+// ---------- drugi fix (ispravljeno 9.9.2026., nakon povratne informacije): klizac s par tocaka ----------
+// Prvotno rjesenje (8.9.2026.) je pri malom pomaku odmah "skakalo" izravno na sljedecu tocku — radilo je,
+// ali vizualno ruzno (klizac je teleportirao umjesto da klizi). Sada je klizac kontinuiran (step="any",
+// vidi postaviRasponeDimenzija) pa prst/mis prati glatko cijelom duzinom trake, a prikazana vrijednost i
+// cijena uvijek se racunaju kao najbliza STVARNA tocka iz cjenik.js (najblizaVrijednost(), koristi se u
+// calc() i cijenaIzCjenika()) — dakle "3,0 m" pa "3,5 m" se pojavljuju na svom mjestu, bez skokova klizaca.
+// Tipkovnica (strelice/Home/End/PageUp/PageDown) posebno se hvata da i dalje ide tocno po stvarnim
+// koracima (ne po sitnim mm), kao i do sad.
+function omoguciTipkovnickeKorake(el, dohvatiVrijednosti){
+  el.addEventListener('keydown', e=>{
+    const smjer = {ArrowLeft:-1, ArrowDown:-1, PageDown:-1, ArrowRight:1, ArrowUp:1, PageUp:1}[e.key];
+    if(smjer === undefined && e.key !== 'Home' && e.key !== 'End') return;
+    e.preventDefault();
+    const vrijednosti = dohvatiVrijednosti();
+    const trenutna = najblizaVrijednost(vrijednosti, Number(el.value));
+    let idx = vrijednosti.indexOf(trenutna);
+    if(e.key === 'Home') idx = 0;
+    else if(e.key === 'End') idx = vrijednosti.length - 1;
+    else idx = Math.min(vrijednosti.length - 1, Math.max(0, idx + smjer));
+    el.value = vrijednosti[idx];
+    el.dispatchEvent(new Event('input', {bubbles:true}));
   });
-  el.addEventListener('pointermove', e=>{
-    if(!polaziste) return;
-    const dx = e.clientX - polaziste.x;
-    const noviIndeks = Math.min(polaziste.vrijednosti.length - 1, Math.max(0, polaziste.indeks + korakOdPomaka(dx)));
-    const novaVrijednost = polaziste.vrijednosti[noviIndeks];
-    if(String(novaVrijednost) !== el.value){
-      el.value = novaVrijednost;
-      el.dispatchEvent(new Event('input', {bubbles:true}));
-    }
-  });
-  const zavrsiPovlacenje = ()=>{ polaziste = null; };
-  el.addEventListener('pointerup', zavrsiPovlacenje);
-  el.addEventListener('pointercancel', zavrsiPovlacenje);
 }
-['projekcija','sirina'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) omoguciOsjetljivoPovlacenje(el);
-});
+omoguciTipkovnickeKorake(document.getElementById('projekcija'), ()=>projekcijeZaModel(trenutniModel()));
+omoguciTipkovnickeKorake(document.getElementById('sirina'), ()=>sirineZaModel(trenutniModel()));
 
 function trenutnaRegija(){
   const v = document.getElementById('zupanija').value;
@@ -737,8 +727,8 @@ function odabranaZupanija(){
 // ---------- izracun iz cjenik.js — izvan raspona = null, nikad izmisljena cijena ----------
 function cijenaIzCjenika(){
   const model = trenutniModel();
-  const projekcija = String(document.getElementById('projekcija').value);
-  const sirina = String(document.getElementById('sirina').value);
+  const projekcija = String(najblizaVrijednost(projekcijeZaModel(model), Number(document.getElementById('projekcija').value)));
+  const sirina = String(najblizaVrijednost(sirineZaModel(model), Number(document.getElementById('sirina').value)));
   const regija = trenutnaRegija();
   if(!regija) return null;
   const blok = (CJENIK.cijene[model] || {})[regija];
@@ -749,8 +739,9 @@ function cijenaIzCjenika(){
 
 function calc(){
   const model = trenutniModel();
-  const projekcija = Number(document.getElementById('projekcija').value);
-  const sirina = Number(document.getElementById('sirina').value);
+  // klizac je kontinuiran (glatko povlacenje) — prikaz/cijena uvijek koriste najblizu STVARNU vrijednost
+  const projekcija = najblizaVrijednost(projekcijeZaModel(model), Number(document.getElementById('projekcija').value));
+  const sirina = najblizaVrijednost(sirineZaModel(model), Number(document.getElementById('sirina').value));
 
   document.getElementById('projekcijaV').textContent = mm2m(projekcija);
   document.getElementById('sirinaV').textContent = mm2m(sirina);

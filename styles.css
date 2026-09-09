@@ -129,7 +129,6 @@ section{padding:clamp(64px,8vw,110px) 0}
 .cfg{border:1px solid var(--line);background:var(--ink-2)}
 .cfg-left{padding:clamp(28px,3.5vw,46px)}
 .cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);position:relative}
-.cfg-natrag-cijena{margin-bottom:22px;min-height:44px}
 /* prvi fix — .btn-ghost nasljedivao je tamnu tekst-boju s tijela stranice, na tamnoj podlozi konfiguratora bio je skoro nevidljiv */
 .cfg .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
 .cfg .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
@@ -175,7 +174,9 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cfg-form .fg input::placeholder{color:rgba(255,255,255,.3)}
 .cfg-form .fg input:focus{background:rgba(255,255,255,.09);border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.16)}
 .cfg-form .fg input.err{border-color:#C97A6B;box-shadow:0 0 0 3px rgba(201,122,107,.18)}
-.cfg-right .btn{width:100%;justify-content:center}
+/* 9.9.2026. — uklonjen blanket width:100%: jedini gumb kojem to treba (submit) vec ima vlastiti inline style;
+   "Natrag na opremu" dolje sad izgleda kao .cfg-nav u ostalim koracima (kompaktan, lijevo poravnat) */
+.cfg-right .cfg-nav{margin-top:18px}
 .badge-inc{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8FBF9F;border:1px solid rgba(143,191,159,.35);background:rgba(143,191,159,.08);padding:4px 10px;margin-bottom:18px}
 .cfg-mbar{display:none;position:fixed;top:81px;left:0;right:0;z-index:40;justify-content:space-between;align-items:center;gap:16px;background:var(--ink-2);color:#fff;padding:14px 20px;border-bottom:1px solid var(--line)}
 .cfg-mbar-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
@@ -198,12 +199,13 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .opt.upit{opacity:.82}
 .opt.upit .op{color:rgba(255,255,255,.4);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
 /* Zadatak A (9.9.2026.) — Tip kupca: kompaktan switch u obrascu (ne puna .seg kartica), + naznaka uz "Okvirna ponuda" */
-.pill-switch{display:inline-flex;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.03);overflow:hidden}
+/* 9.9.2026. ispravak — maknut vanjski pravokutnik oko switcha (izgledao kao prazna tablica); svaka opcija sad zaseban pill */
+.pill-switch{display:inline-flex;gap:8px;flex-wrap:wrap}
 .pill-switch input{position:absolute;opacity:0;pointer-events:none}
-.pill-switch label{padding:10px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:.2s;white-space:nowrap}
-.pill-switch label:hover{color:#fff}
-.pill-switch input:checked + label{background:var(--brass);color:#fff}
-.pill-switch input:focus-visible + label{outline:2px solid var(--brass-lt);outline-offset:-2px}
+.pill-switch label{padding:10px 18px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.02);font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:.2s;white-space:nowrap;line-height:1.2}
+.pill-switch label:hover{color:#fff;border-color:rgba(212,180,131,.5)}
+.pill-switch input:checked + label{background:var(--brass);color:#fff;border-color:var(--brass)}
+.pill-switch input:focus-visible + label{outline:2px solid var(--brass-lt);outline-offset:2px}
 .cfg-out .lbl-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .cfg-tip-badge{display:inline-block;font-size:11px;letter-spacing:.04em;color:var(--brass-lt);border:1px solid rgba(212,180,131,.3);background:rgba(176,141,87,.10);padding:4px 10px;border-radius:var(--r);white-space:nowrap}
 
