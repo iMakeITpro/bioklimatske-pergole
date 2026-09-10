@@ -5,6 +5,19 @@ Najnovije je na vrhu.
 
 ---
 
+## 10. rujna 2026. — Faza 6
+
+**Recenzije — stvarni Google podaci umjesto izmišljenih**
+
+- Naslovnica je do sada prikazivala tri izmišljene recenzije (Marin Kovačević, Ivana Perić, Damir Tomić) i izmišljenu ocjenu 4,9/5 iz 87 recenzija — hardkodirano u `index.html`, sekcija „Što kažu vlasnici"
+- Dohvaćeni stvarni podaci izravno s Google Business profila (maps.google.com, pretraga „TT Gradnja d.o.o. Slavonski Brod"): **4,8/5, 31 recenzija**. Ažurirano svugdje gdje se broj pojavljivao — h2 naslov sekcije, footer na svih 13 stranica koje ga dijele, i `aggregateRating` u JSON-LD (LocalBusiness i Product)
+- Tri izmišljene recenzije zamijenjene trima stvarnim, ručno prepisanim izvornim hrvatskim tekstom (ne Googleov prijevod): Manuela Matić i Anita Marković (obje izrijekom o bioklimatskoj pergoli), i Vladimir Jurić (dugogodišnji kupac stolarije, pergola mu je sljedeći planirani projekt). Uklonjeni izmišljeni detalji koji se ne mogu potvrditi (lokacija kupca, model, brzina bure, iznos investicije) — Google recenzije ne otkrivaju te podatke, pa "lead" rečenica iznad kartica više ne tvrdi da je svaka recenzija povezana s projektom iz galerije
+- Toni je zatražio da popis bude lako uredljiv bez diranja `index.html`, po uzoru na `cjenik.js`, i da se po mogućnosti automatski ažurira s Googlea. Istraženo: postoje treće-strane widgeti (npr. EmbedSocial, Tagembed) koji mogu automatski povlačiti Google recenzije bez backend-a, ali zahtijevaju da vlasnik poslovnog Google profila osobno autorizira spajanje (OAuth) preko njihovog sučelja — to ne mogu napraviti u ime korisnika, a i free planovi obično nose vanjski branding/watermark i ograničenje na svega nekoliko najnovijih recenzija. Zaključak: **odvojena podatkovna datoteka** (opcija koju je Toni odobrio kao zamjenu ako automatika nije izvediva)
+- Novo: `recenzije.js` — sadrži 4 stvarne, provjerene recenzije (prikazuju se prve 3 iz niza); Josip/Toni mogu dodati novu ili promijeniti poredak bez diranja `index.html`. U datoteci je upisan i kratki postupak "kako dodati novu recenziju"
+- `index.html`: statični blok triju kartica zamijenjen praznim kontejnerom koji se puni iz `recenzije.js` (inline skripta na istom mjestu u dokumentu, izvršava se prije `IntersectionObserver` postavljanja za "reveal" animaciju, pa animacija radi identično kao prije)
+- Napomena: zbog vremenskog pritiska (Toni je morao otići usred sesije) izmjena nije provjerena na 360/390/768px kroz preglednik kao inače — tekst novih recenzija je slične dužine kao stari, a CSS grid (`.revs`) je već testiran u Fazi 5, ali vizualnu provjeru vrijedi napraviti prije objave
+- Preostalih 27 Google recenzija (od ukupno 31) nije prepisano — dovoljno je bilo tri/četiri najrelevantnije za pergolu; puni popis je dostupan na Google profilu ako zatreba više
+
 ## 10. rujna 2026. — Faza 5, prvi dio
 
 **Jamstva — pet novih tvrdnji o povjerenju**
@@ -238,7 +251,6 @@ Najnovije je na vrhu.
 | Stavka | Čeka |
 |---|---|
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
-| Stvarne Google recenzije umjesto izmišljenih imena i ocjene 4,9/87 | Josip |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
 | Brojke iz SELT deklaracije: 130 km/h, 200 kg/m² | Josip |
 | Tekst oznaka u interaktivnom prikazu — iz SELT tehničkog lista | Josip |

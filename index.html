@@ -30,7 +30,7 @@
       "priceRange": "€€€€",
       "address": {"@type":"PostalAddress","addressLocality":"Slavonski Brod","addressCountry":"HR"},
       "areaServed": ["Hrvatska","Slovenija","Njemačka"],
-      "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"87"}
+      "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"31"}
     },
     {
       "@type": "Product",
@@ -38,7 +38,7 @@
       "brand": {"@type":"Brand","name":"SELT"},
       "image": "https://bioklimatskepergole.hr/wp-content/uploads/2022/06/bioklimatska-PERGOLA_SB500.jpg",
       "description": "Aluminijska bioklimatska pergola s rotirajućim lamelama, otpornost na vjetar klase 6 (do 130 km/h), 10 godina jamstva na konstrukciju.",
-      "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"87"}
+      "aggregateRating": {"@type":"AggregateRating","ratingValue":"4.8","reviewCount":"31"}
     },
     {
       "@type": "FAQPage",
@@ -56,6 +56,7 @@
 <link rel="stylesheet" href="styles.css?v=19">
 <script src="slanje.js?v=2"></script>
 <script src="cjenik.js?v=1"></script>
+<script src="recenzije.js?v=1"></script>
 </head>
 <body>
 
@@ -494,26 +495,26 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">Što kažu vlasnici</div>
-      <h2>4,9 / 5 iz 87 recenzija</h2>
-      <p class="lead">Recenzije s Google Business profila. Svaka je povezana s realiziranim projektom iz galerije iznad.</p>
+      <h2>4,8 / 5 iz 31 recenzije</h2>
+      <p class="lead">Stvarne recenzije s Google Business profila TT Gradnja d.o.o., Slavonski Brod.</p>
     </div>
-    <div class="revs">
-      <div class="rev reveal">
-        <div class="stars">★★★★★</div>
-        <q>Tražili smo ponude od četiri firme. TT Gradnja je bila jedina koja je odmah rekla cijenu i jedina koja nas je upozorila da nam za našu poziciju treba jača konstrukcija. Bura u veljači 2025. je bila 110 km/h — pergola se nije ni pomaknula.</q>
-        <div class="rev-who"><div class="av">MK</div><div><b>Marin Kovačević</b><span>Vila, Murter · SB500</span></div><span class="rev-src">Google</span></div>
-      </div>
-      <div class="rev reveal">
-        <div class="stars">★★★★★</div>
-        <q>Cijena iz ponude i cijena na računu bile su identične do eura. Nakon tri firme koje su „naknadno pronašle dodatne troškove”, to je bilo osvježenje. Montaža dva dana, ekipa počistila za sobom.</q>
-        <div class="rev-who"><div class="av">IP</div><div><b>Ivana Perić</b><span>Obiteljska kuća, Zagreb · SB500</span></div><span class="rev-src">Google</span></div>
-      </div>
-      <div class="rev reveal">
-        <div class="stars">★★★★★</div>
-        <q>Terasa restorana nam je sada u funkciji cijelu sezonu, i po kiši. Povrat investicije od 41.000 € nam je ispao ispod dvije sezone. Servis su izašli u istom danu kad se pokvario jedan motor.</q>
-        <div class="rev-who"><div class="av">DT</div><div><b>Damir Tomić</b><span>Restoran, Bale · 3 modula</span></div><span class="rev-src">Google</span></div>
-      </div>
-    </div>
+    <div class="revs" id="revs"></div>
+    <script>
+    (function(){
+      var podaci = (window.RECENZIJE && window.RECENZIJE.recenzije) || [];
+      var prikazi = podaci.slice(0,3);
+      var el = document.getElementById('revs');
+      if(!el) return;
+      el.innerHTML = prikazi.map(function(r){
+        var kontekst = r.kontekst ? r.kontekst : 'Google recenzija';
+        return '<div class="rev reveal">'
+          + '<div class="stars">★★★★★</div>'
+          + '<q>' + r.tekst + '</q>'
+          + '<div class="rev-who"><div class="av">' + r.inicijali + '</div><div><b>' + r.ime + '</b><span>' + kontekst + '</span></div><span class="rev-src">Google</span></div>'
+          + '</div>';
+      }).join('');
+    })();
+    </script>
   </div>
 </section>
 
@@ -543,7 +544,7 @@
       <div class="f-brand">
         <div class="logo">TT&nbsp;Gradnja<span>Bioklimatske pergole</span></div>
         <p style="max-width:36ch;font-size:14px">TT Gradnja d.o.o., Slavonski Brod. Ovlašteni zastupnik za SELT by Aluprof u Hrvatskoj od 2018. Montaža na području cijele RH, Slovenije i Njemačke.</p>
-        <div class="f-cert">★ 4,9/5 · 87 Google recenzija</div>
+        <div class="f-cert">★ 4,8/5 · 31 Google recenzija</div>
       </div>
       <div>
         <h4>Proizvodi</h4>
