@@ -284,6 +284,14 @@ td{color:var(--muted)}
 .gc h3{font-size:16px;font-family:var(--sans);font-weight:600;margin:12px 0 8px}
 .gc p{font-size:14px}
 
+/* jamstva — kompaktan red dodatnih tvrdnji o povjerenju */
+.trustlist{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 32px;margin-top:20px}
+.ti{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line-d)}
+.ti svg{flex:none;width:20px;height:20px;margin-top:2px;color:var(--brass-dk)}
+.ti b{display:block;font-size:15px;font-weight:600;margin-bottom:3px}
+.ti p{font-size:14px;color:var(--muted);margin:0}
+.ti.wide{grid-column:1/-1}
+
 /* faq */
 .faq{max-width:860px}
 .q{border-bottom:1px solid var(--line-d)}
@@ -345,7 +353,7 @@ footer a:hover{color:var(--brass-lt)}
 
 @media(max-width:1024px){
   .form-split{grid-template-columns:1fr}
-  .tiers,.revs,.gcols{grid-template-columns:1fr}
+  .tiers,.revs,.gcols,.trustlist{grid-template-columns:1fr}
   .hero-inner{max-width:100%}
   .hero .wrap{padding-top:110px;padding-bottom:56px}
   .hero-actions{gap:20px}

@@ -5,6 +5,23 @@ Najnovije je na vrhu.
 
 ---
 
+## 10. rujna 2026. — Faza 5, prvi dio
+
+**Jamstva — pet novih tvrdnji o povjerenju**
+
+- Dodan novi kompaktan red ispod postojećih 9 kartica u sekciji „Jamstvo i sigurnost kupnje" (eyebrow „Još razloga za povjerenje" — namjerno bez riječi „zašto", da se ne ponavlja s naslovom sekcije "Zašto odabrati naš premium proizvod"): izravno iz tvornice, proizvodnja po EU standardima, 40+ godina iskustva (SELT/Aluprof), izgled nepromijenjen nakon 10 godina, i kompletan proizvod u jednoj kompaniji (istaknuto kao jedinstvena prednost na tržištu, zauzima cijeli red)
+- Provjereno naspram punog teksta upitnika (ne samo sažetka u pripremnoj bilješci): odjeljak „6. Jamstva" u dokumentu nema zaseban „Vaš odgovor" — Josip je svojih 5 novih tvrdnji upisao izravno u popis postojećih, kao odgovor na pitanje „Postoji li još nešto što kupca uvjerava, a ovdje ne piše?". To je **dodavanje**, ne zamjena — svih 6 „trenutnih" stavki iz upitnika (10 god., 0 €, 72h, SELT/Aluprof zastupnik, poslovanje od 2018., HR/SI/DE) već postoji na stranici (s ispravkama iz Faze 1). Nijedna postojeća kartica nije uklonjena niti bi trebala biti
+- Novi stil `.trustlist`/`.ti` u `styles.css` — lakši od `.gc` kartica (bez velikog broja, kvačica + naslov + kratak opis), 2 stupca na desktopu, 1 stupac ispod 1024px isto kao `.gcols`. Zadržana pozadina sekcije (`alt`/krem) — ritam susjednih pozadina nije mijenjan
+- Tekst preuzet iz Josipovog upitnika (MIP-002-UP-2026-001); stilizirano radi dužine, značenje nepromijenjeno — Josip je već najavio da će tekst doraditi u završnoj fazi
+- `styles.css` v18 → v19, podignuto na svih 13 stranica koje ga dijele
+- Provjereno na 360, 390 i 768px (Playwright) — bez horizontalnog scrolla
+
+**FAQ — nalaz umjesto implementacije**
+
+- ttgradnja.hr **nema** opći prodajni FAQ (cijena/usporedba/dozvola/rok/servis/plaćanje) kakav je Josip u upitniku implicirao da postoji za preuzimanje. Ono što tamo stvarno postoji je tehnički FAQ **po modelu** (SB400, SB500, Pergola Solid — pitanja o dimenzijama, bojama, odvodnji, daljinskom upravljaču, opterećenju snijegom/vjetrom), na zasebnim stranicama modela
+- Odluka (Toni, 10.9.2026.): trenutnih 7 prodajnih pitanja na naslovnici ostaje bez izmjene — nisu pokrivena onim što na ttgradnja.hr postoji. Tehnički FAQ po modelu prebacuje se u Fazu 2, na placeholder podstranice `sunbreaker-400.html` / `sunbreaker-500.html` / `sunbreaker-700.html`, kad se radi sadržaj podstranica
+- Nema izmjena koda za ovaj dio — samo nalaz i odluka, zapisano ovdje i u „Otvoreno"
+
 ## 9. rujna 2026. — osmi krug
 
 **Konfigurator — Tip kupca**
@@ -231,5 +248,4 @@ Najnovije je na vrhu.
 | Primjena squash-merge snimka na `main` granu (čist prikaz za Josipa) i provjera/promjena izvorne grane za GitHub Pages u postavkama repozitorija | Toni |
 | Fotografije po modelu (SB400/SB500/SB700, imenovane po modelu) preko drive linka | Josip |
 | Je li popis dodatne opreme (LED, senzori, ZIP, staklene stijenke, IR grijalice...) kompletan i koje su konačne cijene | Josip |
-| **Faza 5** — 5 novih tvrdnji u sekciji Jamstva (izravno iz tvornice, EU standardi, kompletna vlastita proizvodnja, 40+ god. iskustva, izgled nepromijenjen nakon 10 god.) — tekst i mjesto pripremljeni u projektnoj bilješci | sljedeća sesija |
-| **Faza 5** — FAQ: pregledati postojeća pitanja na ttgradnja.hr i njima zamijeniti 7 privremenih pitanja na stranici | sljedeća sesija |
+| **Faza 2** — Sadržaj podstranica modela: prenijeti tehnički FAQ po modelu (dimenzije, boje, odvodnja, daljinski, snijeg/vjetar) s ttgradnja.hr na `sunbreaker-400.html` / `-500.html` / `-700.html` | Faza 2 |
