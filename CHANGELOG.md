@@ -224,9 +224,12 @@ Najnovije je na vrhu.
 | Stvarne Google recenzije umjesto izmišljenih imena i ocjene 4,9/87 | Josip |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
 | Brojke iz SELT deklaracije: 130 km/h, 200 kg/m² | Josip |
-| Je li „500R" iz zapisnika isti model kao „Sunbreaker 500" | Josip |
 | Tekst oznaka u interaktivnom prikazu — iz SELT tehničkog lista | Josip |
 | Sadržaj podstranica — tehnički listovi, presjeci, odvodnja, galerije, snimke montaže | Faza 2 |
 | Skraćivanje usporedne tablice i galerije na naslovnoj (zapisnik t. 7) | Faza 2 |
 | Uklanjanje `noindex` prije objave | nakon potvrde brojki |
 | Primjena squash-merge snimka na `main` granu (čist prikaz za Josipa) i provjera/promjena izvorne grane za GitHub Pages u postavkama repozitorija | Toni |
+| Fotografije po modelu (SB400/SB500/SB700, imenovane po modelu) preko drive linka | Josip |
+| Je li popis dodatne opreme (LED, senzori, ZIP, staklene stijenke, IR grijalice...) kompletan i koje su konačne cijene | Josip |
+| **Faza 5** — 5 novih tvrdnji u sekciji Jamstva (izravno iz tvornice, EU standardi, kompletna vlastita proizvodnja, 40+ god. iskustva, izgled nepromijenjen nakon 10 god.) — tekst i mjesto pripremljeni u projektnoj bilješci | sljedeća sesija |
+| **Faza 5** — FAQ: pregledati postojeća pitanja na ttgradnja.hr i njima zamijeniti 7 privremenih pitanja na stranici | sljedeća sesija |
