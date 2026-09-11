@@ -5,6 +5,14 @@ Najnovije je na vrhu.
 
 ---
 
+## 11. rujna 2026. — Faza 6, dopuna
+
+**Recenzije — dva tekstualna ispravka nakon pregleda**
+
+- Eyebrow „Što kažu vlasnici" → „Naši zadovoljni klijenti" (Toni, 11.9.2026.)
+- Uklonjena rečenica „Stvarne recenzije s Google Business profila TT Gradnja d.o.o., Slavonski Brod." ispod ocjene 4,8/5 — Toni je primijetio da zvuči neuvjerljivo/ironično, kao da se opravdava da su recenzije stvarne. Ocjena i tri kartice ispod sad stoje bez dodatnog objašnjenja
+- Napomena zapisana ovdje jer je relevantna za oboje: Toni je pitao mijenja li se Google ocjena s vremenom — da, mijenja se (nove recenzije, eventualno uklonjene). Trenutnih 4,8/5 iz 31 recenzije je snimka od 10.9.2026., upisana ručno u `recenzije.js`, `index.html` (h2 i JSON-LD) i footer. Vidi novu stavku u "Otvoreno" ispod
+
 ## 10. rujna 2026. — Faza 6
 
 **Recenzije — stvarni Google podaci umjesto izmišljenih**
@@ -251,6 +259,7 @@ Najnovije je na vrhu.
 | Stavka | Čeka |
 |---|---|
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
+| Osvježiti ocjenu/broj Google recenzija (trenutno 4,8/31, snimka od 10.9.2026.) — provjeriti na Google Mapsu i ažurirati `recenzije.js` + h2 + footer + JSON-LD ako se promijenilo | povremeno, npr. svaka 2-3 mjeseca |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
 | Brojke iz SELT deklaracije: 130 km/h, 200 kg/m² | Josip |
 | Tekst oznaka u interaktivnom prikazu — iz SELT tehničkog lista | Josip |
