@@ -53,10 +53,10 @@
 }
 </script>
 
-<link rel="stylesheet" href="styles.css?v=19">
+<link rel="stylesheet" href="styles.css?v=20">
 <script src="slanje.js?v=2"></script>
 <script src="cjenik.js?v=1"></script>
-<script src="recenzije.js?v=1"></script>
+<script src="recenzije.js?v=2"></script>
 </head>
 <body>
 
@@ -638,17 +638,77 @@
     <script>
     (function(){
       var podaci = (window.RECENZIJE && window.RECENZIJE.recenzije) || [];
-      var prikazi = podaci.slice(0,3);
       var el = document.getElementById('revs');
-      if(!el) return;
-      el.innerHTML = prikazi.map(function(r){
+      if(!el || !podaci.length) return;
+
+      function karta(r){
         var kontekst = r.kontekst ? r.kontekst : 'Google recenzija';
         return '<div class="rev reveal">'
           + '<div class="stars">★★★★★</div>'
           + '<q>' + r.tekst + '</q>'
           + '<div class="rev-who"><div class="av">' + r.inicijali + '</div><div><b>' + r.ime + '</b><span>' + kontekst + '</span></div><span class="rev-src">Google</span></div>'
           + '</div>';
-      }).join('');
+      }
+
+      var VIDLJIVO = 3;
+      var smanjenoKretanje = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var uzak = window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+
+      // Manje od VIDLJIVO+1 recenzija, uski ekran ili "prefers-reduced-motion": staticka mreza, sve odjednom, bez animacije
+      if (smanjenoKretanje || uzak || podaci.length <= VIDLJIVO) {
+        el.className = 'revs revs-static';
+        el.innerHTML = podaci.map(karta).join('');
+        return;
+      }
+
+      // Karusel: prikazuje VIDLJIVO odjednom, automatski klizi udesno->ulijevo kroz sve recenzije, u krug
+      el.className = 'revs';
+      var n = podaci.length;
+      var prosireno = podaci.concat(podaci.slice(0, VIDLJIVO)); // klonovi prvih na kraju radi neprimjetnog loopa
+      var track = document.createElement('div');
+      track.className = 'revs-track';
+      track.innerHTML = prosireno.map(karta).join('');
+      el.innerHTML = '';
+      el.appendChild(track);
+
+      var i = 0, timer, resetTimer;
+      var RAZMAK_MS = 6500;
+      var TRAJANJE_MS = 700; // mora odgovarati transition trajanju .revs-track u styles.css (.7s)
+
+      function korak(){
+        var kartica = track.querySelector('.rev');
+        if(!kartica) return 0;
+        var razmak = parseFloat(window.getComputedStyle(track).columnGap) || 0;
+        return kartica.getBoundingClientRect().width + razmak;
+      }
+      function pomakni(){
+        track.style.transform = 'translateX(-' + (korak() * i) + 'px)';
+      }
+      function sljedeci(){
+        i++;
+        pomakni();
+        if (i === n){
+          // stigli do klonova na kraju - nakon zavrsetka klizanja skoci neprimjetno natrag na pocetak, bez animacije
+          window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(function(){
+            track.style.transition = 'none';
+            i = 0;
+            pomakni();
+            void track.offsetWidth; // forsiraj reflow prije nego se transition vrati
+            track.style.transition = '';
+          }, TRAJANJE_MS);
+        }
+      }
+      function pokreni(){ window.clearInterval(timer); timer = window.setInterval(sljedeci, RAZMAK_MS); }
+      function zaustavi(){ window.clearInterval(timer); }
+
+      pokreni();
+      el.addEventListener('mouseenter', zaustavi);
+      el.addEventListener('mouseleave', pokreni);
+      el.addEventListener('focusin', zaustavi);
+      el.addEventListener('focusout', pokreni);
+      el.addEventListener('touchstart', zaustavi, {passive:true});
+      el.addEventListener('touchend', pokreni);
     })();
     </script>
   </div>

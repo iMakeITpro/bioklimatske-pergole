@@ -5,6 +5,21 @@ Najnovije je na vrhu.
 
 ---
 
+## 12. rujna 2026. — Faza 8, krug 1
+
+**Recenzije (t.7) — dovršeno**
+
+- Uklonjen Vladimir Jurić iz `recenzije.js` — recenzija govori o stolariji, pergola mu je tek „u planu", ne završen projekt (na Tonijev zahtjev, ne zadovoljava „samo pergola")
+- Dodane 3 nove recenzije koje je Toni sam odabrao sa screenshota Google profila: Krešimir Šimić Šima, Marijana Rakigjija, Dejan Sestan. Četvrta poslana recenzija (Marko Ravlić) preskočena — identičan tekst već postoji u datoteci od kruga 6 (Faza 6)
+- Ukupno sad 6 recenzija. Format imena/konteksta ostao isti kao dosad (puno ime i prezime + kratak kontekst) — Toni je poslao screenshot trenutnog izgleda kao referencu i potvrdio da ostaje tako; **nije** uvedeno skraćivanje prezimena niti grad u formatu „Ime P. – Grad" iz izvornog teksta popisa, jer grad nije poznat za većinu recenzenata
+- Tekst prepisan doslovno sa screenshotova, uključujući sitne nedosljednosti izvora (npr. „vrhonska" umjesto „vrhunska", nedostatak dijakritika kod Dejanove recenzije) — nije ispravljano, isti princip kao kod tablice usporedbe modela (Faza 7, krug 3)
+- Prikaz: na desktopu (>1024px) automatski karusel — 3 kartice vidljive, kližu udesno→ulijevo svakih 6,5 s kroz svih 6 u krug (bez vidljivog skoka pri povratku na početak), pauza dok se hoverа/dodiruje/fokusira. Na mobitelu i uz „prefers-reduced-motion" ostaje statički prikaz svih 6, bez animacije — Playwright testovi na 1280/1024/768/390/360px i s reduced-motion emulacijom
+- `recenzije.js` v1→v2, `styles.css` v19→v20 (podignuto na svih 13 stranica koje ga dijele)
+
+**Galerija „Projekti" — vizualna provjera zatvorena**
+
+- Toni je potvrdio (12.9.2026.) da se svih 40 slika stvarno učitava na živoj stranici — stavka iz „Otvoreno" uklonjena, nema više radnje
+
 ## 12. rujna 2026. — Faza 7 (krugovi 1–8)
 
 Rad po popisu 1–8 iz `MIP-002-UP-2026-001_Upit_faza1.pdf` — crveni rukom pisani popis primjedbi na kraju upitnika (Toni je potvrdio da je crveno isključivo taj popis, odjeljci 1–7 teksta su zatvoreno gradivo iz Faze 1).
@@ -281,10 +296,8 @@ Ostaje otvoreno s ovog popisa: t.1 i t.3 (video), t.7 (recenzije) — v. „Otvo
 | Stavka | Čeka |
 |---|---|
 | Video na naslovnici i „Montaža" video + 2 s YT kanala TT Gradnje (Faza 7, t.1 i t.3) | Toni — treba kompresirane datoteke (`loop2-16x9.mp4`, `loop2-9x16.mp4`), ponovni dohvat obrisanog „Montaža..." videa, i 2 videa s YT kanala |
-| Recenzije u `recenzije.js` — proširiti na 6+, isključivo o pergoli, prezime skraćeno (Faza 7, t.7) | Toni — sam bira recenzije s Google profila |
 | Hotlink 40 slika galerije „Projekti" na staroj stranici (bioklimatskepergole.hr) — self-hostati (`images/realizacije/`) ili prihvatiti rizik da slike puknu ako se stara stranica ugasi/promijeni | Toni — odluka |
 | Filteri galerije „Projekti" (Vile i kuće / Hoteli i restorani / Obala) — uklonjeni jer nema pouzdane kategorizacije za novih 40 slika; vratiti uz stvaran popis kategorija od Tonija | Toni |
-| Toni treba vizualno potvrditi da se svih 40 slika galerije „Projekti" stvarno učitava na živoj stranici — sandbox nema mrežni pristup do bioklimatskepergole.hr | Toni |
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
 | Osvježiti ocjenu/broj Google recenzija (trenutno 4,8/31, snimka od 10.9.2026.) — provjeriti na Google Mapsu i ažurirati `recenzije.js` + h2 + footer + JSON-LD ako se promijenilo | povremeno, npr. svaka 2-3 mjeseca |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
