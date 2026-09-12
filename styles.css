@@ -59,7 +59,7 @@ nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
 .hd-phone{font-size:15px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:9px}
 .hd-phone-ic{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border:1.5px solid var(--brass);border-radius:7px;color:var(--brass)}
 .hd-phone-ic svg{width:16px;height:16px}
-.burger{display:none;background:none;border:0;font-size:24px;cursor:pointer}
+.burger{display:none;background:none;border:0;font-size:24px;cursor:pointer;color:var(--ink)}
 
 /* ---------- hero ---------- */
 /* hero: sadrzaj sjeda uz donji rub kako bi srediste kadra ostalo slobodno */
