@@ -56,7 +56,9 @@ nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
 .tier h3 a{color:inherit;transition:color .25s}
 .tier h3 a:hover{color:var(--brass)}
 .hd-cta{display:flex;align-items:center;gap:18px}
-.hd-phone{font-size:15px;font-weight:600;white-space:nowrap}
+.hd-phone{font-size:15px;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;gap:9px}
+.hd-phone-ic{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;flex:none;border:1.5px solid var(--brass);border-radius:7px;color:var(--brass)}
+.hd-phone-ic svg{width:16px;height:16px}
 .burger{display:none;background:none;border:0;font-size:24px;cursor:pointer}
 
 /* ---------- hero ---------- */
@@ -254,6 +256,8 @@ td{color:var(--muted)}
 .card-cap span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
 .card.big{grid-column:span 2;aspect-ratio:8/5}
 .gal-more{display:flex;justify-content:center;margin-top:30px}
+.gal-more .btn-ghost{color:var(--ink);border-color:var(--line-d)}
+.gal-more .btn-ghost:hover{background:var(--brass);color:#fff;border-color:var(--brass);transform:translateY(-2px);box-shadow:0 12px 28px rgba(176,141,87,.32)}
 
 /* process */
 .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;counter-reset:s}
