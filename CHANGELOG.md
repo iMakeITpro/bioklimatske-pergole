@@ -5,6 +5,21 @@ Najnovije je na vrhu.
 
 ---
 
+## 12. rujna 2026. — Faza 8, krug 2
+
+**Video na naslovnici (t.1) — zamijenjen novim materijalom**
+
+- Toni je poslao dva nova videa (`loop2-16x9.mp4` za desktop, `loop2-9x16.mp4` za mobitel — 1920×1080 / 1080×1920, 30 fps, 39,1 s, ~25 MB svaki, bez zvuka) i zatražio da se zamijene postojeći `hero.mp4`/`hero-mobile.mp4` bez ikakvih drugih izmjena na stranici, uz veliko smanjenje veličine ali zadržanu kvalitetu
+- Desktop verzija komprimirana na 1440×810 (isto kao dosad), H.264 CRF 32, bez zvuka — 25,0 MB → 3,7 MB
+- Mobilna verzija komprimirana na 720×1280 — **zadržan uspravni (9:16) format izvora**, za razliku od dosadašnje mobilne datoteke koja je bila vodoravna (960×540); `.hero-video{object-fit:cover}` puni kadar u oba slučaja, a uspravan izvor daje manje kadriranja na uskom ekranu — 24,9 MB → 2,3 MB
+- Ukupno 49,9 MB → 6,1 MB (–87,8%). Kvaliteta provjerena usporedbom kadrova prije/poslije na najzahtjevnijoj sceni iz materijala (dron, sitne lamele izbliza) — vizualno bez razlike; cijela datoteka dodatno provjerena punim ffmpeg dekodiranjem od početka do kraja, bez grešaka
+- `hero-poster.jpg` osvježen — novi kadar iz desktop videa (t=2s, nakon fade-ina), 1600×900, ~120 KB (bilo 82 KB, veći teren/detalj u kadru)
+- `hero.mp4`, `hero-mobile.mp4`, `hero-poster.jpg` ostaju jedini `*.mp4` izuzeci u `.gitignore` (idu kroz git kao i dosad); sve reference (video, poster, CSS pozadina) ?v=2→?v=3
+
+**Karusel recenzija — brži razmak**
+
+- Toni je zatražio brže smjenjivanje nakon pregleda uživo — `RAZMAK_MS` 6500 → 2500 ms (Faza 8, krug 1)
+
 ## 12. rujna 2026. — Faza 8, krug 1
 
 **Recenzije (t.7) — dovršeno**
@@ -295,7 +310,7 @@ Ostaje otvoreno s ovog popisa: t.1 i t.3 (video), t.7 (recenzije) — v. „Otvo
 
 | Stavka | Čeka |
 |---|---|
-| Video na naslovnici i „Montaža" video + 2 s YT kanala TT Gradnje (Faza 7, t.1 i t.3) | Toni — treba kompresirane datoteke (`loop2-16x9.mp4`, `loop2-9x16.mp4`), ponovni dohvat obrisanog „Montaža..." videa, i 2 videa s YT kanala |
+| „Montaža" video u procesnoj sekciji + 2 videa s YT kanala TT Gradnje (Faza 7, t.3) — video na naslovnici (t.1) riješen u Fazi 8, krugu 2 | Toni — ponovni dohvat obrisanog „Montaža..." videa i 2 videa s YT kanala |
 | Hotlink 40 slika galerije „Projekti" na staroj stranici (bioklimatskepergole.hr) — self-hostati (`images/realizacije/`) ili prihvatiti rizik da slike puknu ako se stara stranica ugasi/promijeni | Toni — odluka |
 | Filteri galerije „Projekti" (Vile i kuće / Hoteli i restorani / Obala) — uklonjeni jer nema pouzdane kategorizacije za novih 40 slika; vratiti uz stvaran popis kategorija od Tonija | Toni |
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
