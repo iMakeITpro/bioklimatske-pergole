@@ -5,6 +5,28 @@ Najnovije je na vrhu.
 
 ---
 
+## 12. rujna 2026. — Faza 7 (krugovi 1–8)
+
+Rad po popisu 1–8 iz `MIP-002-UP-2026-001_Upit_faza1.pdf` — crveni rukom pisani popis primjedbi na kraju upitnika (Toni je potvrdio da je crveno isključivo taj popis, odjeljci 1–7 teksta su zatvoreno gradivo iz Faze 1).
+
+**Riješeno prema popisu**
+
+- (t.2) Otpornost na vjetar na naslovnici: „130 km/h" → „+200 km/h"
+- (t.4) Kartice ponude: „Najčešći izbor" premješten na SB400; tvrdnja o „uvlačivim lamelama" uklonjena za SB700 na svim mjestima (alt tekst i bullet u `index.html`, meta opis i uvodni odlomak u `sunbreaker-700.html`) — SB700 ima fiksne, ne uvlačive lamele
+- (t.5) Tablica usporedbe modela zamijenjena doslovnim preslikom podataka iz upitnika, uključujući tipografske nedosljednosti izvora — Toni je zatražio točnost prema dokumentu, ne uređivanje
+- (t.6) Sekcija „Projekti" dobila svih 40 stvarnih realizacija sa stare stranice (bioklimatskepergole.hr) umjesto ranijih 8 kuriranih; dodano postupno prikazivanje (6 → 18 → sve, gumb „Pogledaj više"); naslov sekcije pojednostavljen, uklonjen izmišljeni broj projekata
+- (t.8) Konfigurator: dimenzije SB400 (dubina 3,4–7 m, širina do 4 m) i SB500 (dubina 3–7 m, širina do 5 m) provjerene naspram upitnika — već ispravne, bez izmjene
+
+**Sitne popravke usput (iz Tonijevih screenshotova žive stranice)**
+
+- Maknut zaostali odlomak teksta ispod galerije; popravljena boja gumba „Pogledaj više" (padao na browser-default plavo)
+- Dodana ikonica telefona u zaglavlju pored broja; popravljena ista boja-default greška na hamburger izborniku na mobitelu; kasnije uklonjen zlatni okvir oko ikonice telefona, ostala samo ikonica
+- Hero naslov „Terasa koju koristite 365 dana u godini." dobio `&nbsp;` između „365" i „dana" da se ne prelama u dva retka na desktopu
+
+**Poznat uzorak CSS greške**: goli `<button>` s `.btn-ghost`/`.burger` bez eksplicitnog `color` pada na browser default (plavo na iOS Safariju) čak i uz `border-color:currentColor` — svi dosadašnji `.btn-ghost` primjeri bili su na `<a>` tagovima s vlastitim `color` override-om. Kod svakog novog `<button>` postaviti `color` eksplicitno.
+
+Ostaje otvoreno s ovog popisa: t.1 i t.3 (video), t.7 (recenzije) — v. „Otvoreno" ispod.
+
 ## 11. rujna 2026. — Faza 6, dopuna
 
 **Recenzije — dva tekstualna ispravka nakon pregleda**
@@ -258,6 +280,11 @@ Najnovije je na vrhu.
 
 | Stavka | Čeka |
 |---|---|
+| Video na naslovnici i „Montaža" video + 2 s YT kanala TT Gradnje (Faza 7, t.1 i t.3) | Toni — treba kompresirane datoteke (`loop2-16x9.mp4`, `loop2-9x16.mp4`), ponovni dohvat obrisanog „Montaža..." videa, i 2 videa s YT kanala |
+| Recenzije u `recenzije.js` — proširiti na 6+, isključivo o pergoli, prezime skraćeno (Faza 7, t.7) | Toni — sam bira recenzije s Google profila |
+| Hotlink 40 slika galerije „Projekti" na staroj stranici (bioklimatskepergole.hr) — self-hostati (`images/realizacije/`) ili prihvatiti rizik da slike puknu ako se stara stranica ugasi/promijeni | Toni — odluka |
+| Filteri galerije „Projekti" (Vile i kuće / Hoteli i restorani / Obala) — uklonjeni jer nema pouzdane kategorizacije za novih 40 slika; vratiti uz stvaran popis kategorija od Tonija | Toni |
+| Toni treba vizualno potvrditi da se svih 40 slika galerije „Projekti" stvarno učitava na živoj stranici — sandbox nema mrežni pristup do bioklimatskepergole.hr | Toni |
 | Prebacivanje primatelja obrazaca s helpdesk@makeitpro.hr na Josipovu adresu | nakon testiranja |
 | Osvježiti ocjenu/broj Google recenzija (trenutno 4,8/31, snimka od 10.9.2026.) — provjeriti na Google Mapsu i ažurirati `recenzije.js` + h2 + footer + JSON-LD ako se promijenilo | povremeno, npr. svaka 2-3 mjeseca |
 | Potvrda tvrdnje „najbrže u premium segmentu" | Josip |
