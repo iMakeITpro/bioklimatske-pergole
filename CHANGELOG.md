@@ -5,6 +5,24 @@ Najnovije je na vrhu.
 
 ---
 
+## 12. rujna 2026. — Faza 8, krug 3
+
+**Video na naslovnici (t.1) — ponovna izrada iz izvornog materijala (bolja kvaliteta)**
+
+- Nakon kruga 2 Toni je javio da kvaliteta nije dovoljno dobra i poslao pravi izvorni snimatelja materijal — `Montaža bioklimatske pergole TT Gradnja.mp4`, 1920×1080, 25 fps, ~35 Mb/s, 179,4 s, 787 MB — s uputom da se iz njega ponovno izreže identičan kadar kao u `loop2-16x9.mp4`, ali bez gubitka kvalitete generacije (krug 2 je komprimirao već jednom komprimiran/izvezen 25 MB fajl, pa je dio gubitka kvalitete zapravo bio već "ugrađen" u taj izvor)
+- `loop2-16x9.mp4` je analiziran (ffmpeg detekcija promjene scene + ručna usporedba kadrova) i utvrđeno da je to bumerang-montaža: 19,57 s jedinstvenog forward dijela + isti dio pušten unatrag, sastavljen od 4 kadra (dvorište/terasa, makro lamele, kuća/toplo svjetlo, dron/lamele finale). Svaki od ta 4 kadra pronađen je u 787 MB izvorniku (pregledano jeftino preko ffmpeg "contact sheet" sličica, bez prijenosa cijele datoteke) i ponovno izrezan/spojen iz izvornika u istom redoslijedu, pa ponovno sastavljen kao isti bumerang (39,28 s)
+- Provjera: prvi i zadnji kadar novog isječka uspoređeni kadar-po-kadar s originalnim `loop2-16x9.mp4` — podudaraju se
+- Desktop `hero.mp4`: 1440×810, H.264 CRF 24 (bilo CRF 32 u krugu 2 — sad je dostupan puno čišći izvor pa je birana viša kvaliteta), bez zvuka — 3,7 MB → 9,2 MB (i dalje 63% manje od originalnog 787 MB izvornika i 25 MB izvoznog fajla)
+- Mobilna `hero-mobile.mp4`: 787 MB izvornik je isključivo vodoravan (16:9) pa se ne može iskoristiti za uspravnu verziju — mobitel i dalje izlazi iz `loop2-9x16.mp4`, ali ponovno komprimiran s manje agresivnim CRF 24 (bilo CRF 32) radi iste boljeg dojma kvalitete — 2,3 MB → 6,1 MB
+- Obje datoteke provjerene punim ffmpeg dekodiranjem (`-f null -`) bez grešaka; vizualna usporedba CRF 24/26/29/32 na najzahtjevnijem kadru (dron/lamele izbliza) nije pokazala vidljivu razliku ni na jednoj razini — CRF 24 odabran kao siguran izbor za kvalitetu koju je Toni tražio
+- `hero-poster.jpg` osvježen iz novog desktop videa (t=2s), sve reference (video, poster, CSS pozadina) ?v=3→?v=4, `styles.css` v21→v22 (svih 13 stranica)
+
+**Hero tekst + CTA — grupirano na desktopu (prema Josipovoj preporuci)**
+
+- Dosad je `.hero-actions{margin-top:auto}` gurao gumb/poveznicu sasvim na dno bloka, odvojeno od naslova iznad. Toni je prenio Josipovu primjedbu da tekst i CTA trebaju izgledati kao jedna cjelina
+- Dodano pravilo samo za desktop (`@media(min-width:1025px)`): `.hero-inner{justify-content:flex-end}` + `.hero-actions{margin-top:32px}` — naslov i CTA sad sjede zajedno kao jedan blok uz donji rub kadra, umjesto razdvojeno. Mobitel (≤1024px) nije dirano, ostaje kako je bilo
+- Vizualno provjereno na 1600px (desktop) i 390px (mobitel) — desktop grupiran, mobitel nepromijenjen
+
 ## 12. rujna 2026. — Faza 8, krug 2
 
 **Video na naslovnici (t.1) — zamijenjen novim materijalom**
