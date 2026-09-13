@@ -5,6 +5,26 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 9, krug 2
+
+**Konfigurator — audit naspram PDF-a i PRD-a (na Tonijev zahtjev)**
+
+- Toni je zatražio da se konfigurator popravi prema željama i uputama iz `MIP-002-UP-2026-001_Upit_faza1.pdf`. Prošao cijeli upitnik (tipkani odjeljci 1-7 + crveni rukom pisani popis 1-8 na kraju) i `PRD-konfigurator.md` stavku po stavku
+- Rezultat: **nije pronađen živi bug** — sve stavke vezane uz konfigurator iz PDF-a već su ispravno implementirane. Konkretno provjereno uživo (Playwright, presretnut stvarni Web3Forms zahtjev, ne samo čitanje koda):
+  - Max dimenzije SB400 (dubina 3,4-7 m, širina do 4 m) i SB500 (dubina 3-7 m, širina do 5 m) — funkcionalno testirano protiv stvarnih raspona u `cjenik.js` (ne samo naljepnica), točno odgovara i upitniku i PRD-u
+  - "Tip kupca" (Fizička/Pravna osoba): preklopnik u obrascu prije slanja, glavni "Ukupno" ispravno prati odabir uživo (12.660 € s PDV-om za fizičku osobu → 10.128 € bez PDV-a za pravnu, na istoj konfiguraciji), a `Tip_kupca` stvarno stiže u e-mail payload točno kako je zadnje odabrano
+  - Odstupanje ponude: tekst "Izračun je informativan, moguća su odstupanja" bez postotaka — točno kako je Toni tražio u upitniku
+  - `PRD-konfigurator.md` je imao zastarjeli odjeljak "Sljedeći korak" koji je Zadatak A (tip kupca bug) i Zadatak B (187 realizacija → Projekti) opisivao kao "NISU implementirane" — oboje je odavno riješeno u kodu, samo dokument nije ažuriran nakon toga. Dodana napomena u dokumentu da se to više ne čita kao otvoren zadatak
+- Ako Toni i dalje primjećuje nešto konkretno što ne štima u konfiguratoru, treba opisati točan scenarij (koji model/koraci/što se očekivalo) — testiranje uživo nije uspjelo reproducirati nikakav problem
+
+**Karusel recenzija — pronađen i popravljen pravi bug ("čudna animacija")**
+
+- Toni je javio da mu se animacija recenzija čini čudnom. Instrumentiranim Playwright testom (praćenje `transitionend` i CSS klasa kroz vrijeme, ne samo vizualni dojam) pronađen stvaran uzrok: svaka kartica u karuselu nosila je i vlastitu `.reveal` klasu (isti mehanizam koji cijelim sekcijama daje fade-in pri scrollanju). Kartice izvan trenutno vidljivog prozora sjede u DOM-u odmah, samo odsječene s `.revs{overflow:hidden}` — zajednički IntersectionObserver ih je tretirao kao "izvan zaslona" sve dok ih karusel prvi put ne uklizi u vidljivi prozor, pa se u tom trenutku svaka kartica JOŠ JEDNOM sama pojavljivala (fade + pomak odozdo) PREKO već postojećeg horizontalnog klizanja — izgledalo je kao nasumična, dvostruka animacija tijekom prvih ~15 sekundi (dok se svih 9 kartica u traci barem jednom ne otkrije), nakon čega se sam problem gasi (svaka kartica se otkrije samo jednom u životu stranice)
+- Potvrđeno mjerenjem: kartice na indeksu 3-8 dobivale su `.in` klasu jedna po jedna, točno u ritmu karusela (svakih ~2,5 s), umjesto odmah pri scrollanju do sekcije
+- Popravak: `.reveal` je maknut s pojedinačnih kartica u karusel-modu i premješten na cijeli spremnik (`#revs`) — cijeli vidljivi prozor od 3 kartice sad se lijepo pojavi zajedno pri prvom scrollanju, horizontalno klizanje ostaje potpuno nedirano (drugi element/transform). Statički prikaz (mobitel/reduced-motion) nije diran — tamo svaka kartica i dalje ima svoj `.reveal`, jer se ondje stvarno otkriva scrollanjem bez ikakvog sukoba
+- Provjereno: nakon popravka nijedna kartica u karuselu više ne dobiva `.in` tijekom auto-vrtnje (mjereno kroz pun krug od ~18 s), spremnik se ispravno otkriva jednom kao cjelina, klizanje i dalje radi na rasporedu (svakih 2,5 s), statički mobilni prikaz nepromijenjen (i dalje 6/6 kartica s `.reveal`, otkrivaju se postupno kako se scrolla)
+- Nema izmjena u `styles.css` niti u `recenzije.js` (samo inline skripta u `index.html`) — nije potreban novi `?v=` broj
+
 ## 13. rujna 2026. — Faza 9, krug 1
 
 **Galerija „Projekti" — uklonjen model, dodan lightbox**

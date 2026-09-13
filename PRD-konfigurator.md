@@ -186,11 +186,19 @@ Ono što već postoji u `index.html` ako ustreba: nakon svakog uspješnog slanja
 
 ---
 
-## Sljedeći korak (dogovoreno u chatu 9.9.2026.) — priprema za novi chat
+## Sljedeći korak (dogovoreno u chatu 9.9.2026.)
 
-Dvije stvari za novi chat, obje NISU implementirane, samo dijagnosticirane/istražene:
+**Napomena (13.9.2026.):** ovaj odjeljak je ostao neažuriran nakon što je Zadatak A stvarno riješen —
+sljedeći chat je pokrenut komentarima ispod, implementirao rješenje kako je i predloženo, ali se ovaj
+naslov/uvod nikad nije vratio ažurirati. Provjereno 13.9.2026. uživo (Playwright, cijeli tok konfiguratora
+s presretanjem stvarnog Web3Forms zahtjeva): preklopnik se nalazi u `#cfgForm`, bira se prije slanja,
+glavni "Ukupno" ispravno prikazuje neto za pravnu osobu / iznos s PDV-om za fizičku (uživo, čim se
+promijeni, prije slanja), i `Tip_kupca` stvarno stiže u e-mail payload točno onako kako je zadnje
+odabrano. Zadatak A dolje opisuje ORIGINALNI bug i predloženo rješenje radi povijesnog konteksta — sve
+je to odavno implementirano, ne treba se ponovno raditi. Zadatak B (187 realizacija → Projekti) je isto
+odavno riješen (Faza 7 krug 2, 12.9.2026.) — cijela galerija sad ima 40 stvarnih projekata bez spomena broja.
 
-### A) Bug: "Tip kupca" (privatni/poslovni) ne radi ono što treba
+### A) Bug: "Tip kupca" (privatni/poslovni) ne radi ono što treba — RIJEŠENO, vidi napomenu gore
 
 Prijavljeno u chatu: preklopnik trenutno ništa stvarno ne mijenja, jer:
 
@@ -201,7 +209,7 @@ Klijentov zahtjev: nazivi trebaju biti **"Fizička osoba"** (umjesto "Privatni")
 
 Predloženo rješenje (nije još odobreno, provjeriti s klijentom pa implementirati): premjestiti "Tip kupca" iz `#cfgResult` u `#cfgForm` (isti obrazac gdje se traže ime/prezime/e-mail/telefon) — tako se odabire PRIJE slanja i ide u e-mail kao i ostala polja, bez potrebe za ponovnim slanjem. U `calc()` postaviti glavni "Ukupno" na neto (bez PDV-a) za pravnu osobu, na iznos s PDV-om za fizičku osobu (potrošačka cijena mora imati PDV po zakonu), a razrada ispod i dalje prikazuje oba iznosa transparentno. Preklopnik u `#cfgResult` se uklanja (odluka je već donesena u obrascu); umjesto njega mala, vizualno uređena naznaka uz "Okvirna ponuda" koja cijena je prikazana.
 
-### B) "187 realizacija" → "Projekti", stvarne slike stvarnih projekata
+### B) "187 realizacija" → "Projekti", stvarne slike stvarnih projekata — RIJEŠENO, vidi napomenu gore
 
 Klijentov zahtjev: gdje god stoji "X realizacija" (npr. "Pogledajte 187 realizacija", naslov "187 realizacija.") promijeniti u "Projekti"; galerija treba prikazivati stvarne projekte sa stvarnim slikama koje već postoje na originalnoj stranici `bioklimatskepergole.hr`.
 
