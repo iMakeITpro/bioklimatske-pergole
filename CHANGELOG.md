@@ -5,6 +5,19 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 10, krug 1
+
+**Konfigurator — vraćen stari vizualni raspored (dvije stalno vidljive kolone)**
+
+- Toni je zatražio da se konfigurator vrati na stari izgled: `13b3211` (Faza 3) uveo je step-wizard koji skriva desnu kolonu (cijena/kontakt) sve do zadnjeg koraka i vodi kroz 5 zasebnih ekrana. Stari raspored iz `094455d` je umjesto toga imao dvije stalno vidljive kolone — lijevo svi ulazni podaci odjednom, desno `.cfg-sticky` (position:sticky, top:110px) koji prati scroll kroz lijevu kolonu
+- Vraćen grid raspored (`grid-template-columns:1.15fr .85fr`, `.cfg-right{border-left}`, `.cfg-sticky`) i mobilni breakpointi (≤1024px jedna kolona, `.cfg-right{border-top}`; ≤640px `.cfg-sticky{position:static}`) — 1:1 iz `094455d`
+- HTML: uklonjen `.cfg-steps` indikator (1-5 na vrhu), uklonjeni `.cfg-step[data-step]`/`hidden` wrapperi i sav "Dalje/Natrag" nav — svih 5 polja (Model, Dimenzije, Lokacija, Oprema, kontakt-obrazac) sad je u kontinuiranom toku, oba stupca vidljiva odmah
+- JS: uklonjene `prikaziKorak()`, `azurirajIndikator()`, `.cfg-next/.cfg-back` listeneri, `cfgNaKontakt`/`cfgNatragNaOpremu` handleri (skrivali/prikazivali cijele stupce) — `calc()` je već ažurirao živi sažetak na svaku promjenu polja (nije trebalo preraditi). Provjera "lokacija obavezna prije cijene" u submit handleru zadržana, samo bez poziva na obrisane `prikaziKorak`/`hidden` funkcije (sad scroll+focus na `#zupBtn`)
+- **Podaci nisu vraćeni na staro** — samo raspored: dimenzije ostaju stvarni klizači iz `cjenik.js` (SB400 dubina 3,4-7 m/širina do 4 m, SB500 dubina 3-7 m/širina do 5 m — brojke iz Tonijeve poruke, već točne), lokacija/županija (trošak transporta), stvarna oprema/cijene i "Tip kupca" ostaju — nijedno od toga nije postojalo u starom dizajnu u ovom obliku, dodano naknadno kad su ušli u `cjenik.js`
+- Lokacija/županija postavljena kao "3. Lokacija" između Dimenzija i Opreme (nema staro mjesto za usporedbu — polje uvedeno tek s `cjenik.js`) — vizualno potvrditi s Tonijem
+- Testirano Playwright-om (desktop 1440px, mobitel 390px, sticky ponašanje pri scrollu, puni submit flow s/bez odabrane lokacije) — bez JS grešaka, cijena se ispravno računa i prikazuje
+- `styles.css` v24→v25 (svih 13 stranica)
+
 ## 13. rujna 2026. — Faza 9, krug 2
 
 **Konfigurator — audit naspram PDF-a i PRD-a (na Tonijev zahtjev)**

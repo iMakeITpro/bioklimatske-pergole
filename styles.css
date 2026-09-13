@@ -131,9 +131,9 @@ section{padding:clamp(64px,8vw,110px) 0}
 .price-note{margin-top:30px;font-size:13.5px;color:var(--muted);border-left:2px solid var(--brass);padding-left:16px;max-width:70ch}
 
 /* configurator */
-.cfg{border:1px solid var(--line);background:var(--ink-2)}
+.cfg{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border:1px solid var(--line);background:var(--ink-2)}
 .cfg-left{padding:clamp(28px,3.5vw,46px)}
-.cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);position:relative}
+.cfg-right{background:linear-gradient(160deg,#221F1B,#14120F);padding:clamp(28px,3.5vw,46px);border-left:1px solid var(--line);position:relative}
 /* prvi fix — .btn-ghost nasljedivao je tamnu tekst-boju s tijela stranice, na tamnoj podlozi konfiguratora bio je skoro nevidljiv */
 .cfg .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4)}
 .cfg .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
@@ -157,6 +157,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .opt input{accent-color:var(--brass);width:17px;height:17px;cursor:pointer;flex:0 0 auto}
 .opt .on{flex:1;font-size:14.5px;color:#fff}
 .opt .op{font-size:13px;color:var(--brass-lt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cfg-sticky{position:sticky;top:110px}
 .cfg-out .lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42);font-weight:600}
 .cfg-total{font-family:var(--serif);font-size:clamp(38px,5vw,56px);color:#fff;font-weight:300;line-height:1;margin:14px 0 6px;font-variant-numeric:tabular-nums}
 .cfg-range{font-size:13.5px;color:var(--brass-lt);margin-bottom:26px}
@@ -179,24 +180,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cfg-form .fg input::placeholder{color:rgba(255,255,255,.3)}
 .cfg-form .fg input:focus{background:rgba(255,255,255,.09);border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.16)}
 .cfg-form .fg input.err{border-color:#C97A6B;box-shadow:0 0 0 3px rgba(201,122,107,.18)}
-/* 9.9.2026. — uklonjen blanket width:100%: jedini gumb kojem to treba (submit) vec ima vlastiti inline style;
-   "Natrag na opremu" dolje sad izgleda kao .cfg-nav u ostalim koracima (kompaktan, lijevo poravnat) */
-.cfg-right .cfg-nav{margin-top:18px}
 .badge-inc{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8FBF9F;border:1px solid rgba(143,191,159,.35);background:rgba(143,191,159,.08);padding:4px 10px;margin-bottom:18px}
 .cfg-mbar{display:none;position:fixed;top:81px;left:0;right:0;z-index:40;justify-content:space-between;align-items:center;gap:16px;background:var(--ink-2);color:#fff;padding:14px 20px;border-bottom:1px solid var(--line)}
 .cfg-mbar-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .cfg-mbar-val{font-family:var(--serif);font-size:20px;color:var(--brass-lt);font-variant-numeric:tabular-nums;white-space:nowrap}
-
-/* konfigurator — koraci (Faza 3) */
-.cfg-steps{display:flex;gap:6px;margin-bottom:22px}
-.cfg-steps .cs{flex:1;text-align:center;padding:10px 4px;border-bottom:2px solid var(--line);font-family:var(--serif);font-size:18px;color:rgba(255,255,255,.28);transition:.22s}
-.cfg-steps .cs small{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:3px}
-.cfg-steps .cs.done{color:var(--brass-lt);border-bottom-color:var(--brass-dk)}
-.cfg-steps .cs.done small{color:rgba(255,255,255,.45)}
-.cfg-steps .cs.act{color:#fff;border-bottom-color:var(--brass)}
-.cfg-steps .cs.act small{color:var(--brass-lt)}
-.cfg-note{font-size:12.5px;color:rgba(255,255,255,.42);line-height:1.6;margin:0}
-.cfg-nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:26px}
+.cfg-note{font-size:12.5px;color:rgba(255,255,255,.42);line-height:1.6;margin:0 0 28px}
 .btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
 .cfg-left .fg{margin-bottom:0}
 .cfg-left .fg select{background:rgba(255,255,255,.05);border-color:var(--line);color:#fff;font-size:16px}
@@ -393,7 +381,8 @@ footer a:hover{color:var(--brass-lt)}
 .reveal.in{opacity:1;transform:none}
 
 @media(max-width:1024px){
-  .form-split{grid-template-columns:1fr}
+  .cfg,.form-split{grid-template-columns:1fr}
+  .cfg-right{border-left:0;border-top:1px solid var(--line)}
   .tiers,.gcols,.trustlist,.revs-static{grid-template-columns:1fr}
   .hero-inner{max-width:100%}
   .hero .wrap{padding-top:110px;padding-bottom:56px}
@@ -450,6 +439,7 @@ footer a:hover{color:var(--brass-lt)}
   .hero-actions .btn{justify-content:center}
   .hero-actions .strelica{display:none}
   .hero .wrap{padding-top:96px;padding-bottom:48px}
+  .cfg-sticky{position:static}
 }
 
 /* podstranice — placeholder */
