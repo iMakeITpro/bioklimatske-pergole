@@ -5,6 +5,17 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 10, krug 3
+
+**Hero video (naslovnica) — zamijenjen novim isječkom (`TT-Gradnja-luxury-v15-1080p.mp4`)**
+
+- Toni je poslao gotov 30s isječak (kolega ga sastavio u CapCut-u, 6 scena: široki/srednji plan cijele pergole, krupni plan fokusiran na lamele, zatvaranje iz ptičje perspektive) — provjereno sličicama po sekundi da sadržaj odgovara opisu (bez radnika/ljudi u kadru)
+- Izvor: 1920×1080, 30 fps, H.264, bez zvuka, točno 30,000 s — desktop `hero.mp4` renderiran skaliranjem na postojeću konvenciju (1440×810, CRF 24, High profile, yuv420p, bez zvuka) — 7,2 MB. Provjeren punim ffmpeg dekodiranjem bez grešaka
+- `hero-poster.jpg` osvježen iz novog videa (t=2s)
+- Mobilna `hero-mobile.mp4` **nije mijenjana** — izvor je isključivo vodoravan (16:9), nema materijala za novi 9:16 kadar (isti slučaj kao Faza 8 krug 3)
+- Video više nije bumerang-petlja (naprijed+natrag) kao prije — sad je linearni 30s isječak sa 6 scena koji se ponavlja (`loop`) s tvrdim rezom kraj→početak. Ako rez pri ponavljanju smeta vizualno, javiti — rješivo naknadno (crossfade/kraći loop)
+- `?v=4` → `?v=5` samo za `hero.mp4` i `hero-poster.jpg` (mobilni video nepromijenjen, ostaje `?v=4`) — dirano samo u `index.html` (jedina stranica koja referencira hero video)
+
 ## 13. rujna 2026. — Faza 10, krug 2
 
 **Konfigurator — badge tipa kupca pomaknut uz "Okvirna ponuda"**
