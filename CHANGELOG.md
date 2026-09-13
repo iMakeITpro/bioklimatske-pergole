@@ -5,6 +5,14 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 10, krug 2
+
+**Konfigurator — badge tipa kupca pomaknut uz "Okvirna ponuda"**
+
+- Toni je poslao screenshot: badge "Fizička osoba · cijena s PDV-om" stajao je skroz desno od labela "Okvirna ponuda" (velika praznina između), tražio pomak lijevo, odmah uz label
+- `.cfg-out .lbl-row{justify-content:space-between}` → `flex-start` — badge sad stoji neposredno uz label (razmak samo iz `gap:12px`)
+- `styles.css` v25→v26 (svih 13 stranica)
+
 ## 13. rujna 2026. — Faza 10, krug 1
 
 **Konfigurator — vraćen stari vizualni raspored (dvije stalno vidljive kolone)**
