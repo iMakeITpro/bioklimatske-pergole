@@ -5,6 +5,16 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 8, krug 4
+
+**Hero tekst + CTA — dorada prema Josipovoj slici (koja je sad stvarno stigla)**
+
+- Toni je poslao pravu Josipovu referentnu sliku (dosad su stigla 2 duplikata naše vlastite žive stranice). Dvije razlike naspram kruga 3:
+  1. Blok naslov+CTA treba biti **vertikalno centriran** unutar kadra, ne uz donji rub — `@media(min-width:1025px) .hero-inner{justify-content:flex-end}` → `justify-content:center` (samo desktop, mobitel netaknut)
+  2. „Pogledajte projekte" treba izgledati kao **obrubljen gumb** (rectangle/outline), ne kao gola poveznica — isti stil kao postojeći `.btn-ghost` (koji se već koristi za „Pogledaj više" ispod galerije „Projekti"). Promijenjena klasa u `index.html` s `.hero-link` na `.btn.btn-ghost`; stara `.hero-link` pravila uklonjena iz `styles.css` (više se nigdje ne koriste) — `.btn-ghost` radi ispravno na tamnoj hero pozadini jer nasljeđuje `color:#fff` s `.hero` (isti mehanizam kao globalni `a{color:inherit}`, nema potrebe za dodatnim override-om)
+- Vizualno provjereno na 1600px (desktop, usporedbo sa slikom) i 390px (mobitel, gumbovi ostaju puna širina, jedan ispod drugog kao dosad)
+- `styles.css` v22→v23
+
 ## 12. rujna 2026. — Faza 8, krug 3
 
 **Video na naslovnici (t.1) — ponovna izrada iz izvornog materijala (bolja kvaliteta)**
