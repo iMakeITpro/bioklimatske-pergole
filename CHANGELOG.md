@@ -5,6 +5,17 @@ Najnovije je na vrhu.
 
 ---
 
+## 13. rujna 2026. — Faza 9, krug 1
+
+**Galerija „Projekti" — uklonjen model, dodan lightbox**
+
+- Toni je zatražio da se iz prikaza galerije „Projekti" maknu modeli (npr. „Sunbreaker 400", „Bioklimatska pergola") i da ostanu samo lokacije, te da se svaka fotografija može uvećati klikom
+- Uklonjen `<b>Model</b>` iz `.card-cap` na svih 40 kartica — ostao samo `<span>Lokacija</span>`. `alt` tekst slika namjerno nije dirat (i dalje sadrži model) jer se ne prikazuje korisniku i nosi SEO/screen-reader vrijednost — otvoreno pitanje za Tonija ako želi i to svesti na lokaciju
+- Dodan lightbox: klik (ili Enter/razmak na fokusiranoj kartici) otvara uvećanu fotografiju preko cijelog ekrana, sa strelicama prethodna/sljedeća, zatvaranje na Escape, klikom izvan slike ili X gumbom. Svaka kartica dobila `href` na puni URL slike (fallback bez JS-a) i `aria-label`. Lightbox čita puni URL s `href` atributa kartice, ne s `img.src` — postojeći „fallback za slike" handler (niže u skripti) briše `img.src` kad thumbnail ne uspije učitati, pa bi lightbox ostao prazan da čita odande
+- Bug pronađen i popravljen tijekom testiranja: sticky header i mobilna CTA traka („Nazovi / Izračunaj cijenu") ostaju ispod lightboxa po z-indexu pa im se ikone (burger meni, telefon) vizualno sudaraju s lightbox close/nav gumbima u gornjem desnom kutu. Dodano `body.lightbox-open header, body.lightbox-open .mcta{visibility:hidden}` — sakriva ih dok je lightbox otvoren. Header ima `transition:.3s` na svim svojstvima (scroll efekt) pa bi se sakrivanje kasnilo ~300ms bez `transition:none` overridea za taj slučaj — burger bi se nakratko vidio ispod X gumba pri otvaranju
+- Testirano Playwright interakcijskim testovima (klik, tipkovnica Enter/Escape/strelice, klik na pozadinu, navigacija prev/next) i pixel-level usporedbom screenshotova prije/poslije popravka (desktop 1280px i mobitel 390px) da se potvrdi da je sudar ikona stvarno riješen, ne samo teoretski
+- `styles.css` v23→v24 (svih 13 stranica)
+
 ## 13. rujna 2026. — Faza 8, krug 4
 
 **Hero tekst + CTA — dorada prema Josipovoj slici (koja je sad stvarno stigla)**
