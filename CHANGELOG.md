@@ -5,6 +5,16 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 8
+
+**Recenzije — maknut automatski karusel (2,5s), zamijenjen rucnim prelistavanjem lijevo/desno**
+
+- Toni: umjesto automatskog klizanja svake 2,5s (`setInterval`), rucne strelice lijevo/desno; i dalje 3 vidljive, u krug, isti stil kartica
+- Klonovi sad na OBA kraja trake (prije samo na kraju, za jednosmjerni loop) - `prosireno = zadnjeVIDLJIVO + sve + prvihVIDLJIVO` - omogucuje neprimjetan loop u oba smjera
+- Maknut cijeli tajmer/pauziraj-na-hover mehanizam (`pokreni/zaustavi`, mouseenter/focusin/touchstart) - vise nema auto-animacije koju treba pauzirati
+- Strelice (`.revs-arrow`) stil dosljedan `.lightbox-nav`/`.vc-arrow` (kruzni gumb, hover brass), svijetla varijanta za ovu (ne-dark) sekciju - overlay preko ruba kartica, isti obrazac kao lightbox
+- Provjereno Playwright-om: bez klika transform se ne mijenja 3,5s (auto-loop stvarno maknut); 7× next i 9× prev ispravno kruže kroz svih 6 recenzija u oba smjera; brzo uzastopno klikanje (5× u 250ms) ne izaziva krivi/zastarjeli skok; statican prikaz (≤1024px) nepromijenjen, bez strelica
+
 ## 14. rujna 2026. — Faza 10, krug 7
 
 **Video karusel — ispravljen vertikalni "skok" sekcije pri prelistavanju**

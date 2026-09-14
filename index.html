@@ -670,28 +670,38 @@
         return;
       }
 
-      // Karusel: prikazuje VIDLJIVO odjednom, automatski klizi udesno->ulijevo kroz sve recenzije, u krug.
+      // Karusel: prikazuje VIDLJIVO odjednom, rucno prelistavanje strelicama lijevo/desno, u krug.
+      // Toni, 14.9.2026. - maknut automatski tajmer (prije: sam klizio svake 2,5s) - sad se pomice
+      // iskljucivo na klik, u oba smjera, kartice se i dalje klizu (translateX, isti .7s prijelaz).
       // BUG (nadjen i popravljen 13.9.2026., "cudna animacija"): kartice izvan trenutno vidljivog prozora
       // sjede u DOM-u odmah, samo su odsjecene s ".revs{overflow:hidden}" - ako svaka nosi svoju ".reveal"
       // klasu (kao u statickom prikazu), zajednicki IntersectionObserver ih tretira kao "izvan zaslona" dok
       // ih karusel prvi put ne uklizi u vidljivi prozor, pa se u tom trenutku SVAKA kartica jos jednom sama
       // pojavljuje (fade+pomak odozdo) PREKO svog vec postojeceg horizontalnog klizanja - izgleda kao dvostruka,
-      // nasumicna animacija dok traje prvi krug (~15s), dok se sve kartice barem jednom ne otkriju.
-      // Rjesenje: "reveal" ide na CIJELI spremnik (#revs), jednom, ne na pojedinacne kartice unutar njega -
-      // cijeli vidljivi prozor od 3 kartice lijepo se pojavi zajedno pri prvom scrollanju do sekcije, a
-      // horizontalno klizanje (na .revs-track, odvojen element/transform) ostaje potpuno nedirano time.
+      // nasumicna animacija. Rjesenje: "reveal" ide na CIJELI spremnik (#revs), jednom, ne na pojedinacne
+      // kartice unutar njega - cijeli vidljivi prozor od 3 kartice lijepo se pojavi zajedno pri prvom
+      // scrollanju do sekcije, a horizontalno klizanje (na .revs-track, odvojen element/transform) ostaje
+      // potpuno nedirano time.
       el.className = 'revs reveal';
       var n = podaci.length;
-      var prosireno = podaci.concat(podaci.slice(0, VIDLJIVO)); // klonovi prvih na kraju radi neprimjetnog loopa
+      // klonovi zadnjih VIDLJIVO na pocetku + svi pravi + klonovi prvih VIDLJIVO na kraju - omogucuje
+      // neprimjetan loop u OBA smjera (ne samo naprijed kao prije)
+      var prosireno = podaci.slice(n - VIDLJIVO).concat(podaci).concat(podaci.slice(0, VIDLJIVO));
       var track = document.createElement('div');
       track.className = 'revs-track';
       track.innerHTML = prosireno.map(function(r){ return karta(r, false); }).join('');
       el.innerHTML = '';
       el.appendChild(track);
+      var prevBtn = document.createElement('button');
+      prevBtn.type = 'button'; prevBtn.className = 'revs-arrow revs-prev'; prevBtn.setAttribute('aria-label','Prethodne recenzije'); prevBtn.innerHTML = '&#10094;';
+      var nextBtn = document.createElement('button');
+      nextBtn.type = 'button'; nextBtn.className = 'revs-arrow revs-next'; nextBtn.setAttribute('aria-label','Sljedeće recenzije'); nextBtn.innerHTML = '&#10095;';
+      el.appendChild(prevBtn);
+      el.appendChild(nextBtn);
 
-      var i = 0, timer, resetTimer;
-      var RAZMAK_MS = 2500;
+      var i = VIDLJIVO; // pocetna pozicija = prvi blok pravih recenzija (nakon uvodnih klonova)
       var TRAJANJE_MS = 700; // mora odgovarati transition trajanju .revs-track u styles.css (.7s)
+      var snapTimer;
 
       function korak(){
         var kartica = track.querySelector('.rev');
@@ -702,31 +712,29 @@
       function pomakni(){
         track.style.transform = 'translateX(-' + (korak() * i) + 'px)';
       }
-      function sljedeci(){
-        i++;
+      function bezTranzicije(noviI){
+        track.style.transition = 'none';
+        i = noviI;
         pomakni();
-        if (i === n){
-          // stigli do klonova na kraju - nakon zavrsetka klizanja skoci neprimjetno natrag na pocetak, bez animacije
-          window.clearTimeout(resetTimer);
-          resetTimer = window.setTimeout(function(){
-            track.style.transition = 'none';
-            i = 0;
-            pomakni();
-            void track.offsetWidth; // forsiraj reflow prije nego se transition vrati
-            track.style.transition = '';
-          }, TRAJANJE_MS);
-        }
+        void track.offsetWidth; // forsiraj reflow prije nego se transition vrati
+        track.style.transition = '';
       }
-      function pokreni(){ window.clearInterval(timer); timer = window.setInterval(sljedeci, RAZMAK_MS); }
-      function zaustavi(){ window.clearInterval(timer); }
+      // Nakon svakog klika zakazuje provjeru je li prikaz zavrsio na klonovima (rub) - ako jest, neprimjetno
+      // se vraca na ekvivalentnu "pravu" poziciju. Provjera ide preko trenutnog "i" u trenutku okidanja (ne
+      // preko fiksne mete), pa brzo uzastopno klikanje u oba smjera ne izazove pogresan/zastarjeli skok.
+      function zakaziProvjeru(){
+        window.clearTimeout(snapTimer);
+        snapTimer = window.setTimeout(function(){
+          if (i === n + VIDLJIVO) bezTranzicije(VIDLJIVO); // na klonovima na kraju - natrag na pocetak pravih
+          else if (i === 0) bezTranzicije(n); // na klonovima na pocetku - na kraj pravih
+        }, TRAJANJE_MS);
+      }
+      function sljedeci(){ i++; pomakni(); zakaziProvjeru(); }
+      function prethodni(){ i--; pomakni(); zakaziProvjeru(); }
 
-      pokreni();
-      el.addEventListener('mouseenter', zaustavi);
-      el.addEventListener('mouseleave', pokreni);
-      el.addEventListener('focusin', zaustavi);
-      el.addEventListener('focusout', pokreni);
-      el.addEventListener('touchstart', zaustavi, {passive:true});
-      el.addEventListener('touchend', pokreni);
+      bezTranzicije(VIDLJIVO); // pocetno pozicioniranje bez animacije (izbjegava klizanje pri ucitavanju stranice)
+      nextBtn.addEventListener('click', sljedeci);
+      prevBtn.addEventListener('click', prethodni);
     })();
     </script>
   </div>
