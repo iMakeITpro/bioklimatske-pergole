@@ -5,6 +5,15 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 6
+
+**Video karusel — ispravljen raspored (fiksna pozicija/veličina sredine) i uveličana**
+
+- Bug iz kruga 5 (Toni, screenshot): raspored je pratio DOM redoslijed, ne ulogu (lijevo/sredina/desno) — za 1. i 3. video oba susjeda su upadala na istu stranu, a sredina je "skakala" lijevo-desno pri prelistavanju. Sad `order` (CSS) ide po ulozi svaki put kad se aktivni video promijeni (`raspored()`) — sredina je uvijek u sredini, susjed uvijek lijevo/desno, kutija sredine ostaje na fiksnoj poziciji/veličini kroz cijelo prelistavanje
+- `.video-carousel` max-width 1040→1184px (= `--max` minus `.wrap` padding) tako da sredina doseže punih 760px (identično staroj veličini) na širim ekranima, ne samo 577px kao u krugu 5
+- Bočni videi sad samo "peek" pregled — bez play-ikone i naslova (`.vf-label`, `.vf-play` skriveni), samo sličica; klik i dalje centrira, ne pokreće
+- Provjereno Playwright-om na 1440/1280/1024/900/768/641px: pozicija i veličina sredine identična prije/poslije prelistavanja na svakoj širini, bez horizontalnog overflowa
+
 ## 14. rujna 2026. — Faza 10, krug 5
 
 **Sekcija "Kako izgleda suradnja" — video s jednog na tri (karusel, centar uvećan)**

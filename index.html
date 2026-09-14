@@ -869,20 +869,35 @@
   slides.forEach(s => bindFacade(s.querySelector('.video-facade')));
 
   let active = slides.findIndex(s => s.classList.contains('is-center'));
-  if(active < 0){ active = 0; slides[0].classList.add('is-center'); }
+  if(active < 0) active = 0;
+
+  // Vizualni raspored (lijevo/sredina/desno) ide preko flex "order", NE preko redoslijeda u DOM-u -
+  // aktivni video je UVIJEK sredisnji slot, susjedi UVIJEK lijevi/desni slot, bez obzira koji je video
+  // trenutno aktivan. Bug prije ovoga: bez "order", aktivni je samo bio uvecan na svom DOM mjestu, pa
+  // je za prvi/zadnji video ispalo da oba susjeda upadnu na istu stranu, a sredisnja kutija je "skakala"
+  // lijevo-desno pri prelistavanju umjesto da ostane na fiksnom mjestu (Toni, 14.9.2026.).
+  function raspored(){
+    const lijevo = (active - 1 + slides.length) % slides.length;
+    const desno = (active + 1) % slides.length;
+    slides.forEach(s => { s.classList.remove('is-center'); s.style.order = ''; });
+    slides[lijevo].style.order = '1';
+    slides[active].style.order = '2';
+    slides[active].classList.add('is-center');
+    slides[desno].style.order = '3';
+  }
+  raspored();
 
   function goTo(i){
     const next = (i + slides.length) % slides.length;
     if(next === active) return;
     const staro = slides[active];
-    staro.classList.remove('is-center');
     const fWrap = staro.querySelector('.video-facade');
     if(fWrap.querySelector('iframe')){
       fWrap.innerHTML = izvornik[active]; // zaustavi pusteni video (uklanjanje iframea) i vrati thumbnail
       bindFacade(fWrap);
     }
-    slides[next].classList.add('is-center');
     active = next;
+    raspored();
   }
 
   wrap.querySelector('.vc-prev').addEventListener('click', () => goTo(active - 1));

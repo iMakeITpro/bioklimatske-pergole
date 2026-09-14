@@ -488,13 +488,17 @@ footer a:hover{color:var(--brass-lt)}
 .video-facade iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 /* ---------- video carousel (proces): 3 video-facade jedan pored drugog, centar uvecan ---------- */
-.video-carousel{position:relative;display:flex;align-items:center;justify-content:center;gap:18px;max-width:1040px;margin:48px auto 0}
-.vc-track{display:flex;align-items:center;justify-content:center;gap:18px;flex:1;min-width:0}
-.vc-slide{flex:0 1 200px;min-width:70px;opacity:.5;transition:flex-basis .45s ease,opacity .45s ease}
+/* max-width = --max(1240) - 2x28px .wrap padding, tako da centar moze dosegnuti punih 760px
+   (identicna velicina starom pojedinacnom videu) i na najsirim ekranima, ne samo do 1040px. */
+.video-carousel{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;max-width:1184px;margin:48px auto 0}
+.vc-track{display:flex;align-items:center;justify-content:center;gap:14px;flex:1;min-width:0}
+.vc-slide{flex:0 1 130px;min-width:60px;opacity:.5;transition:flex-basis .45s ease,opacity .45s ease}
 .vc-slide .video-facade{width:100%;max-width:none;margin:0}
 .vc-slide:not(.is-center){cursor:pointer}
 .vc-slide:not(.is-center) .vf-btn{pointer-events:none}
-.vc-slide.is-center{flex:0 1 760px;min-width:260px;opacity:1}
+.vc-slide:not(.is-center) .vf-play,
+.vc-slide:not(.is-center) .vf-label{display:none} /* bocni video je samo pregled (peek) - klik centrira, ne pusta */
+.vc-slide.is-center{flex:0 1 760px;min-width:300px;opacity:1}
 .vc-arrow{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.25s}
 .vc-arrow:hover{background:var(--brass);border-color:var(--brass)}
 @media(max-width:640px){
