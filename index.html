@@ -616,12 +616,18 @@
       var el = document.getElementById('revs');
       if(!el || !podaci.length) return;
 
+      // Toni, 14.9.2026. — puno prezime u recenzije.js ostaje (izvorni Google podatak, radi buduce provjere),
+      // ali se na stranici prikazuje skraceno (npr. "Manuela Matic" -> "Manuela M.") radi privatnosti.
+      function skracenoIme(ime){
+        var d = String(ime || '').trim().split(/\s+/);
+        return d.length > 1 ? d[0] + ' ' + d[1].charAt(0) + '.' : d[0];
+      }
       function karta(r, dodajReveal){
         var kontekst = r.kontekst ? r.kontekst : 'Google recenzija';
         return '<div class="rev' + (dodajReveal ? ' reveal' : '') + '">'
           + '<div class="stars">★★★★★</div>'
           + '<q>' + r.tekst + '</q>'
-          + '<div class="rev-who"><div class="av">' + r.inicijali + '</div><div><b>' + r.ime + '</b><span>' + kontekst + '</span></div><span class="rev-src">Google</span></div>'
+          + '<div class="rev-who"><div class="av">' + r.inicijali + '</div><div><b>' + skracenoIme(r.ime) + '</b><span>' + kontekst + '</span></div><span class="rev-src">Google</span></div>'
           + '</div>';
       }
 

@@ -5,12 +5,20 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 4
+
+**Hero video — ispravljen pogrešno pushani izvor + prezimena u recenzijama skraćena**
+
+- Toni je greškom primijenio i pushao stariji patch (`faza10-krug3-hero-video.patch`, izvor bez "-FULL" u nazivu) umjesto zadnjeg poslanog — na `origin/iteracija-2` je završio hero.mp4 iz komprimiranog izvora, ne iz `TT-Gradnja-luxury-v15-FULL-1080p.mp4` kako je dogovoreno. Ponovno renderirano iz ispravnog FULL izvora (1440×810, CRF 24) — 6,97 MB
+- Recenzije: prezime se sad prikazuje skraćeno na inicijal (npr. "Manuela Matić" → "Manuela M.") — samo na prikazu (`skracenoIme()` u `index.html`), puni podatak ostaje u `recenzije.js` radi buduće provjere. Vizualno provjereno Playwright-om, sve 4 (od 6) recenzije koje se ponavljaju u karuselu ispravno skraćene
+- `?v=` brojevi nepromijenjeni (i dalje v5/v26, samo je sadržaj datoteka ispravljen)
+
 ## 13. rujna 2026. — Faza 10, krug 3
 
-**Hero video (naslovnica) — zamijenjen novim isječkom (`TT-Gradnja-luxury-v15-1080p.mp4`)**
+**Hero video (naslovnica) — zamijenjen novim isječkom (`TT-Gradnja-luxury-v15-FULL-1080p.mp4`)**
 
 - Toni je poslao gotov 30s isječak (kolega ga sastavio u CapCut-u, 6 scena: široki/srednji plan cijele pergole, krupni plan fokusiran na lamele, zatvaranje iz ptičje perspektive) — provjereno sličicama po sekundi da sadržaj odgovara opisu (bez radnika/ljudi u kadru)
-- Izvor: 1920×1080, 30 fps, H.264, bez zvuka, točno 30,000 s — desktop `hero.mp4` renderiran skaliranjem na postojeću konvenciju (1440×810, CRF 24, High profile, yuv420p, bez zvuka) — 7,2 MB. Provjeren punim ffmpeg dekodiranjem bez grešaka
+- Izvor: 1920×1080, 30 fps, H.264, bez zvuka, točno 30,000 s (FULL export, manje komprimiran od prvotno poslane verzije) — desktop `hero.mp4` renderiran skaliranjem na postojeću konvenciju (1440×810, CRF 24, High profile, yuv420p, bez zvuka) — 7,0 MB. Provjeren punim ffmpeg dekodiranjem bez grešaka
 - `hero-poster.jpg` osvježen iz novog videa (t=2s)
 - Mobilna `hero-mobile.mp4` **nije mijenjana** — izvor je isključivo vodoravan (16:9), nema materijala za novi 9:16 kadar (isti slučaj kao Faza 8 krug 3)
 - Video više nije bumerang-petlja (naprijed+natrag) kao prije — sad je linearni 30s isječak sa 6 scena koji se ponavlja (`loop`) s tvrdim rezom kraj→početak. Ako rez pri ponavljanju smeta vizualno, javiti — rješivo naknadno (crossfade/kraći loop)
