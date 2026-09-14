@@ -887,6 +887,25 @@
   }
   raspored();
 
+  // Visina retka (flex, align-items:center) inace prati NAJVISE dijete tog trenutka - a visina svakog
+  // video-facade ide preko aspect-ratio:16/9 vezano uz njegovu TRENUTNU (tranzicijsku) sirinu. Dok se
+  // sirine sredina<->bok zamjenjuju (obje odjednom, 0,45s), niti jedno dijete nije puno 45% vremena, pa
+  // max-visina u sredini tranzicije padne pa naraste natrag - cijela sekcija ispod "poskoci" gore-dolje
+  // (Toni, 14.9.2026.). Fix: visina se fiksira na px (mimo transicije) prema trenutno smirenoj sredini,
+  // sredina uvijek ista sirina/visina bez obzira koji je video u njoj, pa se preracunava samo na resize.
+  function fiksirajVisinu(){
+    const centerFacade = wrap.querySelector('.vc-slide.is-center .video-facade');
+    if(!centerFacade) return;
+    const w = centerFacade.getBoundingClientRect().width;
+    if(w > 0) wrap.style.height = Math.round(w * 9 / 16) + 'px';
+  }
+  fiksirajVisinu();
+  let rszTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(rszTimer);
+    rszTimer = setTimeout(fiksirajVisinu, 150);
+  });
+
   function goTo(i){
     const next = (i + slides.length) % slides.length;
     if(next === active) return;

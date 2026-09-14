@@ -5,6 +5,14 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 7
+
+**Video karusel — ispravljen vertikalni "skok" sekcije pri prelistavanju**
+
+- Toni: pri prelistavanju cijela pozadina sekcije kratko skoči gore pa se vrati dolje. Uzrok: visina retka (flex, `align-items:center`) prati najviše dijete u tom trenutku, a visina svakog `.video-facade` ide preko `aspect-ratio:16/9` vezano uz njegovu TRENUTNU (tranzicijsku) širinu — dok se širine sredina↔bok zamjenjuju (obje odjednom, 0,45s), niti jedan video nije pun 45% vremena, pa max-visina u sredini tranzicije padne pa naraste natrag — cijela sekcija (i sve ispod nje) vidljivo poskoči
+- Fix: `#procesCarousel` visina se sad fiksira na px (JS, `fiksirajVisinu()`) prema trenutno smirenoj sredini, mimo CSS tranzicije — sredina je uvijek ista širina/visina bez obzira koji je video u njoj, pa se ne mijenja tijekom prelistavanja; ponovno se računa samo na resize (debounce 150ms)
+- Provjereno Playwright-om (uzorkovanje visine sekcije svakih ~30ms kroz cijelu tranziciju, 1440/900/500px): visina konstantna kroz cijelu tranziciju (delta 0px), bez JS grešaka
+
 ## 14. rujna 2026. — Faza 10, krug 6
 
 **Video karusel — ispravljen raspored (fiksna pozicija/veličina sredine) i uveličana**
