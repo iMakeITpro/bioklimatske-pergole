@@ -5,6 +5,16 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 5
+
+**Sekcija "Kako izgleda suradnja" — video s jednog na tri (karusel, centar uvećan)**
+
+- Checklista t.3 ("Montaža bioklimatske pergole" + 2 videa s YT kanala TT Gradnje) — dodana 2 nova videa uz postojeći (`dkhpdibODX8`): `WGlWvsD9phg` (rooftop pergola, Hotel Sumratin Dubrovnik) i `APwpL-y8fz4` (pergola u prizemlju, isti hotel) — naslovi/kanal potvrđeni YouTube oEmbed-om, oba na kanalu TT GRADNJA
+- Postojeći `.video-facade` (klik→učitaj YouTube tek na zahtjev) ostaje 1:1 nepromijenjen kao komponenta; sad su tri jedna pored drugog u `.video-carousel`, centralni uvećan (760px, identično staroj veličini), bočni smanjeni (flex-shrink, min 70px) — strelice lijevo/desno prebacuju centar, klik na bočni video ga isto centrira (ne pokreće ga)
+- Ako je bočni video već bio pušten (iframe), prelistavanjem se zaustavlja i vraća na thumbnail (uklanjanjem iframea), spreman za ponovni klik
+- Mobitel (≤640px): bočni slotovi skriveni, prikazuje se samo centar preko pune širine — vizualno identično starom jednostrukom videu, samo sa strelicama za prelistavanje
+- Provjereno Playwright headless screenshotovima (desktop 1440px, mobitel 390px) i programski (klik-play→iframe, prelistavanje→revert, klik na bočni→centrira bez pokretanja) — nema horizontalnog overflowa
+
 ## 14. rujna 2026. — Faza 10, krug 4
 
 **Hero video — ispravljen pogrešno pushani izvor + prezimena u recenzijama skraćena**

@@ -555,12 +555,38 @@
       <div class="step"><h3>Proizvodnja u SELT tvornici</h3><p>Izrada po mjeri, plastifikacija, tvornička kontrola. Dobivate fotografije prije otpreme.</p><span class="dur">2–4 tjedna</span></div>
       <div class="step"><h3>Montaža i primopredaja</h3><p>Vlastita ekipa, bez podizvođača. Obuka za korištenje, jamstveni list, servisni kontakt.</p><span class="dur">1–2 dana</span></div>
     </div>
-    <div class="video-facade">
-      <button type="button" class="vf-btn" data-yt="dkhpdibODX8" aria-label="Pokreni video: montaža bioklimatske pergole od početka do kraja">
-        <img src="https://i.ytimg.com/vi/dkhpdibODX8/hqdefault.jpg" alt="" loading="lazy">
-        <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Pogledajte montažu od početka do kraja</span>
-      </button>
+    <div class="video-carousel" id="procesCarousel">
+      <button type="button" class="vc-arrow vc-prev" aria-label="Prethodni video">&#10094;</button>
+      <div class="vc-track">
+        <div class="vc-slide is-center" data-idx="0">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="dkhpdibODX8" aria-label="Pokreni video: montaža bioklimatske pergole od početka do kraja">
+              <img src="https://i.ytimg.com/vi/dkhpdibODX8/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Pogledajte montažu od početka do kraja</span>
+            </button>
+          </div>
+        </div>
+        <div class="vc-slide" data-idx="1">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="WGlWvsD9phg" aria-label="Pokreni video: rooftop pergola, Hotel Sumratin Dubrovnik">
+              <img src="https://i.ytimg.com/vi/WGlWvsD9phg/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Rooftop pergola, Hotel Sumratin Dubrovnik</span>
+            </button>
+          </div>
+        </div>
+        <div class="vc-slide" data-idx="2">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="APwpL-y8fz4" aria-label="Pokreni video: pergola u prizemlju, Hotel Sumratin Dubrovnik">
+              <img src="https://i.ytimg.com/vi/APwpL-y8fz4/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Pergola u prizemlju, Hotel Sumratin Dubrovnik</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="vc-arrow vc-next" aria-label="Sljedeći video">&#10095;</button>
     </div>
   </div>
 </section>
@@ -815,21 +841,53 @@
   else window.addEventListener('load', () => setTimeout(ucitaj, 200), {once:true});
 })();
 
-// ---------- proces video (facade, ucitava se tek na klik) ----------
+// ---------- proces video carousel (3x video-facade, centar uvecan; strelice/klik na bocni video mijenjaju centar) ----------
 (function(){
-  document.querySelectorAll('.video-facade .vf-btn[data-yt]').forEach(btn=>{
+  const wrap = document.getElementById('procesCarousel');
+  if(!wrap) return;
+  const slides = Array.prototype.slice.call(wrap.querySelectorAll('.vc-slide'));
+  if(!slides.length) return;
+
+  // klik na vf-btn ucitava YouTube ugradnju tek na zahtjev (isto ponasanje kao prije, samo izdvojeno
+  // u funkciju jer se mora ponovno vezati kad se bocni (vec pustan) video vrati na thumbnail nakon prelistavanja)
+  function bindFacade(fWrap){
+    const btn = fWrap.querySelector('.vf-btn');
+    if(!btn) return;
     btn.addEventListener('click', ()=>{
       const id = btn.getAttribute('data-yt');
-      const wrap = btn.closest('.video-facade');
       const ifr = document.createElement('iframe');
       ifr.src = 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
       ifr.title = btn.getAttribute('aria-label') || 'Video';
       ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
       ifr.allowFullscreen = true;
-      wrap.innerHTML = '';
-      wrap.appendChild(ifr);
+      fWrap.innerHTML = '';
+      fWrap.appendChild(ifr);
     }, {once:true});
-  });
+  }
+
+  const izvornik = slides.map(s => s.querySelector('.video-facade').innerHTML); // thumbnail markup, za vracanje kad video ode iz centra
+  slides.forEach(s => bindFacade(s.querySelector('.video-facade')));
+
+  let active = slides.findIndex(s => s.classList.contains('is-center'));
+  if(active < 0){ active = 0; slides[0].classList.add('is-center'); }
+
+  function goTo(i){
+    const next = (i + slides.length) % slides.length;
+    if(next === active) return;
+    const staro = slides[active];
+    staro.classList.remove('is-center');
+    const fWrap = staro.querySelector('.video-facade');
+    if(fWrap.querySelector('iframe')){
+      fWrap.innerHTML = izvornik[active]; // zaustavi pusteni video (uklanjanje iframea) i vrati thumbnail
+      bindFacade(fWrap);
+    }
+    slides[next].classList.add('is-center');
+    active = next;
+  }
+
+  wrap.querySelector('.vc-prev').addEventListener('click', () => goTo(active - 1));
+  wrap.querySelector('.vc-next').addEventListener('click', () => goTo(active + 1));
+  slides.forEach((s, i) => s.addEventListener('click', () => { if(i !== active) goTo(i); }));
 })();
 
 // ---------- konfigurator ----------
