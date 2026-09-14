@@ -5,6 +5,16 @@ Najnovije je na vrhu.
 
 ---
 
+## 14. rujna 2026. — Faza 10, krug 9
+
+**Recenzije — fix "prazno nakon prelistavanja" (rub-provjera se nikad nije izvršila kod brzog klikanja)**
+
+- Toni (screenshot): nakon prelistavanja karusel ostane prazan/pomaknut, "mora se vrtjeti u krug"
+- Uzrok: stari kod je na SVAKI klik odgađao rub-provjeru za 700ms (`clearTimeout`+`setTimeout`) — kod uzastopnog klikanja bržeg od 700ms i više od VIDLJIVO(3)+n(6)=9... točnije više od n=6 klikova u nizu, provjera se nikad nije izvršila, `i` je otišao izvan raspona klonova (niz ima samo n+2×VIDLJIVO=12 elemenata) i karusel ostajao trajno prazan, bez samostalnog povratka
+- Fix: klik se zaključava dok traje prijelaz (`zakljucano`) — `i` se tako nikad ne može pomaknuti za više od 1 preko provjerenog ruba, rub-provjera na kraju svakog prijelaza je time uvijek pouzdana; usput `>=`/`<=` umjesto `===` kao dodatna sigurnost
+- Dodano `touch-action:pan-y` na `.revs` (sprječava da horizontalni trackpad/touch gest nad karuselom pokrene preglednikovu vlastitu swipe-navigaciju)
+- Provjereno Playwright-om: 20/25/15 (mix) brzih uzastopnih klikova BEZ čekanja (znatno više od n=6, točan scenarij koji je prije pucao) — karusel se svaki put smiri na točno 3 vidljive recenzije, nikad prazno; obična brzina klikanja i dalje ispravno kruži kroz svih 6 u oba smjera
+
 ## 14. rujna 2026. — Faza 10, krug 8
 
 **Recenzije — maknut automatski karusel (2,5s), zamijenjen rucnim prelistavanjem lijevo/desno**

@@ -701,7 +701,7 @@
 
       var i = VIDLJIVO; // pocetna pozicija = prvi blok pravih recenzija (nakon uvodnih klonova)
       var TRAJANJE_MS = 700; // mora odgovarati transition trajanju .revs-track u styles.css (.7s)
-      var snapTimer;
+      var zakljucano = false; // sprijecava klik dok traje prijelaz
 
       function korak(){
         var kartica = track.querySelector('.rev');
@@ -719,18 +719,19 @@
         void track.offsetWidth; // forsiraj reflow prije nego se transition vrati
         track.style.transition = '';
       }
-      // Nakon svakog klika zakazuje provjeru je li prikaz zavrsio na klonovima (rub) - ako jest, neprimjetno
-      // se vraca na ekvivalentnu "pravu" poziciju. Provjera ide preko trenutnog "i" u trenutku okidanja (ne
-      // preko fiksne mete), pa brzo uzastopno klikanje u oba smjera ne izazove pogresan/zastarjeli skok.
-      function zakaziProvjeru(){
-        window.clearTimeout(snapTimer);
-        snapTimer = window.setTimeout(function(){
-          if (i === n + VIDLJIVO) bezTranzicije(VIDLJIVO); // na klonovima na kraju - natrag na pocetak pravih
-          else if (i === 0) bezTranzicije(n); // na klonovima na pocetku - na kraj pravih
-        }, TRAJANJE_MS);
+      // BUG (Toni, 14.9.2026., "prazno nakon prelistavanja"): stari kod je na SVAKI klik odgadao provjeru
+      // ruba za 700ms (clearTimeout+setTimeout) - kod brzog uzastopnog klikanja (br. klikova > VIDLJIVO+n
+      // unutar 700ms) provjera se nikad nije izvrsila, "i" je otisao izvan raspona klonova (niz ima samo
+      // n+2*VIDLJIVO elemenata) i karusel je ostajao trajno prazan/pomaknut, bez povratka u krug.
+      // Fix: klik je zakljucan dok traje prijelaz (na klik/klik) - "i" se tako NIKAD ne moze pomaknuti za
+      // vise od 1 preko provjerenog ruba, pa je provjera na kraju svakog prijelaza uvijek pouzdana.
+      function naKrajuPrijelaza(){
+        if (i >= n + VIDLJIVO) bezTranzicije(VIDLJIVO); // na klonovima na kraju - natrag na pocetak pravih
+        else if (i <= 0) bezTranzicije(n); // na klonovima na pocetku - na kraj pravih (i<=0 kao dodatna sigurnost)
+        zakljucano = false;
       }
-      function sljedeci(){ i++; pomakni(); zakaziProvjeru(); }
-      function prethodni(){ i--; pomakni(); zakaziProvjeru(); }
+      function sljedeci(){ if (zakljucano) return; zakljucano = true; i++; pomakni(); window.setTimeout(naKrajuPrijelaza, TRAJANJE_MS); }
+      function prethodni(){ if (zakljucano) return; zakljucano = true; i--; pomakni(); window.setTimeout(naKrajuPrijelaza, TRAJANJE_MS); }
 
       bezTranzicije(VIDLJIVO); // pocetno pozicioniranje bez animacije (izbjegava klizanje pri ucitavanju stranice)
       nextBtn.addEventListener('click', sljedeci);

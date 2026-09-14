@@ -288,7 +288,7 @@ body.lightbox-open{overflow:hidden}
 .step .dur{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
 
 /* reviews */
-.revs{overflow:hidden;position:relative}
+.revs{overflow:hidden;position:relative;touch-action:pan-y}
 .revs-static{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 /* karusel: N recenzija, 3 vidljive, rucno prelistavanje lijevo/desno, u krug (JS dodaje klonove na oba kraja radi neprimjetnog loopa u oba smjera) */
 .revs-track{display:flex;gap:20px;transition:transform .7s cubic-bezier(.65,0,.35,1)}
