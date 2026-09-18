@@ -1,0 +1,566 @@
+[
+  {
+    "pozicija": 1,
+    "naslov": "BIOKLIMATSKA PERGOLA BALE",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-bioklimatske-pergole-bale-tt-gradnja.jpg",
+    "lokacija": "Bale, Istra",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 2,
+    "naslov": "BIOKLIMATSKA PERGOLA SB500 DIAMOND VILA KORČULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/07/Bioklimatska_pergola_SB500_Diamond_vila_Korcula_IMG3469.jpg",
+    "lokacija": "Korčula",
+    "model": "500",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 3,
+    "naslov": "BIOKLIMATSKA PERGOLA ZAGREB",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-zagreb-4-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-zagreb-2/",
+    "lokacija": "Zagreb",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 4,
+    "naslov": "BIOKLIMATSKA PERGOLA POREČ",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-porec-5-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-porec/",
+    "lokacija": "Poreč",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 5,
+    "naslov": "BIOKLIMATSKA PERGOLA MAKARSKA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca4-8-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-makarska/",
+    "lokacija": "Makarska",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 6,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 PELJEŠAC",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2024/01/8-pergola-peljesac-tt-gradnja.jpg",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-sb400-peljesac/",
+    "lokacija": "Pelješac",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 7,
+    "naslov": "BIOKLIMATSKA PERGOLA ČAKOVEC",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/10/Bioklimatska-Pergola-Cakovec04.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-cakovec/",
+    "lokacija": "Čakovec",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 8,
+    "naslov": "BIOKLIMATSKA PERGOLA BRAČ",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/10/Bioklimatska-Pergola-Brac11.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-brac/",
+    "lokacija": "Brač",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 9,
+    "naslov": "BIOKLIMATSKA PERGOLA SB500 ZATON KOD ŠIBENIKA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/07/Bioklimatska_pergola_SB500_Zaton_kod_Sibenika_IMG2480.jpg",
+    "lokacija": "Zaton kod Šibenika",
+    "model": "500",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 10,
+    "naslov": "BIOKLIMATSKA PERGOLA ZATON",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-pergola-zaton-tt-gradnja.jpg",
+    "lokacija": "Zaton",
+    "model": "500",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 11,
+    "naslov": "BIOKLIMATSKA PERGOLA SLAVONSKI BROD",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-slavonski-brod-1-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-slavonski-brod/",
+    "lokacija": "Slavonski Brod",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 12,
+    "naslov": "BIOKLIMATSKA PERGOLA MAKARSKA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-makarska-5.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-makarska-2/",
+    "lokacija": "Makarska",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 13,
+    "naslov": "BIOKLIMATSKA PERGOLA GACKA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-gacka-4-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-gacka/",
+    "lokacija": "Gacka",
+    "model": "500",
+    "status": "novo"
+  },
+  {
+    "pozicija": 14,
+    "naslov": "BIOKLIMATSKA PERGOLA SPLIT",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2026/02/bioklimatske-pergole-Split-IMG_1035-copy.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-split/",
+    "lokacija": "Split",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 15,
+    "naslov": "BIOKLIMATSKA PERGOLA SLOVAČKA MICHALOVCE",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2026/02/bioklimatske-pergole-Slovacka-Michalovce-IMG_2077.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-slovacka-michalovce/",
+    "lokacija": "Slovačka Michalovce",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 16,
+    "naslov": "BIOKLIMATSKA PERGOLA SAMOBOR",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2026/02/bioklimatske-pergole-Samobor-IMG_4148.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-samobor/",
+    "lokacija": "Samobor",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 17,
+    "naslov": "BIOKLIMATSKA PERGOLA SAVUDRIA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2026/02/bioklimatske-pergole-Savudria-IMG_0151.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-savudria/",
+    "lokacija": "Savudria",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 18,
+    "naslov": "BIOKLIMATSKA PERGOLA LABIN",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2026/02/bioklimatske-pergole-Labin-IMG_1929.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-labin-2/",
+    "lokacija": "Labin",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 19,
+    "naslov": "BIOKLIMATSKA PERGOLA LABIN",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/10/Bioklimatska-Pergola-Labin17.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-labin/",
+    "lokacija": "Labin",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 20,
+    "naslov": "BIOKLIMATSKA PERGOLA IMOTSKI",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-imotski-2-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-imotski/",
+    "lokacija": "Imotski",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 21,
+    "naslov": "BIOKLIMATSKA PERGOLA LUŽANI, SLAVONSKI BROD",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/07/Bioklimatska-Pergola-Luzani-Slavonski-Brod8.jpg",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-luzani-slavonski-brod/",
+    "lokacija": "Lužani, Slavonski Brod",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 22,
+    "naslov": "BIOKLIMATSKA PERGOLA VRBOVEC",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/07/Bioklimatska-Pergola-Vrbovec.jpg",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-vrbovec/",
+    "lokacija": "Vrbovec",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 23,
+    "naslov": "BIOKLIMATSKA PERGOLA IVANIĆ GRAD",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/07/Bioklimatska-Pergola-Ivanic-Grad.jpg",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-ivanic-grad/",
+    "lokacija": "Ivanić Grad",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 24,
+    "naslov": "BIOKLIMATSKA PERGOLA VODICE",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca2-3-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-vodice/",
+    "lokacija": "Vodice",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 25,
+    "naslov": "BIOKLIMATSKA PERGOLA PELJEŠAC",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-peljesac-10.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-peljesac/",
+    "lokacija": "Pelješac",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 26,
+    "naslov": "BIOKLIMATSKA PERGOLA BRODARICA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca5-2-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-brodarica/",
+    "lokacija": "Brodarica",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 27,
+    "naslov": "BIOKLIMATSKA PERGOLA PETRČANE",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca3-2-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-petrcane/",
+    "lokacija": "Petrčane",
+    "model": "500",
+    "status": "novo"
+  },
+  {
+    "pozicija": 28,
+    "naslov": "BIOKLIMATSKA PERGOLA DARUVAR",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-daruvar-2-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-daruvar/",
+    "lokacija": "Daruvar",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 29,
+    "naslov": "BIOKLIMATSKA PERGOLA ZLARIN",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-zlarin-1-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-zlarin/",
+    "lokacija": "Zlarin",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 30,
+    "naslov": "BIOKLIMATSKA PERGOLA SAVUDRIJA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-savudrija-4-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-savudrija/",
+    "lokacija": "Savudrija",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 31,
+    "naslov": "BIOKLIMATSKA PERGOLA SB500 CERNA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB500-Cerna-4-scaled.jpg",
+    "lokacija": "Cerna",
+    "model": "500",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 32,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 MURTER",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Murter-6-scaled.jpg",
+    "lokacija": "Murter",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 33,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 KRK",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/02/IMG-7030-scaled-1.jpg",
+    "lokacija": "Krk",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 34,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 MAKARSKA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Makarska-12-scaled.jpg",
+    "lokacija": "Makarska",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 35,
+    "naslov": "BIOKLIMATSKA PERGOLA KAŠTEL SUĆURAC",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-1-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-kastel-sucurac/",
+    "lokacija": "Kaštel Sućurac",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 36,
+    "naslov": "BIOKLIMATSKA PERGOLA SLAVONIJA",
+    "href": "https://www.ttgradnja.hr/wp-content/uploads/2025/04/bioklimatske-pergole-referenca-slavonija-7-scaled.webp",
+    "stranica": "https://www.ttgradnja.hr/bioklimatska-pergola-slavonija/",
+    "lokacija": "Slavonija",
+    "model": "400",
+    "status": "novo"
+  },
+  {
+    "pozicija": 37,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 POREČ",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Porec-6-scaled.jpg",
+    "lokacija": "Poreč",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 38,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 CRIKVENICA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Crikvenica-2.jpg",
+    "lokacija": "Crikvenica",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 39,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 SLAVONSKI BROD",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Slavonski-Brod-2.jpg",
+    "lokacija": "Slavonski Brod",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 40,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 LUMBARDA KORČULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Lumbarda-Korcula-3-scaled.jpg",
+    "lokacija": "Lumbarda, Korčula",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 41,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 LJUBLJANA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Ljubljana-5-scaled.jpg",
+    "lokacija": "Ljubljana",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 42,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 SESVETSKI KRALJEVEC",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/05/Bioklimatska-pergola-SB400-Sesvetski-Kraljevec-1-scaled.jpg",
+    "lokacija": "Sesvetski Kraljevec",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 43,
+    "naslov": "BIOKLIMATSKA PERGOLA RAŽANJ",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/1-pergola-razanj-tt-gradnja.jpg",
+    "lokacija": "Ražanj",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 44,
+    "naslov": "BIOKLIMATSKA PERGOLA PULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/7-pergola-pula-tt-gradnja-1.jpg",
+    "lokacija": "Pula",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 45,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 KORČULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/02/IMG-8379-scaled-1.jpg",
+    "lokacija": "Korčula",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 46,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 ZAGREB",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/02/IMG-7993-scaled-1.jpg",
+    "lokacija": "Zagreb",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 47,
+    "naslov": "BIOKLIMATSKA PERGOLA BIOGRAD NA MORU",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/6-bioklimatska-pergola-biograd-tt-gradnja.jpg",
+    "lokacija": "Biograd na Moru",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 48,
+    "naslov": "BIOKLIMATSKA PERGOLA BIOGRAD NA MORU",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-bioklimatske-pergole-biograd-tt-gradnja.jpg",
+    "lokacija": "Biograd na Moru",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 49,
+    "naslov": "BIOKLIMATSKA PERGOLA OPATIJA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/6-bioklimatska-pergola-opatija-tt-gradnja.jpg",
+    "lokacija": "Opatija",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 50,
+    "naslov": "BIOKLIMATSKA PERGOLA NA OTOKU PAGU",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/1-bioklimatska-pergola-pag-tt-gradnja.jpg",
+    "lokacija": "Otok Pag",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 51,
+    "naslov": "BIOKLIMATSKA PERGOLA OSTAKLJENA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/8-biokolimatska-pergola-ostakljena-tt-gradnja.jpg",
+    "lokacija": "TT Gradnja",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 52,
+    "naslov": "BIOKLIMATSKA PERGOLA ROVINJ",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/8-biokolimatska-pergola-rovinj-tt-gradnja.jpg",
+    "lokacija": "Rovinj",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 53,
+    "naslov": "BIOKLIMATSKA PERGOLA KORČULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/1-pergola-korcula-tt-gradnja.jpg",
+    "lokacija": "Korčula",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 54,
+    "naslov": "BIOKLIMATSKA PERGOLA GROBNIK",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/5-pergola-grobnik-tt-gradnja.jpg",
+    "lokacija": "Grobnik",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 55,
+    "naslov": "BIOKLIMATSKA PERGOLA SLJEME",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/4-pergola-sljeme-tt-gradnja.jpg",
+    "lokacija": "Sljeme",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 56,
+    "naslov": "BIOKLIMATSKA PERGOLA ZAGREB",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/6-pergola-zagreb-tt-gradnja.jpg",
+    "lokacija": "Zagreb",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 57,
+    "naslov": "BIOKLIMATSKA PERGOLA PULA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-pergola-pula-tt-gradnja.jpg",
+    "lokacija": "Pula",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 58,
+    "naslov": "BIOKLIMATSKA PERGOLA CRIKVENICA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-pergola-crikvenica-tt-gradnja.jpg",
+    "lokacija": "Crikvenica",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 59,
+    "naslov": "BIOKLIMATSKA PERGOLA OTOK PAG",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/3-pergola-pag-tt-gradnja.jpg",
+    "lokacija": "Otok Pag",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 60,
+    "naslov": "BIOKLIMATSKA PERGOLA ČIOVO",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/24-ciovo-pergole.jpg",
+    "lokacija": "Čiovo",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 61,
+    "naslov": "BIOKLIMATSKA PERGOLA SESVETSKI KRALJEVAC",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/1-pergola-sesvetski-kraljevac-tt-gradnja.jpg",
+    "lokacija": "Sesvetski Kraljevec",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 62,
+    "naslov": "BIOKLIMATSKA PERGOLA KUTINA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/5-pergole-sive-tt-gradnja.jpg",
+    "lokacija": "Kutina",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 63,
+    "naslov": "BIOKLIMATSKA PERGOLA – PISAROVINA",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/3-pergola-u-zelenilu-tt-gradnja-1.jpg",
+    "lokacija": "Pisarovina",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 64,
+    "naslov": "BIOKLIMATSKA PERGOLA – BERLIN",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2022/09/2-pergole-berlin-tt-gradnja.jpg",
+    "lokacija": "Berlin",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 65,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 MARIBOR",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/07/Bioklimatska_pergola_SB400_Maribor_IMG3014.jpg",
+    "lokacija": "Maribor",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 66,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 SLAVONSKI BROD",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/07/Bioklimatska_pergola_SB400_Slavonski_Brod_IMG2738.jpg",
+    "lokacija": "Slavonski Brod",
+    "model": "400",
+    "status": "postoji"
+  },
+  {
+    "pozicija": 67,
+    "naslov": "BIOKLIMATSKA PERGOLA SB400 KAŠTEL LUKŠIĆ",
+    "href": "https://bioklimatskepergole.hr/wp-content/uploads/2023/07/Bioklimatskepergole_SB400_Kastel_Luksic_IMG2440.jpg",
+    "lokacija": "Kaštel Lukšić",
+    "model": "400",
+    "status": "postoji"
+  }
+]
