@@ -242,8 +242,9 @@ td{color:var(--muted)}
 .card img{width:100%;height:100%;object-fit:cover;transition:.7s cubic-bezier(.2,.7,.3,1);opacity:.92}
 .card:hover img{transform:scale(1.06);opacity:1}
 .card:focus-visible{outline:2px solid var(--brass-lt);outline-offset:-2px}
-.card-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 18px;background:linear-gradient(transparent,rgba(18,16,14,.9));color:#fff}
+.card-cap{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 18px;background:linear-gradient(transparent,rgba(18,16,14,.9));color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .card-cap span{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
+.card-cap .model-tag{white-space:nowrap}
 .card.big{grid-column:span 2;aspect-ratio:8/5}
 .gal-more{display:flex;justify-content:center;margin-top:30px}
 .gal-more .btn-ghost{color:var(--ink);border-color:var(--line-d)}
@@ -254,6 +255,7 @@ td{color:var(--muted)}
 .lightbox.open{opacity:1;visibility:visible}
 .lightbox-img{max-width:100%;max-height:calc(100vh - 130px);max-height:calc(100svh - 130px);object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .lightbox-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
+.lightbox-cap-top{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
 .lightbox-close,.lightbox-nav{position:absolute;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
 .lightbox-close:hover,.lightbox-nav:hover{background:var(--brass);border-color:var(--brass)}
 .lightbox-close{top:20px;right:24px;width:44px;height:44px;font-size:26px;line-height:1}
