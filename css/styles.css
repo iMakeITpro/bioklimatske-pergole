@@ -180,6 +180,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .cfg-form .fg input::placeholder{color:rgba(255,255,255,.3)}
 .cfg-form .fg input:focus{background:rgba(255,255,255,.09);border-color:var(--brass);box-shadow:0 0 0 3px rgba(176,141,87,.16)}
 .cfg-form .fg input.err{border-color:#C97A6B;box-shadow:0 0 0 3px rgba(201,122,107,.18)}
+.dark .cfg-form-err{font-size:13px;line-height:1.5;color:#E0A899;margin:0 0 12px}
 .cfg-mbar{display:none;position:fixed;top:81px;left:0;right:0;z-index:40;justify-content:space-between;align-items:center;gap:16px;background:var(--ink-2);color:#fff;padding:14px 20px;border-bottom:1px solid var(--line)}
 .cfg-mbar-lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .cfg-mbar-val{font-family:var(--serif);font-size:20px;color:var(--brass-lt);font-variant-numeric:tabular-nums;white-space:nowrap}

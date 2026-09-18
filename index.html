@@ -239,6 +239,7 @@
               <option value="" disabled selected>Odaberite županiju</option>
             </select>
           </div>
+          <p class="cfg-form-err" id="zupErr" role="alert" style="margin:8px 0 0" hidden>Odaberite županiju — potrebna je za izračun transporta.</p>
         </div>
         <p class="cfg-note">Transport i montaža ovise o udaljenosti od naše baze u Slavonskom Brodu — zato tražimo lokaciju prije konačne cijene.</p>
 
@@ -307,6 +308,7 @@
                   <div class="fg"><label for="cfMjesto">Mjesto *</label><input id="cfMjesto" autocomplete="address-level2" placeholder="Zagreb"></div>
                 </div>
               </div>
+              <p class="cfg-form-err" id="cfgFormErr" role="alert" hidden></p>
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
             </form>
           </div>
@@ -1385,6 +1387,8 @@ document.querySelectorAll(
   const polja = ['cfIme','cfPrez','cfMail','cfTel'].map(id=>document.getElementById(id));
   const poljaTvrtka = ['cfNaziv','cfOib','cfAdresa','cfPbr','cfMjesto'].map(id=>document.getElementById(id));
   const blokTvrtka = document.getElementById('cfgTvrtka');
+  const cfgFormErr = document.getElementById('cfgFormErr');
+  const zupErr = document.getElementById('zupErr');
   const mailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
   const telOk  = v => v.replace(/[^0-9]/g,'').length >= 9;
   const pbrOk  = v => /^\d{5}$/.test(v.trim());
@@ -1416,10 +1420,14 @@ document.querySelectorAll(
   f.addEventListener('submit', e=>{
     e.preventDefault();
     let ok = true;
+    const poruke = [];
+    zupErr.hidden = true;
     if(!trenutnaRegija()){
       const zupEl = document.getElementById('zupBtn') || document.getElementById('zupanija');
       zupEl.scrollIntoView({behavior:'smooth', block:'center'});
       zupEl.focus();
+      zupErr.hidden = false;
+      poruke.push('Odaberite županiju u koraku 3. Lokacija.');
       ok = false;
     }
     const pravnaOsoba = jePravna();
@@ -1434,9 +1442,17 @@ document.querySelectorAll(
       el.classList.toggle('err', !dobro);
       if(!dobro) ok = false;
     });
+    const losa = aktivnaPolja.filter(el=>el.classList.contains('err'));
+    if(losa.length){
+      const nazivi = losa.map(el=>document.querySelector('label[for='+el.id+']').textContent.replace(/\s*\*$/,''));
+      poruke.push('Provjerite označena polja: ' + nazivi.join(', ') + '.');
+      if(losa.some(el=>el.id==='cfOib')) poruke.push('OIB mora imati 11 znamenki i valjanu kontrolnu znamenku.');
+    }
+    // greska mora biti vidljiva uz gumb koji je korisnik upravo kliknuo, ne samo kao obrub polja
+    cfgFormErr.textContent = poruke.join(' ');
+    cfgFormErr.hidden = !poruke.length;
     if(!ok){
-      const prviLosi = aktivnaPolja.find(el=>el.classList.contains('err'));
-      if(prviLosi) prviLosi.focus();
+      if(losa.length) losa[0].focus();
       return;
     }
     if(document.getElementById('cfBot').value){ return; } // bot
@@ -1502,7 +1518,11 @@ document.querySelectorAll(
       }
     });
   });
-  polja.concat(poljaTvrtka).forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+  polja.concat(poljaTvrtka).forEach(el=>el.addEventListener('input',()=>{
+    el.classList.remove('err');
+    cfgFormErr.hidden = true;
+  }));
+  document.getElementById('zupanija').addEventListener('change',()=>{ zupErr.hidden = true; });
 })();
 
 // ---------- mobilna navigacija ----------
