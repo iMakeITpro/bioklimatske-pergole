@@ -42,6 +42,14 @@ def prefiksiraj_putanje(html_str):
     return html_str
 
 
+TELEFON_IKONICA = (
+    '<span class="hd-phone-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+    '<rect x="6" y="2" width="12" height="20" rx="2.4" ry="2.4"></rect>'
+    '<line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>'
+)
+
+
 def ucitaj_header_i_footer():
     with open(PREDLOZAK, encoding='utf-8') as f:
         predlozak = f.read()
@@ -49,7 +57,14 @@ def ucitaj_header_i_footer():
     m_foot = re.search(r'<footer>.*\Z', predlozak, re.S)
     if not (m_head and m_foot):
         raise SystemExit('GRESKA: ne mogu pronaci header/footer u sunbreaker-400.html')
-    return prefiksiraj_putanje(m_head.group(0)), prefiksiraj_putanje(m_foot.group(0))
+    head = prefiksiraj_putanje(m_head.group(0))
+    # sunbreaker-400.html (predlozak) nema ikonicu telefona u headeru koju index.html
+    # ima - dodajemo je ovdje da podstranice projekta budu vizualno dosljedne indexu.
+    head = head.replace(
+        '<a href="tel:+385993637777" class="hd-phone">099 363 7777</a>',
+        f'<a href="tel:+385993637777" class="hd-phone">{TELEFON_IKONICA}099 363 7777</a>',
+    )
+    return head, prefiksiraj_putanje(m_foot.group(0))
 
 
 def izgradi_karticu(full, thumb, model, lokacija):
