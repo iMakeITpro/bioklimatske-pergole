@@ -137,6 +137,17 @@
     else if (e.key === 'ArrowRight') open(current + 1);
   });
 
+  // reveal animacija za galeriju (isto kao index.html)
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(x){
+      if (x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); }
+    });
+  }, {threshold: .08, rootMargin: '0px 0px -40px'});
+  document.querySelectorAll('.reveal').forEach(function(el, i){
+    el.style.transitionDelay = (i % 3 * 70) + 'ms';
+    io.observe(el);
+  });
+
   // fallback za slike koje se ne uspiju ucitati (isto kao index.html)
   document.querySelectorAll('img').forEach(function(img){
     img.addEventListener('error', function(){
