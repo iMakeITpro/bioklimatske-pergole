@@ -29,7 +29,7 @@ LOKALNI_FILEOVI = [
     'index.html', 'sunbreaker-400.html', 'sunbreaker-500.html', 'sunbreaker-700.html',
     'sjenila.html', 'zip-tende.html', 'rolo.html', 'veranda.html', 'upit.html',
     'jamstveni-uvjeti.html', 'uvjeti-koristenja.html', 'izjava-o-privatnosti.html',
-    'kolacici.html', 'styles.css',
+    'kolacici.html', 'css/styles.css',
 ]
 
 

@@ -22,7 +22,7 @@ import openpyxl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'dostavljeno')
-OUT = os.path.join(ROOT, 'cjenik.js')
+OUT = os.path.join(ROOT, 'js', 'cjenik.js')
 
 REGIJE = {
     'kontinentalna': 'Kontinentalna Hrvatska do Karlovca',
