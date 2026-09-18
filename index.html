@@ -274,7 +274,7 @@
             <div class="cfg-out" style="margin-bottom:22px">
               <div class="lbl">Vaša konfiguracija</div>
               <div class="cfg-total" id="cfgSummary" style="font-size:clamp(19px,2.2vw,26px);margin:12px 0 6px">Sunbreaker 400 · 3,4 × 1,5 m</div>
-              <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0">Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
+              <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0" hidden>Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
             </div>
             <p class="cfg-gate-note" id="cfgGateNote" hidden>Promijenili ste konfiguraciju od zadnjeg upita — pošaljite ponovno da dobijete ažuriranu okvirnu cijenu.</p>
             <form id="cfgForm" class="cfg-form" novalidate>
@@ -298,7 +298,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
-              <p class="cfg-disc">Podatke koristimo za izradu ponude i kontakt u roku 3–4 dana te za daljnju komunikaciju. Ne prosljeđujemo ih trećim stranama.</p>
+              <p class="cfg-disc">Podatke koristimo za izradu ponude i kontakt u roku 2 radna dana te za daljnju komunikaciju. Ne prosljeđujemo ih trećim stranama.</p>
             </form>
           </div>
 
@@ -310,12 +310,12 @@
                 <span class="cfg-tip-badge" id="cfgTipBadge">Fizička osoba · cijena s PDV-om</span>
               </div>
               <div class="cfg-total" id="total">—</div>
-              <div class="cfg-range" id="range">Izračun je informativan, moguća su odstupanja.</div>
+              <div class="cfg-range" id="range"></div>
             </div>
             <div class="brk" id="brk"></div>
             <div class="cfg-hvala" id="cfgHvala">
               <div class="cfg-hvala-t">Hvala na interesu!</div>
-              <p>Vaš upit je zaprimljen — naš stručnjak će vam se javiti u roku 3–4 dana s ponudom.</p>
+              <p>Vaš upit je zaprimljen — naš stručnjak će vam se javiti u roku 2 radna dana s ponudom.</p>
             </div>
             <p class="cfg-disc">Ponuda vrijedi 30 dana od izlaska na teren, a cijena se nakon potpisa ne mijenja.</p>
           </div>
@@ -660,7 +660,7 @@
       <h2>Isporuka u 2–4 tjedna.</h2>
     </div>
     <div class="steps reveal">
-      <div class="step"><h3>Upit i telefonski razgovor</h3><p>Unutar 24h. Provjeravamo lokaciju, podlogu, izloženost vjetru i budžet. Ako niste dobar kandidat, reći ćemo vam odmah.</p><span class="dur">Unutar 2 radna dana</span></div>
+      <div class="step"><h3>Upit i telefonski razgovor</h3><p>Unutar 24h. Provjeravamo lokaciju, podlogu, izloženost vjetru i budžet. Ako niste dobar kandidat, reći ćemo vam odmah.</p><span class="dur">Unutar 1 radnog dana</span></div>
       <div class="step"><h3>Izlazak i 3D vizualizacija</h3><p>Mjerenje na terenu, fotorealistična 3D vizualizacija na vašem objektu.</p><span class="dur">Unutar 2 radna dana od prihvaćanja ponude</span></div>
       <div class="step"><h3>Fiksna ponuda</h3><p>Specifikacija stavku po stavku. Cijena se nakon potpisa ne mijenja.</p><span class="dur">Vrijedi 30 dana</span></div>
       <div class="step"><h3>Proizvodnja u SELT by Aluprof tvornici</h3><p>Kompletan proces proizvodnje od profila do krajnjeg proizvoda, sve radimo sami.</p><span class="dur">2–4 tjedna</span></div>
@@ -1345,10 +1345,10 @@ function calc(){
   const glavniIznos = pravna ? netoBezPdv : konacno;
   document.getElementById('total').textContent = fmt(glavniIznos);
   document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(glavniIznos) : 'Nakon upita';
-  if(rangeEl) rangeEl.textContent = 'Izračun je informativan, moguća su odstupanja.';
+  if(rangeEl) rangeEl.textContent = '';
 }
-document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',()=>{ konfiguratorDirnut = true; calc(); }));
-document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',()=>{ konfiguratorDirnut = true; calc(); }));
+document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',()=>{ if(!el.closest('#cfgForm')) konfiguratorDirnut = true; calc(); }));
+document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',calc));
 calc();
 
 // ---------- treci fix: promjena konfiguracije nakon zakljucavanja cijene ponistava prikazanu ponudu ----------
