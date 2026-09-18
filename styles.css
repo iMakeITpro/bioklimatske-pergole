@@ -255,7 +255,8 @@ td{color:var(--muted)}
 .lightbox.open{opacity:1;visibility:visible}
 .lightbox-img{max-width:100%;max-height:calc(100vh - 130px);max-height:calc(100svh - 130px);object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .lightbox-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
-.lightbox-cap-top{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
+.lightbox-cap-top{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt);text-decoration:none}
+.lightbox-cap-top:hover{text-decoration:underline}
 .lightbox-close,.lightbox-nav{position:absolute;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
 .lightbox-close:hover,.lightbox-nav:hover{background:var(--brass);border-color:var(--brass)}
 .lightbox-close{top:20px;right:24px;width:44px;height:44px;font-size:26px;line-height:1}
@@ -452,6 +453,23 @@ footer a:hover{color:var(--brass-lt)}
 .sub-hero{padding:clamp(70px,9vw,130px) 0 clamp(60px,8vw,110px);background:var(--paper-2);border-bottom:1px solid var(--line-d)}
 .sub-hero h1{font-size:clamp(30px,4.2vw,52px);margin-bottom:20px}
 .sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
+
+/* podstranica projekta — naslovna fotografija s tekstom preko nje, sirina
+   ogranicena na .wrap (kao i prije) da se slika ne rasteze iznad svoje
+   stvarne rezolucije na sirokim ekranima */
+.proj-hero{max-width:var(--max);margin:clamp(28px,4vw,48px) auto 0;padding:0 28px}
+.proj-hero .media{position:relative;overflow:hidden;border:1px solid var(--line-d);aspect-ratio:16/9;color:#fff;background:var(--ink)}
+.proj-hero .media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.proj-hero .media::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(18,16,14,.92) 0%,rgba(18,16,14,.78) 30%,rgba(18,16,14,.4) 62%,rgba(18,16,14,.12) 100%)}
+.proj-hero .content{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 32px}
+.proj-hero .btn-ghost{color:#fff;border-color:rgba(255,255,255,.4);margin-bottom:auto;align-self:flex-start}
+.proj-hero .btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.proj-hero h1{font-size:clamp(24px,3.4vw,40px);margin:0;color:#fff;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.proj-hero .eyebrow{margin-bottom:10px}
+@media(max-width:640px){
+  .proj-hero .media{aspect-ratio:4/5}
+  .proj-hero .content{padding:22px 20px}
+}
 
 /* ---------- interaktivni prikaz na podstranicama modela ---------- */
 .hotspot{position:relative;line-height:0;border:1px solid var(--line-d);background:var(--ink)}

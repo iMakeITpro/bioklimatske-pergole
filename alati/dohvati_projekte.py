@@ -121,6 +121,11 @@ def basename(url):
     return re.sub(r'-\d+x\d+(?=\.\w+$)', '', ime)
 
 
+def slug_iz_url(url):
+    """https://www.ttgradnja.hr/bioklimatska-pergola-zaton/ -> bioklimatska-pergola-zaton"""
+    return url.rstrip('/').rsplit('/', 1)[-1]
+
+
 def lokacija_iz_naslova(naslov):
     """Ocisti 'Bioklimatska pergola [SB400/SB500] X' -> 'X'."""
     t = naslov
@@ -159,10 +164,11 @@ def ucitaj_postojece_kartice(index_html):
     return prefix, suffix, kartice, m.span()
 
 
-def izgradi_novu_karticu(title, img, model):
+def izgradi_novu_karticu(title, img, model, slug):
     """href i img src moraju biti ISTI URL (sama fotografija) - lightbox
     (index.html) cita card.getAttribute('href') kao izvor uvecane slike, ne
-    URL podstranice projekta."""
+    URL podstranice projekta. data-galerija vodi na Fazu 2 podstranicu s
+    punom galerijom (projekti/<slug>.html)."""
     lok = lokacija_iz_naslova(title)
     # "SUNBREAKER" u capsu ide samo na vidljivu .model-tag oznaku (trazeno od
     # klijenta); alt/aria-label prate postojecu konvenciju ("Sunbreaker").
@@ -170,7 +176,7 @@ def izgradi_novu_karticu(title, img, model):
     alt = f'Sunbreaker {model}, {lok}'
     return (
         f'      <a class="card" href="{img}" role="button" tabindex="0" '
-        f'aria-label="{aria}">\n'
+        f'aria-label="{aria}" data-galerija="projekti/{slug}.html">\n'
         f'        <img src="{img}" alt="{alt}" loading="lazy">\n'
         f'        <div class="card-cap"><span>{lok}</span>'
         f'<span class="model-tag">SUNBREAKER {model}</span></div>\n'
@@ -213,17 +219,22 @@ def glavno():
         rec = red.pop(0)
         bn = basename(rec['img'])
         postoji = postojece_po_slici.get(bn)
+        slug = slug_iz_url(rec['href'])
         if postoji:
-            finalne_kartice.append(postoji['raw'])
+            # ukloni eventualni stari data-galerija (ponovno pokretanje skripte) pa dodaj svjez
+            raw = re.sub(r'\s*data-galerija="[^"]*"', '', postoji['raw'])
+            raw = raw.replace(f'href="{postoji["href"]}"', f'href="{postoji["href"]}" data-galerija="projekti/{slug}.html"', 1)
+            finalne_kartice.append(raw)
             model = re.sub(r'(?i)^sunbreaker\s+', '', postoji['model']).strip()
             zapisi.append({'pozicija': pos, 'naslov': naslov, 'href': postoji['href'],
+                            'stranica': rec['href'], 'slug': slug,
                             'lokacija': postoji['loc'], 'model': model, 'status': 'postoji'})
         else:
             is_500 = 'SB500' in kljuc or kljuc.replace('BIOKLIMATSKA PERGOLA ', '').strip() in SPECIAL_500
             model = '500' if is_500 else '400'
-            finalne_kartice.append(izgradi_novu_karticu(rec['title'], rec['img'], model))
+            finalne_kartice.append(izgradi_novu_karticu(rec['title'], rec['img'], model, slug))
             zapisi.append({'pozicija': pos, 'naslov': naslov, 'href': rec['img'],
-                            'stranica': rec['href'],
+                            'stranica': rec['href'], 'slug': slug,
                             'lokacija': lokacija_iz_naslova(rec['title']), 'model': model, 'status': 'novo'})
 
     if nedostaju:
