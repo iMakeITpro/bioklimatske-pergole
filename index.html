@@ -267,7 +267,7 @@
 
       <div class="cfg-right">
         <div class="cfg-sticky">
-          <p class="cfg-disc" style="margin:0 0 18px">Izračun je informativan, moguća su odstupanja.</p>
+          <p class="cfg-disc" style="margin:0 0 18px;color:var(--brass-lt)">Izračun je informativan, moguća su odstupanja.</p>
 
           <!-- obavezni kontakt podaci (zapisnik t. 4) -->
           <div id="cfgGate">
@@ -1045,6 +1045,7 @@
 // ---------- konfigurator ----------
 // Cijena dolazi isključivo iz cjenik.js (Faza 2) — nema izmišljenih formula ni po m².
 let cfgUnlocked = false; // okvirna ponuda se prikazuje tek nakon obaveznih kontakt podataka (zapisnik t. 4)
+let konfiguratorDirnut = false; // cfgSummarySub ostaje skriven dok korisnik prvi put ne klikne nesto u konfiguratoru
 let zadnjiIzracun = null; // {rabatIznos, netoBezPdv, konacno} — za e-mail payload pri submitu
 let cfgPoslanoRanije = false; // treci fix: je li upit vec jednom poslan u ovoj posjeti — za poruku o promijenjenoj konfiguraciji
 const PDV_STOPA = 0.25;  // opca stopa PDV-a u RH (2026.)
@@ -1281,10 +1282,13 @@ function calc(){
   const naUpit = oprSvi.filter(o=>o.dataset.upit);
   const subEl = document.getElementById('cfgSummarySub');
   if(subEl){
-    const dijelovi = [];
-    if(sCijenom.length) dijelovi.push('Oprema: '+sCijenom.map(o=>o.dataset.n).join(', '));
-    if(naUpit.length) dijelovi.push('Na upit: '+naUpit.map(o=>o.dataset.n).join(', '));
-    subEl.textContent = dijelovi.length ? dijelovi.join(' · ') : 'Bez dodatne opreme — uvijek je možete dodati kasnije.';
+    subEl.hidden = !konfiguratorDirnut;
+    if(konfiguratorDirnut){
+      const dijelovi = [];
+      if(sCijenom.length) dijelovi.push('Oprema: '+sCijenom.map(o=>o.dataset.n).join(', '));
+      if(naUpit.length) dijelovi.push('Na upit: '+naUpit.map(o=>o.dataset.n).join(', '));
+      subEl.textContent = dijelovi.length ? dijelovi.join(' · ') : 'Bez dodatne opreme — uvijek je možete dodati kasnije.';
+    }
   }
 
   const cijena = cijenaIzCjenika();
@@ -1343,8 +1347,8 @@ function calc(){
   document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(glavniIznos) : 'Nakon upita';
   if(rangeEl) rangeEl.textContent = 'Izračun je informativan, moguća su odstupanja.';
 }
-document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',calc));
-document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',calc));
+document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',()=>{ konfiguratorDirnut = true; calc(); }));
+document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',()=>{ konfiguratorDirnut = true; calc(); }));
 calc();
 
 // ---------- treci fix: promjena konfiguracije nakon zakljucavanja cijene ponistava prikazanu ponudu ----------
