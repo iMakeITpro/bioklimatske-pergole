@@ -1094,21 +1094,19 @@ const mm2m = mm => num(mm/1000)+' m';
   const stavke = []; // { el, opt } — el = .czup-opt div, opt = pravi <option> u skrivenom selectu
   let focIdx = -1;
 
-  sel.querySelectorAll('optgroup').forEach((grp, gi)=>{
-    const lbl = document.createElement('div');
-    lbl.className = 'czup-group';
-    lbl.textContent = grp.label;
-    panel.appendChild(lbl);
-    Array.from(grp.children).forEach(opt=>{
-      const div = document.createElement('div');
-      div.className = 'czup-opt';
-      div.setAttribute('role','option');
-      div.setAttribute('aria-selected','false');
-      div.id = 'zupopt-' + stavke.length;
-      div.textContent = opt.dataset.zupanija;
-      panel.appendChild(div);
-      stavke.push({ el: div, opt });
-    });
+  // Plosnati (negrupirani) popis, abecedno po nazivu zupanije — regKey (opt.value) ostaje
+  // netaknut u skrivenom <select>, koristi se i dalje iskljucivo za odabir cijene iz cjenik.js.
+  const sveOpcije = Array.from(sel.querySelectorAll('optgroup option'));
+  sveOpcije.sort((a, b) => a.dataset.zupanija.localeCompare(b.dataset.zupanija, 'hr'));
+  sveOpcije.forEach(opt=>{
+    const div = document.createElement('div');
+    div.className = 'czup-opt';
+    div.setAttribute('role','option');
+    div.setAttribute('aria-selected','false');
+    div.id = 'zupopt-' + stavke.length;
+    div.textContent = opt.dataset.zupanija;
+    panel.appendChild(div);
+    stavke.push({ el: div, opt });
   });
   stavke.forEach((rec, i)=>{ rec.el.addEventListener('click', ()=>odaberi(i)); });
 
