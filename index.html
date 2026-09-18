@@ -297,8 +297,17 @@
                   <label for="tkPra">Pravna osoba</label>
                 </div>
               </div>
+              <!-- podaci kupca za pravnu osobu (naziv, OIB i adresa sjedista trebaju za ponudu/racun, cl. 79. Zakona o PDV-u); vidljivo samo uz "Pravna osoba" -->
+              <div id="cfgTvrtka" hidden>
+                <div class="fg"><label for="cfNaziv">Naziv tvrtke *</label><input id="cfNaziv" autocomplete="organization" placeholder="TT Gradnja d.o.o."></div>
+                <div class="fg"><label for="cfOib">OIB *</label><input id="cfOib" inputmode="numeric" maxlength="11" autocomplete="off" placeholder="11 znamenki"></div>
+                <div class="fg"><label for="cfAdresa">Ulica i kućni broj *</label><input id="cfAdresa" autocomplete="address-line1" placeholder="Ilica 1"></div>
+                <div class="frow">
+                  <div class="fg"><label for="cfPbr">Poštanski broj *</label><input id="cfPbr" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="10000"></div>
+                  <div class="fg"><label for="cfMjesto">Mjesto *</label><input id="cfMjesto" autocomplete="address-level2" placeholder="Zagreb"></div>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
-              <p class="cfg-disc">Podatke koristimo za izradu ponude i kontakt u roku 2 radna dana te za daljnju komunikaciju. Ne prosljeđujemo ih trećim stranama.</p>
             </form>
           </div>
 
@@ -1374,8 +1383,36 @@ document.querySelectorAll(
   const f = document.getElementById('cfgForm');
   if(!f) return;
   const polja = ['cfIme','cfPrez','cfMail','cfTel'].map(id=>document.getElementById(id));
+  const poljaTvrtka = ['cfNaziv','cfOib','cfAdresa','cfPbr','cfMjesto'].map(id=>document.getElementById(id));
+  const blokTvrtka = document.getElementById('cfgTvrtka');
   const mailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
   const telOk  = v => v.replace(/[^0-9]/g,'').length >= 9;
+  const pbrOk  = v => /^\d{5}$/.test(v.trim());
+  // OIB: 11 znamenki, zadnja je kontrolna (ISO 7064, MOD 11,10)
+  const oibOk = v => {
+    v = v.trim();
+    if(!/^\d{11}$/.test(v)) return false;
+    let a = 10;
+    for(let i=0; i<10; i++){
+      a = (a + Number(v[i])) % 10;
+      if(a === 0) a = 10;
+      a = (a * 2) % 11;
+    }
+    const kontrolna = (11 - a) % 10;
+    return kontrolna === Number(v[10]);
+  };
+  const jePravna = () => document.querySelector('input[name=tipKupca]:checked')?.value === 'pravna';
+  // uz pravnu osobu Ime/Prezime opisuju kontakt osobu, a ne kupca
+  const lblIme = document.querySelector('label[for=cfIme]');
+  const lblPrez = document.querySelector('label[for=cfPrez]');
+  function prikaziTipKupca(){
+    const pravna = jePravna();
+    blokTvrtka.hidden = !pravna;
+    lblIme.textContent = pravna ? 'Ime kontakta *' : 'Ime *';
+    lblPrez.textContent = pravna ? 'Prezime kontakta *' : 'Prezime *';
+  }
+  document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change', prikaziTipKupca));
+  prikaziTipKupca();
   f.addEventListener('submit', e=>{
     e.preventDefault();
     let ok = true;
@@ -1385,16 +1422,20 @@ document.querySelectorAll(
       zupEl.focus();
       ok = false;
     }
-    polja.forEach(el=>{
+    const pravnaOsoba = jePravna();
+    const aktivnaPolja = pravnaOsoba ? polja.concat(poljaTvrtka) : polja;
+    aktivnaPolja.forEach(el=>{
       const v = el.value.trim();
       let dobro = v.length > 1;
       if(el.id==='cfMail') dobro = mailOk(v);
       if(el.id==='cfTel')  dobro = telOk(v);
+      if(el.id==='cfOib')  dobro = oibOk(v);
+      if(el.id==='cfPbr')  dobro = pbrOk(v);
       el.classList.toggle('err', !dobro);
       if(!dobro) ok = false;
     });
     if(!ok){
-      const prviLosi = polja.find(el=>el.classList.contains('err'));
+      const prviLosi = aktivnaPolja.find(el=>el.classList.contains('err'));
       if(prviLosi) prviLosi.focus();
       return;
     }
@@ -1414,7 +1455,8 @@ document.querySelectorAll(
     const oprSvi = [...document.querySelectorAll('#konfigurator .opt input:checked')];
     const oprema = oprSvi.filter(o=>!o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'bez dodatne opreme';
     const opremaUpit = oprSvi.filter(o=>o.dataset.upit).map(o=>o.dataset.n).join(', ') || 'nema';
-    const pravna = document.querySelector('input[name=tipKupca]:checked')?.value === 'pravna';
+    const pravna = pravnaOsoba;
+    const [naziv,oib,adresa,pbr,mjesto] = poljaTvrtka.map(el=>el.value.trim());
 
     // cetvrti fix — priprema za "korak 4" (ads conversion tracking) iz iduceg chata:
     // ovo je jedini, jasno dokumentirani trenutak potvrde upita. Buduci kod za ads/analytics
@@ -1430,7 +1472,7 @@ document.querySelectorAll(
     }));
 
     posaljiObrazac({
-      subject: 'Konfigurator — ' + ime + ' ' + prezime + ' · SB' + model,
+      subject: 'Konfigurator — ' + (pravna ? naziv : ime + ' ' + prezime) + ' · SB' + model,
       from_name: 'Konfigurator bioklimatskih pergola',
       Ime: ime, Prezime: prezime, Email: mail, Telefon: tel,
       Model: 'Sunbreaker ' + model,
@@ -1440,6 +1482,13 @@ document.querySelectorAll(
       Oprema: oprema,
       Oprema_na_upit: opremaUpit,
       Tip_kupca: pravna ? 'Pravna osoba' : 'Fizička osoba',
+      ...(pravna ? {
+        Naziv_tvrtke: naziv,
+        OIB: oib,
+        Adresa_sjedista: adresa,
+        Postanski_broj: pbr,
+        Mjesto: mjesto
+      } : {}),
       Popust: zadnjiIzracun ? fmt(zadnjiIzracun.rabatIznos) : 'nedostupno',
       Okvirna_ponuda: document.getElementById('total').textContent,
       Izvor: location.href
@@ -1453,7 +1502,7 @@ document.querySelectorAll(
       }
     });
   });
-  polja.forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+  polja.concat(poljaTvrtka).forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
 })();
 
 // ---------- mobilna navigacija ----------
