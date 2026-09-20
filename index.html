@@ -55,7 +55,7 @@
 
 <link rel="stylesheet" href="css/styles.css?v=26">
 <script src="js/slanje.js?v=2"></script>
-<script src="js/cjenik.js?v=1"></script>
+<script src="js/cjenik.js?v=2"></script>
 <script src="js/recenzije.js?v=2"></script>
 </head>
 <body>
@@ -226,7 +226,7 @@
             <span class="rng-val" id="sirinaV">—</span>
           </div>
         </div>
-        <p class="cfg-note">Samo stvarne izvedive mjere iz proizvodnog cjenika — svaka pozicija klizača je konačna vrijednost, ništa se ne procjenjuje.</p>
+        <p class="cfg-note">Dubina se bira u koracima iz proizvodnog cjenika, a širina u centimetar. Cijena vrijedi za cijeli razred širine (npr. 4,01–4,50 m), ništa se ne procjenjuje.</p>
 
         <div class="fld">
           <label>3. Lokacija</label>
@@ -1067,7 +1067,7 @@ const REGIJE_ZUPANIJE = {
   'split-dubrovnik': ['Splitsko-dalmatinska','Dubrovačko-neretvanska']
 };
 const fmt = n => new Intl.NumberFormat('hr-HR',{maximumFractionDigits:0}).format(Math.round(n)) + ' €';
-const num = n => new Intl.NumberFormat('hr-HR',{minimumFractionDigits:1,maximumFractionDigits:1}).format(n);
+const num = n => new Intl.NumberFormat('hr-HR',{minimumFractionDigits:1,maximumFractionDigits:2}).format(n);
 const mm2m = mm => num(mm/1000)+' m';
 
 // ---------- korak 3: padajuca lista zupanija, grupirana po regiji iz mapiranja gore ----------
@@ -1196,8 +1196,15 @@ const mm2m = mm => num(mm/1000)+' m';
 function projekcijeZaModel(model){
   return Object.keys(CJENIK.cijene[model].kontinentalna.projekcije).map(Number).sort((a,b)=>a-b);
 }
-function sirineZaModel(model){
-  return [...CJENIK.cijene[model].kontinentalna.sirine].sort((a,b)=>a-b);
+// width is free in whole cm between min and max from cjenik.js (CJENIK.raspon); the price columns in
+// CJENIK.cijene[model][regija].sirine are price CLASSES, not selectable points
+function rasponSirine(model){
+  return CJENIK.raspon[model];
+}
+// price class of a width: the first column >= width (column 4500 = everything above the previous column up to 4,50 m).
+// Returns undefined when the width is above the last column — the caller then shows no price.
+function razredSirine(stupci, sirina){
+  return [...stupci].sort((a,b)=>a-b).find(s=>s>=sirina);
 }
 function trenutniModel(){
   return document.querySelector('input[name=model]:checked').value;
@@ -1212,16 +1219,18 @@ function najblizaVrijednost(vrijednosti, v){
 function postaviRasponeDimenzija(){
   const model = trenutniModel();
   const proj = projekcijeZaModel(model);
-  const sir = sirineZaModel(model);
+  const sir = rasponSirine(model);
   const elP = document.getElementById('projekcija');
   const elS = document.getElementById('sirina');
   const trenutnaP = Number(elP.value), trenutnaS = Number(elS.value);
   elP.min = proj[0]; elP.max = proj[proj.length-1]; elP.step = 'any';
-  elS.min = sir[0]; elS.max = sir[sir.length-1]; elS.step = 'any';
-  // klizac je sada kontinuiran (glatko povlacenje, ispravak 9.9.2026.) — kod promjene modela vrijednost
-  // se prebacuje na najblizu stvarnu tocku NOVOG modela; kod prve inicijalizacije (NaN) uzima srednju
+  elS.min = sir.sirinaMin; elS.max = sir.sirinaMax; elS.step = sir.sirinaKorak;
+  // depth slider is continuous (smooth dragging, 9.9.2026.) — on model change the value moves to the nearest real
+  // point of the NEW model; on first init (NaN) it takes the middle one.
+  // width slider steps in whole cm — on model change the value is clamped into the new range; first init = middle.
   elP.value = isNaN(trenutnaP) ? proj[Math.floor((proj.length-1)/2)] : najblizaVrijednost(proj, trenutnaP);
-  elS.value = isNaN(trenutnaS) ? sir[Math.floor((sir.length-1)/2)] : najblizaVrijednost(sir, trenutnaS);
+  const sredinaS = Math.round((sir.sirinaMin + sir.sirinaMax) / 2 / sir.sirinaKorak) * sir.sirinaKorak;
+  elS.value = isNaN(trenutnaS) ? sredinaS : Math.min(sir.sirinaMax, Math.max(sir.sirinaMin, trenutnaS));
 }
 document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
 postaviRasponeDimenzija();
@@ -1234,6 +1243,7 @@ postaviRasponeDimenzija();
 // calc() i cijenaIzCjenika()) — dakle "3,0 m" pa "3,5 m" se pojavljuju na svom mjestu, bez skokova klizaca.
 // Tipkovnica (strelice/Home/End/PageUp/PageDown) posebno se hvata da i dalje ide tocno po stvarnim
 // koracima (ne po sitnim mm), kao i do sad.
+// Applies to the DEPTH slider only — width is stepped by the browser itself (step = 1 cm, see postaviRasponeDimenzija).
 function omoguciTipkovnickeKorake(el, dohvatiVrijednosti){
   el.addEventListener('keydown', e=>{
     const smjer = {ArrowLeft:-1, ArrowDown:-1, PageDown:-1, ArrowRight:1, ArrowUp:1, PageUp:1}[e.key];
@@ -1250,7 +1260,6 @@ function omoguciTipkovnickeKorake(el, dohvatiVrijednosti){
   });
 }
 omoguciTipkovnickeKorake(document.getElementById('projekcija'), ()=>projekcijeZaModel(trenutniModel()));
-omoguciTipkovnickeKorake(document.getElementById('sirina'), ()=>sirineZaModel(trenutniModel()));
 
 function trenutnaRegija(){
   const v = document.getElementById('zupanija').value;
@@ -1266,20 +1275,24 @@ function odabranaZupanija(){
 function cijenaIzCjenika(){
   const model = trenutniModel();
   const projekcija = String(najblizaVrijednost(projekcijeZaModel(model), Number(document.getElementById('projekcija').value)));
-  const sirina = String(najblizaVrijednost(sirineZaModel(model), Number(document.getElementById('sirina').value)));
+  const sirinaMm = Number(document.getElementById('sirina').value);
   const regija = trenutnaRegija();
   if(!regija) return null;
+  const raspon = rasponSirine(model);
+  if(!(sirinaMm >= raspon.sirinaMin && sirinaMm <= raspon.sirinaMax)) return null;
   const blok = (CJENIK.cijene[model] || {})[regija];
   const red = blok && blok.projekcije ? blok.projekcije[projekcija] : null;
+  const sirina = blok ? String(razredSirine(blok.sirine, sirinaMm)) : undefined;
   if(!red || red.cijene[sirina] === undefined) return null;
   return { cijenaPergole: red.cijene[sirina], transport: red.transport };
 }
 
 function calc(){
   const model = trenutniModel();
-  // klizac je kontinuiran (glatko povlacenje) — prikaz/cijena uvijek koriste najblizu STVARNU vrijednost
+  // depth slider is continuous (smooth dragging) — display/price always use the nearest REAL depth from cjenik.js;
+  // width is shown exactly as set (whole cm), its price class is resolved in cijenaIzCjenika()
   const projekcija = najblizaVrijednost(projekcijeZaModel(model), Number(document.getElementById('projekcija').value));
-  const sirina = najblizaVrijednost(sirineZaModel(model), Number(document.getElementById('sirina').value));
+  const sirina = Number(document.getElementById('sirina').value);
 
   document.getElementById('projekcijaV').textContent = mm2m(projekcija);
   document.getElementById('sirinaV').textContent = mm2m(sirina);

@@ -30,3 +30,8 @@ _slanje.js
 
 # klijentski materijali — cjenici i fotografije, NIKAD na javni repozitorij
 dostavljeno/
+
+# vise se ne koriste — CHANGELOG i PRD dokumenti
+CHANGELOG.md
+docs/PRD.md
+docs/PRD-konfigurator.md
