@@ -275,7 +275,7 @@
             <div class="cfg-out" style="margin-bottom:22px">
               <div class="lbl">Vaša konfiguracija</div>
               <div class="cfg-total" id="cfgSummary" style="font-size:clamp(19px,2.2vw,26px);margin:12px 0 6px">Sunbreaker 400 · 3,4 × 1,5 m</div>
-              <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0" hidden>Bez dodatne opreme — uvijek je možete dodati kasnije.</div>
+              <div class="cfg-range" id="cfgSummarySub" style="margin-bottom:0" hidden></div>
             </div>
             <p class="cfg-gate-note" id="cfgGateNote" hidden>Promijenili ste konfiguraciju od zadnjeg upita — pošaljite ponovno da dobijete ažuriranu okvirnu cijenu.</p>
             <form id="cfgForm" class="cfg-form" novalidate>
@@ -1056,7 +1056,6 @@
 // ---------- konfigurator ----------
 // Cijena dolazi isključivo iz cjenik.js (Faza 2) — nema izmišljenih formula ni po m².
 let cfgUnlocked = false; // okvirna ponuda se prikazuje tek nakon obaveznih kontakt podataka (zapisnik t. 4)
-let konfiguratorDirnut = false; // cfgSummarySub ostaje skriven dok korisnik prvi put ne klikne nesto u konfiguratoru
 let zadnjiIzracun = null; // {rabatIznos, netoBezPdv, konacno} — za e-mail payload pri submitu
 let cfgPoslanoRanije = false; // treci fix: je li upit vec jednom poslan u ovoj posjeti — za poruku o promijenjenoj konfiguraciji
 const PDV_STOPA = 0.25;  // opca stopa PDV-a u RH (2026.)
@@ -1306,13 +1305,12 @@ function calc(){
   const naUpit = oprSvi.filter(o=>o.dataset.upit);
   const subEl = document.getElementById('cfgSummarySub');
   if(subEl){
-    subEl.hidden = !konfiguratorDirnut;
-    if(konfiguratorDirnut){
-      const dijelovi = [];
-      if(sCijenom.length) dijelovi.push('Oprema: '+sCijenom.map(o=>o.dataset.n).join(', '));
-      if(naUpit.length) dijelovi.push('Na upit: '+naUpit.map(o=>o.dataset.n).join(', '));
-      subEl.textContent = dijelovi.length ? dijelovi.join(' · ') : 'Bez dodatne opreme — uvijek je možete dodati kasnije.';
-    }
+    // shown only while at least one equipment item is ticked; nothing selected = nothing written
+    const dijelovi = [];
+    if(sCijenom.length) dijelovi.push('Oprema: '+sCijenom.map(o=>o.dataset.n).join(', '));
+    if(naUpit.length) dijelovi.push('Na upit: '+naUpit.map(o=>o.dataset.n).join(', '));
+    subEl.hidden = !dijelovi.length;
+    subEl.textContent = dijelovi.join(' · ');
   }
 
   const cijena = cijenaIzCjenika();
@@ -1371,7 +1369,7 @@ function calc(){
   document.getElementById('totalMobile').textContent = cfgUnlocked ? fmt(glavniIznos) : 'Nakon upita';
   if(rangeEl) rangeEl.textContent = '';
 }
-document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',()=>{ if(!el.closest('#cfgForm')) konfiguratorDirnut = true; calc(); }));
+document.querySelectorAll('#konfigurator input, #konfigurator select').forEach(el=>el.addEventListener('input',()=>{ calc(); }));
 document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change',calc));
 calc();
 
