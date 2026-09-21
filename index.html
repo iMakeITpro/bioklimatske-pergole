@@ -94,7 +94,9 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-bg"></div>
-  <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" poster="videos/hero-poster.jpg?v=5" aria-hidden="true" tabindex="-1"></video>
+  <!-- bez poster atributa: on ne moze ovisiti o media queryju, a desktop i mobitel trebaju
+       razlicit kadar. Podlogu nosi .hero-bg, koja se u CSS-u prebacuje po breakpointu. -->
+  <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="hero-inner">
       <div class="eyebrow">Premium bioklimatske pergole · ovlašteni zastupnik za SELT by Aluprof</div>
@@ -957,9 +959,10 @@
   const mirno = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   const stediPodatke = navigator.connection && (navigator.connection.saveData ||
         /2g/.test(navigator.connection.effectiveType||''));
-  // video se vrti i na mobitelu, ali iz manje datoteke (960px, 1,3 MB umjesto 2,5 MB)
+  // isti isjecak na oba: mobitel dobiva portretni izrez iz istog 1080p mastera
+  // (864x1536, 6,2 MB), desktop puni kadar (1920x1080, 9,6 MB)
   if(mirno || stediPodatke){ v.remove(); return; }
-  const izvor = uzak ? 'videos/hero-mobile.mp4?v=4' : 'videos/hero.mp4?v=5';
+  const izvor = uzak ? 'videos/hero-mobile.mp4?v=6' : 'videos/hero.mp4?v=6';
   const ucitaj = () => {
     v.src = izvor;
     v.addEventListener('error', () => v.remove(), {once:true});
