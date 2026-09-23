@@ -21,6 +21,7 @@ import datetime
 import os
 import random
 import sys
+import unicodedata
 
 import openpyxl
 
@@ -63,12 +64,37 @@ IZVORI = {
 
 
 def nadji_izvor(fname):
-    """Vrati putanju do tablice u prvoj mapi u kojoj postoji, ili None."""
+    """Vrati putanju do tablice u prvoj mapi u kojoj postoji, ili None.
+
+    Imena se usporedjuju neosjetljivo na velika/mala slova i na Unicode
+    normalizaciju. macOS zapisuje dijakritiku u NFD (S + kvacica), ovaj izvorni
+    kod je u NFC, a klijent salje imena s varijacijama ("od" / "Od"). Stroga
+    usporedba bi promasila, blok bi se tiho preuzeo iz starog cjenik.js i to bi
+    izgledalo kao uspjeh dok cijena ostaje stara.
+    """
+    trazeno = unicodedata.normalize('NFC', fname).casefold()
     for d in SRC_DIRS:
-        path = os.path.join(d, fname)
-        if os.path.exists(path):
-            return path
+        if not os.path.isdir(d):
+            continue
+        for stvarno in sorted(os.listdir(d)):
+            if unicodedata.normalize('NFC', stvarno).casefold() == trazeno:
+                return os.path.join(d, stvarno)
     return None
+
+
+def odsijeci_prazne_stupce(rows):
+    """Odbaci stupce s kraja koji su prazni u svim redcima.
+
+    Excel zna nositi stupce izvan podataka: SB400 kontinentalna ima raspon
+    A1:K24 iako podaci staju u A:H. Bez rezanja bi "transport je zadnji stupac"
+    pokazivalo na praznu celiju i ucitavanje bi puklo.
+    """
+    zadnji = -1
+    for r in rows:
+        for j, v in enumerate(r):
+            if v is not None and j > zadnji:
+                zadnji = j
+    return [r[:zadnji + 1] for r in rows]
 
 
 def nadji_zaglavlje(rows):
@@ -84,6 +110,7 @@ def ucitaj_tablicu(path):
     wb = openpyxl.load_workbook(path, data_only=True)
     ws = wb[wb.sheetnames[0]]
     rows = [r for r in ws.iter_rows(values_only=True) if any(v is not None for v in r)]
+    rows = odsijeci_prazne_stupce(rows)
 
     header_idx = nadji_zaglavlje(rows)
     header = rows[header_idx]
@@ -260,6 +287,7 @@ def provjeri(cijene_out, putanje, n=24):
             wb = openpyxl.load_workbook(putanje[key], data_only=True)
             ws = wb[wb.sheetnames[0]]
             rows = [r for r in ws.iter_rows(values_only=True) if any(v is not None for v in r)]
+            rows = odsijeci_prazne_stupce(rows)
             cache[key] = (rows, nadji_zaglavlje(rows))
         rows, header_idx = cache[key]
         header = rows[header_idx]
