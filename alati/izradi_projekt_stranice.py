@@ -129,6 +129,19 @@ LIGHTBOX_SKRIPTA = """
     io.observe(el);
   });
 
+  // scroll cue: skip it entirely when the gallery is already on screen, and
+  // retire it for good once the gallery scrolls up into view
+  var cue = document.querySelector('.scroll-cue');
+  var gal = document.getElementById('gal');
+  if (cue && gal){
+    var cueIo = new IntersectionObserver(function(entries){
+      var galleryInView = entries[0].isIntersecting;
+      cue.classList.toggle('cue-on', !galleryInView);
+      if (galleryInView) cueIo.disconnect();
+    }, {threshold: 0, rootMargin: '0px 0px -25% 0px'});
+    cueIo.observe(gal);
+  }
+
   // fallback za slike koje se ne uspiju ucitati (isto kao index.html)
   document.querySelectorAll('img').forEach(function(img){
     img.addEventListener('error', function(){
@@ -171,6 +184,11 @@ def izgradi_stranicu(head, foot, zapis):
     </div>
   </div>
 </div>
+
+<a class="scroll-cue" href="#gal" aria-label="Pomakni se na galeriju fotografija">
+  <span class="scroll-cue-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+  <span class="scroll-cue-txt">Povuci</span>
+</a>
 
 <section>
   <div class="wrap">

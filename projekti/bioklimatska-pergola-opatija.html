@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=26">
+<link rel="stylesheet" href="../css/styles.css?v=27">
 </head>
 <body>
 
@@ -55,6 +55,11 @@
     </div>
   </div>
 </div>
+
+<a class="scroll-cue" href="#gal" aria-label="Pomakni se na galeriju fotografija">
+  <span class="scroll-cue-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
+  <span class="scroll-cue-txt">Povuci</span>
+</a>
 
 <section>
   <div class="wrap">
@@ -147,6 +152,19 @@
     el.style.transitionDelay = (i % 3 * 70) + 'ms';
     io.observe(el);
   });
+
+  // scroll cue: skip it entirely when the gallery is already on screen, and
+  // retire it for good once the gallery scrolls up into view
+  var cue = document.querySelector('.scroll-cue');
+  var gal = document.getElementById('gal');
+  if (cue && gal){
+    var cueIo = new IntersectionObserver(function(entries){
+      var galleryInView = entries[0].isIntersecting;
+      cue.classList.toggle('cue-on', !galleryInView);
+      if (galleryInView) cueIo.disconnect();
+    }, {threshold: 0, rootMargin: '0px 0px -25% 0px'});
+    cueIo.observe(gal);
+  }
 
   // fallback za slike koje se ne uspiju ucitati (isto kao index.html)
   document.querySelectorAll('img').forEach(function(img){
