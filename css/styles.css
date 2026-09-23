@@ -218,7 +218,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 /* Zadatak A (9.9.2026.) — Tip kupca: kompaktan switch u obrascu (ne puna .seg kartica), + naznaka uz "Okvirna ponuda" */
 /* 9.9.2026. ispravak — maknut vanjski pravokutnik oko switcha (izgledao kao prazna tablica); svaka opcija sad zaseban pill */
 .pill-switch{display:inline-flex;gap:8px;flex-wrap:wrap}
-.pill-switch input{position:absolute;opacity:0;pointer-events:none}
+/* radio je samo skriveni nosac stanja — selektor mora biti specificniji od ".fg input" (nize u
+   datoteci, ista specificnost), inace ga taj preuzme na width:100% + padding pa apsolutno
+   pozicioniran viri izvan viewporta i radi horizontalni scroll na mobitelu. Skriva se isto kao
+   .czup-native, da fokus (.pill-switch input:focus-visible + label) i dalje radi. */
+.fg .pill-switch input{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;opacity:0;pointer-events:none}
 .pill-switch label{padding:10px 18px;border:1px solid var(--line);border-radius:var(--r);background:rgba(255,255,255,.02);font-size:13px;font-weight:600;color:rgba(255,255,255,.55);cursor:pointer;transition:.2s;white-space:nowrap;line-height:1.2}
 .pill-switch label:hover{color:#fff;border-color:rgba(212,180,131,.5)}
 .pill-switch input:checked + label{background:var(--brass);color:#fff;border-color:var(--brass)}
