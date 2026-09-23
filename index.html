@@ -952,8 +952,7 @@
 
 <script>
 // ---------- hero video ----------
-// Poster nosi prvi prikaz. Video se dohvaca tek nakon sto se stranica iscrta,
-// i to samo na sirim ekranima — na mobitelu se ne prenosi uopce.
+// Poster nosi prvi prikaz. Video se dohvaca tek nakon sto se stranica iscrta.
 (function(){
   const v = document.getElementById('heroVideo');
   if(!v) return;
@@ -961,10 +960,10 @@
   const mirno = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   const stediPodatke = navigator.connection && (navigator.connection.saveData ||
         /2g/.test(navigator.connection.effectiveType||''));
-  // isti isjecak na oba: mobitel dobiva portretni izrez iz istog 1080p mastera
-  // (864x1536, 6,2 MB), desktop puni kadar (1920x1080, 9,6 MB)
+  // isti kadar na svim sirinama — oba izvoza su 16:9 iz istog 1080p mastera,
+  // mobitel dobiva samo manju rezoluciju (1280x720, 4,2 MB) umjesto pune (1920x1080, 9,6 MB)
   if(mirno || stediPodatke){ v.remove(); return; }
-  const izvor = uzak ? 'videos/hero-mobile.mp4?v=6' : 'videos/hero.mp4?v=6';
+  const izvor = uzak ? 'videos/hero-mobile.mp4?v=7' : 'videos/hero.mp4?v=6';
   const ucitaj = () => {
     v.src = izvor;
     v.addEventListener('error', () => v.remove(), {once:true});
