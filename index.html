@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=27">
+<link rel="stylesheet" href="css/styles.css?v=28">
 <script src="js/slanje.js?v=2"></script>
 <script src="js/cjenik.js?v=2"></script>
 <script src="js/recenzije.js?v=2"></script>
@@ -310,6 +310,8 @@
                   <div class="fg"><label for="cfMjesto">Mjesto *</label><input id="cfMjesto" autocomplete="address-level2" placeholder="Zagreb"></div>
                 </div>
               </div>
+              <!-- privola je uvjet za otkljucavanje ponude: bez nje se podaci ne salju -->
+              <label class="chk"><input type="checkbox" id="cfPrivola" required><span>Dajem privolu da se moji podaci koriste za izradu okvirne ponude i kontakt. Podaci se ne objavljuju javno niti dijele s trećim stranama — više u <a href="izjava-o-privatnosti.html">Izjavi o privatnosti</a>.</span></label>
               <p class="cfg-form-err" id="cfgFormErr" role="alert" hidden></p>
               <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px">Prikaži okvirnu ponudu →</button>
             </form>
@@ -1400,6 +1402,8 @@ document.querySelectorAll(
   const polja = ['cfIme','cfPrez','cfMail','cfTel'].map(id=>document.getElementById(id));
   const poljaTvrtka = ['cfNaziv','cfOib','cfAdresa','cfPbr','cfMjesto'].map(id=>document.getElementById(id));
   const blokTvrtka = document.getElementById('cfgTvrtka');
+  const privola = document.getElementById('cfPrivola');
+  const privolaLbl = privola.closest('.chk');
   const cfgFormErr = document.getElementById('cfgFormErr');
   const zupErr = document.getElementById('zupErr');
   const mailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
@@ -1419,14 +1423,9 @@ document.querySelectorAll(
     return kontrolna === Number(v[10]);
   };
   const jePravna = () => document.querySelector('input[name=tipKupca]:checked')?.value === 'pravna';
-  // uz pravnu osobu Ime/Prezime opisuju kontakt osobu, a ne kupca
-  const lblIme = document.querySelector('label[for=cfIme]');
-  const lblPrez = document.querySelector('label[for=cfPrez]');
+  // Ime/Prezime se zovu jednako za oba tipa kupca — uz pravnu osobu se samo otvara blok tvrtke
   function prikaziTipKupca(){
-    const pravna = jePravna();
-    blokTvrtka.hidden = !pravna;
-    lblIme.textContent = pravna ? 'Ime kontakta *' : 'Ime *';
-    lblPrez.textContent = pravna ? 'Prezime kontakta *' : 'Prezime *';
+    blokTvrtka.hidden = !jePravna();
   }
   document.querySelectorAll('input[name=tipKupca]').forEach(el=>el.addEventListener('change', prikaziTipKupca));
   prikaziTipKupca();
@@ -1461,11 +1460,18 @@ document.querySelectorAll(
       poruke.push('Provjerite označena polja: ' + nazivi.join(', ') + '.');
       if(losa.some(el=>el.id==='cfOib')) poruke.push('OIB mora imati 11 znamenki i valjanu kontrolnu znamenku.');
     }
+    // bez privole nema ni prikaza ponude ni slanja podataka
+    privolaLbl.classList.toggle('err', !privola.checked);
+    if(!privola.checked){
+      poruke.push('Potvrdite privolu za obradu podataka.');
+      ok = false;
+    }
     // greska mora biti vidljiva uz gumb koji je korisnik upravo kliknuo, ne samo kao obrub polja
     cfgFormErr.textContent = poruke.join(' ');
     cfgFormErr.hidden = !poruke.length;
     if(!ok){
       if(losa.length) losa[0].focus();
+      else if(!privola.checked) privola.focus();
       return;
     }
     if(document.getElementById('cfBot').value){ return; } // bot
@@ -1511,6 +1517,7 @@ document.querySelectorAll(
       Oprema: oprema,
       Oprema_na_upit: opremaUpit,
       Tip_kupca: pravna ? 'Pravna osoba' : 'Fizička osoba',
+      Privola: 'Da — privola za obradu podataka dana pri slanju upita',
       ...(pravna ? {
         Naziv_tvrtke: naziv,
         OIB: oib,
@@ -1535,6 +1542,10 @@ document.querySelectorAll(
     el.classList.remove('err');
     cfgFormErr.hidden = true;
   }));
+  privola.addEventListener('change',()=>{
+    privolaLbl.classList.remove('err');
+    cfgFormErr.hidden = true;
+  });
   document.getElementById('zupanija').addEventListener('change',()=>{ zupErr.hidden = true; });
 })();
 
