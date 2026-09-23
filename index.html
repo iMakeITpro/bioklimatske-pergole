@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=28">
+<link rel="stylesheet" href="css/styles.css?v=29">
 <script src="js/slanje.js?v=2"></script>
 <script src="js/cjenik.js?v=3"></script>
 <script src="js/recenzije.js?v=2"></script>
@@ -241,7 +241,7 @@
               <option value="" disabled selected>Odaberite županiju</option>
             </select>
           </div>
-          <p class="cfg-form-err" id="zupErr" role="alert" style="margin:8px 0 0" hidden>Odaberite županiju — potrebna je za izračun transporta.</p>
+          <p class="cfg-form-err" id="zupErr" role="alert" style="margin:12px 0 0" hidden>Odaberite županiju — potrebna je za izračun transporta.</p>
         </div>
         <p class="cfg-note">Transport i montaža ovise o udaljenosti od naše baze u Slavonskom Brodu — zato tražimo lokaciju prije konačne cijene.</p>
 
@@ -891,7 +891,7 @@
     <div class="f-top">
       <div class="f-brand">
         <div class="logo">TT&nbsp;Gradnja<span>Bioklimatske pergole</span></div>
-        <p style="max-width:36ch;font-size:14px">TT Gradnja d.o.o., Slavonski Brod. Ovlašteni zastupnik za SELT by Aluprof u Hrvatskoj od 2018. Montaža na području cijele RH, Slovenije i Njemačke.</p>
+        <p style="max-width:36ch;font-size:14px">TT Gradnja. Ovlašteni zastupnik za SELT by Aluprof u Hrvatskoj od 2018. Montaža na području cijele HR i EU.</p>
         <div class="f-cert">★ 4,8/5</div>
       </div>
       <div>
@@ -1405,6 +1405,7 @@ document.querySelectorAll(
   const privolaLbl = privola.closest('.chk');
   const cfgFormErr = document.getElementById('cfgFormErr');
   const zupErr = document.getElementById('zupErr');
+  const zupPolje = document.getElementById('zupBtn') || document.getElementById('zupanija');
   const mailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
   const telOk  = v => v.replace(/[^0-9]/g,'').length >= 9;
   const pbrOk  = v => /^\d{5}$/.test(v.trim());
@@ -1432,12 +1433,18 @@ document.querySelectorAll(
     e.preventDefault();
     let ok = true;
     const poruke = [];
+    // prvo polje s greskom u redoslijedu dokumenta — na njega ide fokus tek na kraju provjere
+    let prviProblem = null;
     zupErr.hidden = true;
+    zupPolje.classList.remove('err');
+    zupPolje.removeAttribute('aria-invalid');
     if(!trenutnaRegija()){
-      const zupEl = document.getElementById('zupBtn') || document.getElementById('zupanija');
-      zupEl.scrollIntoView({behavior:'smooth', block:'center'});
-      zupEl.focus();
+      // zupanija je u lijevom stupcu, a gumb za slanje u desnom — bez crvenog obruba na samom
+      // polju korisnik ga gleda i ne vidi da bas ono blokira prikaz ponude
+      zupPolje.classList.add('err');
+      zupPolje.setAttribute('aria-invalid','true');
       zupErr.hidden = false;
+      prviProblem = zupPolje;
       poruke.push('Odaberite županiju u koraku 3. Lokacija.');
       ok = false;
     }
@@ -1469,8 +1476,11 @@ document.querySelectorAll(
     cfgFormErr.textContent = poruke.join(' ');
     cfgFormErr.hidden = !poruke.length;
     if(!ok){
-      if(losa.length) losa[0].focus();
-      else if(!privola.checked) privola.focus();
+      const meta = prviProblem || losa[0] || (!privola.checked ? privola : null);
+      if(meta){
+        meta.scrollIntoView({behavior:'smooth', block:'center'});
+        meta.focus({preventScroll:true});
+      }
       return;
     }
     if(document.getElementById('cfBot').value){ return; } // bot
@@ -1545,7 +1555,12 @@ document.querySelectorAll(
     privolaLbl.classList.remove('err');
     cfgFormErr.hidden = true;
   });
-  document.getElementById('zupanija').addEventListener('change',()=>{ zupErr.hidden = true; });
+  document.getElementById('zupanija').addEventListener('change',()=>{
+    zupErr.hidden = true;
+    zupPolje.classList.remove('err');
+    zupPolje.removeAttribute('aria-invalid');
+    cfgFormErr.hidden = true;
+  });
 })();
 
 // ---------- mobilna navigacija ----------
