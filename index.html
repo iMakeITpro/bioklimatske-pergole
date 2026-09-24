@@ -960,10 +960,10 @@
   const mirno = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   const stediPodatke = navigator.connection && (navigator.connection.saveData ||
         /2g/.test(navigator.connection.effectiveType||''));
-  // isti kadar na svim sirinama — oba izvoza su 16:9 iz istog 1080p mastera,
-  // mobitel dobiva samo manju rezoluciju (1280x720, 4,2 MB) umjesto pune (1920x1080, 9,6 MB)
+  // desktop nosi novu montazu (1920x1080, 60 fps, 7,8 MB); mobitel je jos na prethodnoj
+  // (1280x720, 4,2 MB), dok se i za njega ne napravi izvoz iz istog novog mastera
   if(mirno || stediPodatke){ v.remove(); return; }
-  const izvor = uzak ? 'videos/hero-mobile.mp4?v=7' : 'videos/hero.mp4?v=6';
+  const izvor = uzak ? 'videos/hero-mobile.mp4?v=7' : 'videos/hero.mp4?v=8';
   const ucitaj = () => {
     v.src = izvor;
     v.addEventListener('error', () => v.remove(), {once:true});
