@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=29">
+<link rel="stylesheet" href="css/styles.css?v=30">
 <script src="js/slanje.js?v=2"></script>
 <script src="js/cjenik.js?v=3"></script>
 <script src="js/recenzije.js?v=2"></script>
@@ -93,9 +93,16 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-bg"></div>
-  <!-- bez poster atributa: on ne moze ovisiti o media queryju, a desktop i mobitel trebaju
-       razlicit kadar. Podlogu nosi .hero-bg, koja se u CSS-u prebacuje po breakpointu. -->
+  <!-- podloga je prvi frame videa koji ce taj ekran dobiti, da slika ne skoci kad video krene.
+       Uski portret dobiva sredisnji izrez (AVIF, WebP, JPEG), sve ostalo puni 16:9 kadar.
+       Media upit mora ostati isti kao u hero skripti na dnu stranice. Kao <img> ga preglednik
+       nalazi odmah u HTML-u, a ne tek iz CSS-a; <video> zato nema poster atribut. -->
+  <picture class="hero-bg">
+    <source media="(max-width:480px) and (orientation:portrait)" type="image/avif" srcset="videos/hero-poster-mobile.avif?v=9">
+    <source media="(max-width:480px) and (orientation:portrait)" type="image/webp" srcset="videos/hero-poster-mobile.webp?v=9">
+    <source media="(max-width:480px) and (orientation:portrait)" srcset="videos/hero-poster-mobile.jpg?v=9">
+    <img src="videos/hero-poster.jpg?v=8" alt="" width="1920" height="1080" fetchpriority="high">
+  </picture>
   <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="hero-inner">
@@ -956,20 +963,47 @@
 (function(){
   const v = document.getElementById('heroVideo');
   if(!v) return;
-  const uzak = window.matchMedia('(max-width:768px)').matches;
   const mirno = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   const stediPodatke = navigator.connection && (navigator.connection.saveData ||
         /2g/.test(navigator.connection.effectiveType||''));
-  // desktop nosi novu montazu (1920x1080, 60 fps, 7,8 MB); mobitel je jos na prethodnoj
-  // (1280x720, 4,2 MB), dok se i za njega ne napravi izvoz iz istog novog mastera
   if(mirno || stediPodatke){ v.remove(); return; }
-  const izvor = uzak ? 'videos/hero-mobile.mp4?v=7' : 'videos/hero.mp4?v=8';
-  const ucitaj = () => {
-    v.src = izvor;
-    v.addEventListener('error', () => v.remove(), {once:true});
+  // uski portret dobiva sredisnji izrez 608x1080 iz iste montaze, 30 fps: to je upravo dio
+  // kadra koji object-fit:cover ondje ionako prikazuje. Preglednik uzima prvi kodek koji zna
+  // (AV1 0,8 MB, HEVC 1,2 MB, H.264 1,9 MB). Desktop, tablet i polozeni telefon nose puni
+  // 16:9 kadar (1920x1080, 60 fps, 7,8 MB). Upit mora ostati isti kao na <picture> u herou.
+  const portret = window.matchMedia('(max-width:480px) and (orientation:portrait)');
+  const izvori = () => portret.matches ? [
+    ['videos/hero-mobile-av1.mp4?v=9',  'video/mp4; codecs="av01.0.04M.08"'],
+    ['videos/hero-mobile-hevc.mp4?v=9', 'video/mp4; codecs="hvc1.1.6.L93.B0"'],
+    ['videos/hero-mobile.mp4?v=9',      'video/mp4; codecs="avc1.640032"']
+  ] : [['videos/hero.mp4?v=8', 'video/mp4']];
+  let ucitan = false, vidljiv = true;
+  const pusti = () => {
+    if(!ucitan || !vidljiv || !v.isConnected) return;
     const p = v.play();
     if(p && p.catch) p.catch(()=>{});
   };
+  const postaviIzvore = () => {
+    v.textContent = '';
+    izvori().forEach(([src, type]) => {
+      const s = document.createElement('source');
+      s.src = src; s.type = type;
+      v.appendChild(s);
+    });
+    // s <source> elementima greska ne stize na <video>, nego na zadnji <source>
+    v.lastChild.addEventListener('error', () => v.remove(), {once:true});
+    v.load();
+  };
+  const ucitaj = () => { ucitan = true; postaviIzvore(); pusti(); };
+  // rotacija mijenja kadar: poster se prebacuje sam (<picture>), video treba novi izvor
+  portret.addEventListener('change', () => { if(ucitan && v.isConnected){ postaviIzvore(); pusti(); } });
+  // izvan vidokruga video stoji, da ne trosi bateriju ni procesor
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es => {
+      vidljiv = es[es.length-1].isIntersecting;
+      if(vidljiv) pusti(); else v.pause();
+    }).observe(v.parentNode);
+  }
   if(document.readyState === 'complete') setTimeout(ucitaj, 200);
   else window.addEventListener('load', () => setTimeout(ucitaj, 200), {once:true});
 })();

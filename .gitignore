@@ -4,6 +4,8 @@
 *.mp4
 !videos/hero.mp4
 !videos/hero-mobile.mp4
+!videos/hero-mobile-hevc.mp4
+!videos/hero-mobile-av1.mp4
 
 # Interni klijentski dokumenti — NIKAD javno
 *.pdf
