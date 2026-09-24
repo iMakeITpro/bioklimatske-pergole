@@ -462,11 +462,20 @@ footer a:hover{color:var(--brass-lt)}
   body{padding-bottom:calc(54px + env(safe-area-inset-bottom,0px))}
   .f-top{grid-template-columns:1fr}
   .seg{grid-template-columns:1fr}
-  .hero-actions{flex-direction:column;align-items:stretch;align-self:stretch;gap:16px}
+  /* na mobitelu tekst je centriran: eyebrow uz vrh, gumbi uz dno (isti odmak),
+     naslov u sredini prostora izmedu njih */
+  .hero-inner{text-align:center}
+  .hero h1{margin:auto 0}
+  /* na mobitelu zatamnjenje ide odozgo prema dolje, po rasporedu teksta:
+     jako iza eyebrowa, srednje iza naslova, slabo preko terase, jako iza gumba */
+  .hero::after{background:linear-gradient(180deg,rgba(18,16,14,.80) 0%,rgba(18,16,14,.50) 22%,rgba(18,16,14,.42) 38%,rgba(18,16,14,.42) 50%,rgba(18,16,14,.12) 64%,rgba(18,16,14,.12) 72%,rgba(18,16,14,.72) 100%)}
+  /* tamnija zlatna se gubi na fotografiji, svjetlija je ista kao "365 dana" */
+  .hero .eyebrow{color:var(--brass-lt)}
+  .hero-actions{flex-direction:column;align-items:stretch;align-self:stretch;gap:16px;margin-top:0}
   /* na mobitelu gumb je pune sirine — tekst se centrira, strelica ide van */
   .hero-actions .btn{justify-content:center}
   .hero-actions .strelica{display:none}
-  .hero .wrap{padding-top:96px;padding-bottom:48px}
+  .hero .wrap{padding-top:48px;padding-bottom:48px}
   .cfg-sticky{position:static}
 }
 
