@@ -98,10 +98,10 @@
        Media upit mora ostati isti kao u hero skripti na dnu stranice. Kao <img> ga preglednik
        nalazi odmah u HTML-u, a ne tek iz CSS-a; <video> zato nema poster atribut. -->
   <picture class="hero-bg">
-    <source media="(max-width:480px) and (orientation:portrait)" type="image/avif" srcset="videos/hero-poster-mobile.avif?v=11">
-    <source media="(max-width:480px) and (orientation:portrait)" type="image/webp" srcset="videos/hero-poster-mobile.webp?v=11">
-    <source media="(max-width:480px) and (orientation:portrait)" srcset="videos/hero-poster-mobile.jpg?v=11">
-    <img src="videos/hero-poster.jpg?v=9" alt="" width="1920" height="1080" fetchpriority="high">
+    <source media="(max-width:480px) and (orientation:portrait)" type="image/avif" srcset="videos/hero-poster-mobile.avif?v=12">
+    <source media="(max-width:480px) and (orientation:portrait)" type="image/webp" srcset="videos/hero-poster-mobile.webp?v=12">
+    <source media="(max-width:480px) and (orientation:portrait)" srcset="videos/hero-poster-mobile.jpg?v=12">
+    <img src="videos/hero-poster.jpg?v=10" alt="" width="1920" height="1080" fetchpriority="high">
   </picture>
   <video class="hero-video" id="heroVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
@@ -970,13 +970,13 @@
   // uski portret dobiva sredisnji izrez 608x1080 iz iste montaze, 30 fps: to je upravo dio
   // kadra koji object-fit:cover ondje ionako prikazuje. Preglednik uzima prvi kodek koji zna
   // (AV1 0,3 MB, HEVC 0,5 MB, H.264 0,8 MB). Desktop, tablet i polozeni telefon nose puni
-  // 16:9 kadar (2560x1440, 60 fps, 9,2 MB). Upit mora ostati isti kao na <picture> u herou.
+  // 16:9 kadar (2560x1440, 60 fps, 9,0 MB). Upit mora ostati isti kao na <picture> u herou.
   const portret = window.matchMedia('(max-width:480px) and (orientation:portrait)');
   const izvori = () => portret.matches ? [
-    ['videos/hero-mobile-av1.mp4?v=11',  'video/mp4; codecs="av01.0.04M.08"'],
-    ['videos/hero-mobile-hevc.mp4?v=11', 'video/mp4; codecs="hvc1.1.6.L93.B0"'],
-    ['videos/hero-mobile.mp4?v=11',      'video/mp4; codecs="avc1.640032"']
-  ] : [['videos/hero.mp4?v=9', 'video/mp4']];
+    ['videos/hero-mobile-av1.mp4?v=12',  'video/mp4; codecs="av01.0.04M.08"'],
+    ['videos/hero-mobile-hevc.mp4?v=12', 'video/mp4; codecs="hvc1.1.6.L93.B0"'],
+    ['videos/hero-mobile.mp4?v=12',      'video/mp4; codecs="avc1.640032"']
+  ] : [['videos/hero.mp4?v=10', 'video/mp4']];
   let ucitan = false, vidljiv = true;
   const pusti = () => {
     if(!ucitan || !vidljiv || !v.isConnected) return;
