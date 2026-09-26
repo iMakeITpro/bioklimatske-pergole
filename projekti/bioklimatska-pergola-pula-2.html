@@ -45,21 +45,11 @@
   </div>
 </header>
 
-<div class="proj-hero">
-  <div class="media">
-    <img src="https://www.ttgradnja.hr/wp-content/uploads/2022/09/7-pergola-pula-tt-gradnja-1.jpg" alt="" loading="lazy">
-    <div class="content">
-      <a href="../index.html#projekti" class="btn btn-ghost">← Natrag na sve projekte</a>
-      <div class="eyebrow">Projekt</div>
-      <h1>SUNBREAKER 400 — Pula</h1>
-    </div>
-  </div>
+<div class="proj-bar wrap">
+  <a href="../index.html#projekti" class="btn btn-ghost">← Natrag na sve projekte</a>
+  <h1>SUNBREAKER 400 — Pula</h1>
+  <a href="../index.html#konfigurator" class="btn btn-primary">Konfiguriraj svoju pergolu</a>
 </div>
-
-<a class="scroll-cue" href="#gal" aria-label="Pomakni se na galeriju fotografija">
-  <span class="scroll-cue-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg></span>
-  <span class="scroll-cue-txt">Povuci</span>
-</a>
 
 <section>
   <div class="wrap">
@@ -104,7 +94,7 @@
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Pregled fotografije">
   <button type="button" class="lightbox-close" id="lbClose" aria-label="Zatvori">&times;</button>
   <button type="button" class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Prethodna fotografija">&#10094;</button>
-  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <img class="lightbox-img" id="lbImg" alt="">
   <div class="lightbox-cap-top">SUNBREAKER 400</div>
   <div class="lightbox-cap">Pula</div>
   <button type="button" class="lightbox-nav lightbox-next" id="lbNext" aria-label="Sljedeća fotografija">&#10095;</button>
@@ -122,6 +112,7 @@
     current = (i + cards.length) % cards.length;
     var card = cards[current];
     var img = card.querySelector('img');
+    lbImg.style.background = ''; lbImg.style.minHeight = '';
     lbImg.src = card.getAttribute('href') || img.currentSrc || img.src;
     lbImg.alt = img.alt || '';
     lb.classList.add('open');
@@ -161,19 +152,6 @@
     el.style.transitionDelay = (i % 3 * 70) + 'ms';
     io.observe(el);
   });
-
-  // scroll cue: skip it entirely when the gallery is already on screen, and
-  // retire it for good once the gallery scrolls up into view
-  var cue = document.querySelector('.scroll-cue');
-  var gal = document.getElementById('gal');
-  if (cue && gal){
-    var cueIo = new IntersectionObserver(function(entries){
-      var galleryInView = entries[0].isIntersecting;
-      cue.classList.toggle('cue-on', !galleryInView);
-      if (galleryInView) cueIo.disconnect();
-    }, {threshold: 0, rootMargin: '0px 0px -25% 0px'});
-    cueIo.observe(gal);
-  }
 
   // fallback za slike koje se ne uspiju ucitati (isto kao index.html)
   document.querySelectorAll('img').forEach(function(img){

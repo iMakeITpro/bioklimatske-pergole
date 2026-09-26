@@ -172,7 +172,6 @@
       <!-- Treci stupac: Sunbreaker 700 (bivši Tarasola Technic View Pro) — drugi partner, ultra-premium.
            Bez konfiguratora, cijena na upit. Specifikacije: tarasola.co.uk -->
       <div class="tier reveal">
-        <div class="tier-tag">Vrhunac ponude</div>
         <div class="tier-media"><img src="images/sunbreaker-700.jpg" alt="Sunbreaker 700 — premium bioklimatska pergola" loading="lazy"></div>
         <h3><a href="sunbreaker-700.html" target="_blank" rel="noopener">Sunbreaker 700</a></h3>
         <ul>
@@ -951,7 +950,7 @@
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Pregled fotografije">
   <button type="button" class="lightbox-close" id="lbClose" aria-label="Zatvori">&times;</button>
   <button type="button" class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Prethodna fotografija">&#10094;</button>
-  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <img class="lightbox-img" id="lbImg" alt="">
   <a class="lightbox-cap-top" id="lbModel" href=""></a>
   <div class="lightbox-cap" id="lbCap"></div>
   <button type="button" class="lightbox-nav lightbox-next" id="lbNext" aria-label="Sljedeća fotografija">&#10095;</button>
@@ -1693,6 +1692,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     var galerija = card.getAttribute('data-galerija');
     // Čita puni URL s href-a kartice (ne s img.src) - "fallback za slike" niže u ovoj
     // skripti briše img src ako thumbnail ne uspije učitati, a href ostaje netaknut.
+    lbImg.style.background = ''; lbImg.style.minHeight = '';
     lbImg.src = card.getAttribute('href') || img.currentSrc || img.src;
     lbImg.alt = img.alt || '';
     lbCap.textContent = (model ? model.textContent + ' · ' : '') + (loc ? loc.textContent : '');
