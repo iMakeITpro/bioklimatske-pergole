@@ -102,6 +102,7 @@ section{padding:clamp(64px,8vw,110px) 0}
 .sec-head{max-width:720px;margin-bottom:56px}
 .sec-head p{margin-top:18px}
 .alt{background:var(--paper-2)}
+#specifikacije + section{padding-top:clamp(20px,3vw,36px)}
 .dark{background:var(--ink);color:#fff}
 .dark h2,.dark h3{color:#fff}
 .dark p{color:rgba(255,255,255,.62)}
@@ -131,6 +132,64 @@ section{padding:clamp(64px,8vw,110px) 0}
 .tier li{display:flex;gap:11px;align-items:flex-start;color:var(--ink-2)}
 .tier li::before{content:'';flex:0 0 16px;height:16px;margin-top:3px;background:var(--brass);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5'  fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
 .price-note{margin-top:30px;font-size:13.5px;color:var(--muted);border-left:2px solid var(--brass);padding-left:16px;max-width:70ch}
+
+/* ---------- model stranice: posebnosti / tehnički blokovi (sunbreaker-400.html i sl.) ---------- */
+.check-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 32px;font-size:15px;max-width:900px}
+.check-list li{display:flex;gap:11px;align-items:flex-start;color:var(--ink-2)}
+.check-list li::before{content:'';flex:0 0 16px;height:16px;margin-top:4px;background:var(--brass);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* posebnosti: velika fotografija desno, kartica s tekstom lijevo koja preko nje malo prelazi */
+.split-feature{display:grid;grid-template-columns:1fr 1.25fr;align-items:center;gap:0}
+.split-feature .sf-text{background:#fff;border:1px solid var(--line-d);box-shadow:0 24px 60px rgba(18,16,14,.12);padding:clamp(28px,3.4vw,46px);position:relative;z-index:2;margin-right:-64px}
+.split-feature .sf-text .check-list{grid-template-columns:1fr;gap:12px;margin-top:22px;max-width:none;font-size:14.5px}
+.split-feature .sf-photo{aspect-ratio:4/3;overflow:hidden}
+.split-feature .sf-photo img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:860px){
+  .split-feature{grid-template-columns:1fr}
+  .split-feature .sf-photo{order:1}
+  .split-feature .sf-text{order:2;margin-right:0;max-width:none}
+}
+
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.info-card{background:#fff;border:1px solid var(--line-d);padding:28px}
+.info-card img{width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:20px}
+.info-card h3{margin-bottom:10px}
+.info-card p{font-size:14.5px}
+.info-grid .video-facade{margin:0}
+
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
+.feat-card{background:#fff;border:1px solid var(--line-d);padding:30px}
+.feat-card img{width:100%;aspect-ratio:16/10;object-fit:cover;margin-bottom:20px}
+.feat-card h3{font-size:19px;font-family:var(--sans);font-weight:600;margin-bottom:10px}
+.feat-card p{font-size:14.5px}
+@media(max-width:900px){.info-grid,.check-list{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.feat-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.info-grid,.check-list{grid-template-columns:1fr}}
+
+/* tab-podizbornik (Opće informacije / Boje / Mogućnost ugradnje) — btn koristi postojeci .fbtn/.filters, uvecan za ovaj kontekst */
+.filters{gap:14px;margin-bottom:40px}
+.fbtn{padding:16px 32px;font-size:15px;font-weight:600;letter-spacing:.02em}
+.ppanel[hidden]{display:none}
+
+/* specifikacije: label/vrijednost kartice umjesto excel-tablice (jedan model = usporedna tablica nepregledna) */
+.spec-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border:1px solid var(--line-d)}
+.spec-item{background:#fff;padding:24px 26px}
+.spec-item .spec-label{display:block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);margin-bottom:10px}
+.spec-item .spec-value{display:block;font-size:16.5px;font-weight:500;color:var(--ink);line-height:1.35}
+@media(max-width:760px){.spec-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:460px){.spec-grid{grid-template-columns:1fr}}
+
+/* Projekti: rotirajuća 2x3 galerija (prozor od 6 kartica koji kruži kroz sve projekte) */
+.pg-wrap{display:flex;align-items:center;gap:18px}
+.pg-wrap .grid-g{flex:1;min-width:0}
+.pg-arrow{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-d);background:#fff;color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.25s}
+.pg-arrow:hover{background:var(--brass);border-color:var(--brass);color:#fff}
+@media(max-width:640px){.pg-wrap{gap:10px}.pg-arrow{width:36px;height:36px;font-size:13px}}
+.ral-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:14px}
+.ral-chip{border:1px solid var(--line-d);background:#fff;padding:10px;text-align:center;border-radius:var(--r)}
+.ral-swatch{display:block;width:100%;aspect-ratio:1;border-radius:var(--r);margin-bottom:8px;border:1px solid var(--line-d)}
+.ral-swatch.ral-ns{background:repeating-linear-gradient(45deg,var(--paper-2),var(--paper-2) 6px,var(--line-d) 6px,var(--line-d) 8px)}
+.ral-chip span{display:block;font-size:11px;letter-spacing:.03em;color:var(--muted)}
 
 /* configurator */
 .cfg{display:grid;grid-template-columns:1.15fr .85fr;gap:0;border:1px solid var(--line);background:var(--ink-2)}
@@ -491,6 +550,34 @@ footer a:hover{color:var(--brass-lt)}
 .sub-hero{padding:clamp(70px,9vw,130px) 0 clamp(60px,8vw,110px);background:var(--paper-2);border-bottom:1px solid var(--line-d)}
 .sub-hero h1{font-size:clamp(30px,4.2vw,52px);margin-bottom:20px}
 .sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
+
+/* interactive hotspot image on model pages — hover/tap on a pin reveals a feature description */
+.hotspot-frame{position:relative}
+.hotspot-img{width:100%;height:auto;display:block;border:1px solid var(--line-d)}
+/* margin instead of transform: translate() would create a new containing block for
+   .hotspot-tip{position:fixed} on mobile (CSS transform-ancestor rule), which would
+   position the fixed tooltip panel relative to the pin instead of the viewport */
+.hotspot-pin{position:absolute;margin:-17px 0 0 -17px;z-index:2}
+.hs-btn{position:relative;width:34px;height:34px;border-radius:50%;background:#fff;border:0;padding:0;cursor:pointer;box-shadow:0 4px 14px rgba(18,16,14,.3)}
+.hs-btn::after{content:'+';display:block;font-size:18px;line-height:34px;font-weight:600;color:var(--ink)}
+.hs-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid #fff;pointer-events:none;animation:hsPulse 2.6s ease-out infinite}
+.hs-ring2{animation-delay:1.3s}
+@keyframes hsPulse{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.5);opacity:0}}
+.hotspot-tip{position:absolute;top:50%;transform:translateY(-50%);width:min(280px,80vw);background:#fff;border-radius:10px;box-shadow:0 20px 50px rgba(18,16,14,.3);padding:18px 22px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease;z-index:3}
+.hotspot-pin.tip-left .hotspot-tip{right:calc(100% + 20px)}
+.hotspot-pin.tip-right .hotspot-tip{left:calc(100% + 20px)}
+.hotspot-pin:hover .hotspot-tip,.hotspot-pin:focus-within .hotspot-tip,.hotspot-pin.is-open .hotspot-tip{opacity:1;visibility:visible;pointer-events:auto}
+.hotspot-tip b{display:block;font-family:var(--sans);font-weight:700;text-transform:uppercase;font-size:12.5px;letter-spacing:.08em;color:var(--ink);margin-bottom:8px}
+.hotspot-tip p{font-size:13.5px;color:var(--muted);line-height:1.55}
+@media(max-width:640px){
+  /* on a narrow screen a tooltip anchored to an edge pin always overflows somewhere -
+     simpler and more reliable to show it as a fixed panel at the bottom. Selectors
+     repeated with .tip-left/.tip-right to match the specificity of the desktop rules
+     above (their right/left would otherwise win over this block regardless of order) */
+  .hotspot-tip,
+  .hotspot-pin.tip-left .hotspot-tip,
+  .hotspot-pin.tip-right .hotspot-tip{position:fixed;left:16px;right:16px;bottom:16px;top:auto;transform:none;width:auto;max-height:60vh;overflow:auto}
+}
 
 /* podstranica projekta — traka iznad galerije: natrag / naziv / CTA na
    konfigurator, bez naslovne fotografije */
