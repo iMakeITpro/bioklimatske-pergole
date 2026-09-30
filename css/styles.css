@@ -549,6 +549,9 @@ footer a:hover{color:var(--brass-lt)}
 /* podstranice — placeholder */
 .sub-hero{padding:clamp(70px,9vw,130px) 0 clamp(60px,8vw,110px);background:var(--paper-2);border-bottom:1px solid var(--line-d)}
 .sub-hero h1{font-size:clamp(30px,4.2vw,52px);margin-bottom:20px}
+/* stranice koje pod sub-hero uvlace i veci sadrzaj (npr. interaktivni hotspot prikaz)
+   ne trebaju punu "hero" razliku prema headeru - svodimo na obicni section padding */
+.sub-hero.has-demo{padding-top:clamp(64px,8vw,110px)}
 .sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
 
 /* interactive hotspot image on model pages — hover/tap on a pin reveals a feature description */
@@ -558,6 +561,10 @@ footer a:hover{color:var(--brass-lt)}
    .hotspot-tip{position:fixed} on mobile (CSS transform-ancestor rule), which would
    position the fixed tooltip panel relative to the pin instead of the viewport */
 .hotspot-pin{position:absolute;margin:-17px 0 0 -17px;z-index:2}
+/* svaki .hotspot-pin je svoj stacking context (position+z-index) - bez ovoga bi
+   pin koji je kasnije u DOM-u uvijek prekrio otvoreni oblacic ranijeg pina,
+   neovisno o vecem z-indexu samog oblacica unutar njegovog pina */
+.hotspot-pin:hover,.hotspot-pin:focus-within,.hotspot-pin.is-open{z-index:5}
 .hs-btn{position:relative;width:34px;height:34px;border-radius:50%;background:#fff;border:0;padding:0;cursor:pointer;box-shadow:0 4px 14px rgba(18,16,14,.3)}
 .hs-btn::after{content:'+';display:block;font-size:18px;line-height:34px;font-weight:600;color:var(--ink)}
 .hs-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid #fff;pointer-events:none;animation:hsPulse 2.6s ease-out infinite}
