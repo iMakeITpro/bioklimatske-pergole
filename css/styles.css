@@ -185,6 +185,31 @@ section{padding:clamp(64px,8vw,110px) 0}
 .pg-arrow{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-d);background:#fff;color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.25s}
 .pg-arrow:hover{background:var(--brass);border-color:var(--brass);color:#fff}
 @media(max-width:640px){.pg-wrap{gap:10px}.pg-arrow{width:36px;height:36px;font-size:13px}}
+/* Pregled i presjeci (SB400): fade slider + traka sličica; strelice dijele .pg-arrow s galerijom projekata */
+.pv{max-width:860px;margin:0 auto}
+.pv-viewport{flex:1;min-width:0;display:grid;touch-action:pan-y}
+.pv-slide{grid-area:1/1;margin:0;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
+.pv-slide.is-active{opacity:1;visibility:visible;transition:opacity .45s ease,visibility 0s}
+.pv-slide img{width:100%;height:auto;aspect-ratio:928/800;object-fit:contain;background:#fff;border:1px solid var(--line-d)}
+.pv-slide figcaption{margin-top:14px;text-align:center;font-size:14px;font-weight:500;letter-spacing:.03em;color:var(--ink-2)}
+/* margina = sirina strelice + razmak, da se sličice poravnaju s kadrom */
+.pv-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 62px 0}
+.pv-thumb{display:block;padding:0;border:1px solid var(--line-d);border-radius:var(--r);background:#fff;overflow:hidden;cursor:pointer;opacity:.55;transition:.25s}
+.pv-thumb img{width:100%;height:auto;aspect-ratio:928/800;object-fit:cover}
+.pv-thumb:hover{opacity:1}
+.pv-thumb[aria-current="true"]{opacity:1;border-color:var(--brass);box-shadow:0 0 0 1px var(--brass)}
+.pv-thumb:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+@media(max-width:640px){
+  /* uzak kadar: strelice preko slike umjesto sa strane */
+  .pv-wrap{position:relative}
+  .pv-wrap .pg-arrow{position:absolute;z-index:2;top:calc(50% - 35px);background:rgba(255,255,255,.9)}
+  /* bez brass hovera: na dodir hover ostaje "zalijepljen" i bijeli simbol nestaje na bijeloj podlozi */
+  .pv-wrap .pg-arrow:hover{background:rgba(255,255,255,.9);border-color:var(--line-d);color:var(--ink)}
+  .pv-prev{left:6px}
+  .pv-next{right:6px}
+  .pv-thumbs{margin:16px 0 0}
+}
+@media(prefers-reduced-motion:reduce){.pv-slide,.pv-slide.is-active{transition:none}}
 .ral-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:14px}
 .ral-chip{border:1px solid var(--line-d);background:#fff;padding:10px;text-align:center;border-radius:var(--r)}
 .ral-swatch{display:block;width:100%;aspect-ratio:1;border-radius:var(--r);margin-bottom:8px;border:1px solid var(--line-d)}
