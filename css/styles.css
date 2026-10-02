@@ -48,10 +48,16 @@ nav .sub{display:flex;position:absolute;top:calc(100% + 10px);left:-20px;min-wid
   opacity:0;visibility:hidden;transform:translateY(-6px);
   transition:opacity .18s ease,transform .18s ease,visibility 0s linear .28s}
 /* odgoda od 280ms pri zatvaranju daje vremena da mis stigne do izbornika */
-nav .has-sub:hover .sub,nav .has-sub:focus-within .sub{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .18s ease,visibility 0s}
+nav .has-sub:hover>.sub,nav .has-sub:focus-within>.sub{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .18s ease,visibility 0s}
 nav .sub a{display:block;padding:11px 22px;font-size:14px;white-space:nowrap;color:var(--ink-2)}
 nav .sub a::after{display:none}
 nav .sub a:hover{background:var(--paper-2);color:var(--brass)}
+/* drugi razina: stavka izbornika Modeli (npr. Sistem Slide) otvara svoje podstranice udesno.
+   Flyout lezi tik uz roditelja pa nevidljivi most nije potreban. */
+nav .sub .has-sub::after{display:none}
+nav .sub .has-sub>a{display:flex;align-items:center;justify-content:space-between;gap:18px}
+nav .sub .has-sub>a .caret{margin-left:0}
+nav .sub .sub{top:-9px;left:100%;min-width:220px}
 /* naslov kartice kao poveznica */
 .tier h3 a{color:inherit;transition:color .25s}
 .tier h3 a:hover{color:var(--brass)}
@@ -523,6 +529,10 @@ footer a:hover{color:var(--brass-lt)}
   nav .sub{display:flex;position:static;min-width:0;background:transparent;border:0;box-shadow:none;padding:0 0 10px 18px;opacity:1;visibility:visible;transform:none;transition:none}
   nav .has-sub::after{display:none}
   nav .sub a{padding:11px 2px;font-size:13.5px;color:var(--muted)}
+  /* podstranice drugog razine su uvijek raširene i uvučene, bez strelice */
+  nav .sub .sub{top:auto;left:auto;min-width:0;padding:0 0 4px 16px}
+  nav .sub .has-sub>a{display:block}
+  nav .sub .has-sub>a .caret{display:none}
 
   /* tap targeti i unos na mobitelu/tabletu */
   .fbtn{padding:15px 20px}
