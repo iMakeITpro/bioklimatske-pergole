@@ -11,8 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css?v=32">
 <style>
-/* video: full content width instead of the global 760px cap (this page only) */
-.video-facade.ps-video{max-width:none;margin:0}
 .hero-actions.ps-video-cta{margin-top:32px}
 </style>
 </head>
@@ -117,12 +115,38 @@
       <h2>Pogledajte kako pergola nastaje na vašem objektu.</h2>
       <p class="lead">Pogledajte cijeli proces montaže, od dolaska na teren do potpuno montirane pergole na objektu. Kao ovlašteni zastupnik SELT by Aluprof od 2018. montiramo na području cijele Hrvatske i EU.</p>
     </div>
-    <div class="video-facade ps-video reveal" id="solidVideo">
-      <button type="button" class="vf-btn" data-yt="dkhpdibODX8" aria-label="Pokreni video: montaža bioklimatske pergole, TT Gradnja">
-        <img src="https://i.ytimg.com/vi/dkhpdibODX8/hqdefault.jpg" alt="" loading="lazy">
-        <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Montaža bioklimatske pergole · TT Gradnja · 2:59</span>
-      </button>
+    <div class="video-carousel reveal" id="solidVideoCarousel">
+      <button type="button" class="vc-arrow vc-prev" aria-label="Prethodni video">&#10094;</button>
+      <div class="vc-track">
+        <div class="vc-slide is-center" data-idx="0">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="dkhpdibODX8" aria-label="Pokreni video: montaža bioklimatske pergole od početka do kraja">
+              <img src="https://i.ytimg.com/vi/dkhpdibODX8/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Pogledajte montažu od početka do kraja</span>
+            </button>
+          </div>
+        </div>
+        <div class="vc-slide" data-idx="1">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="WGlWvsD9phg" aria-label="Pokreni video: rooftop pergola, Hotel Sumratin Dubrovnik">
+              <img src="https://i.ytimg.com/vi/WGlWvsD9phg/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Rooftop pergola, Hotel Sumratin Dubrovnik</span>
+            </button>
+          </div>
+        </div>
+        <div class="vc-slide" data-idx="2">
+          <div class="video-facade">
+            <button type="button" class="vf-btn" data-yt="APwpL-y8fz4" aria-label="Pokreni video: pergola u prizemlju, Hotel Sumratin Dubrovnik">
+              <img src="https://i.ytimg.com/vi/APwpL-y8fz4/hqdefault.jpg" alt="" loading="lazy">
+              <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="vf-label">Pergola u prizemlju, Hotel Sumratin Dubrovnik</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="vc-arrow vc-next" aria-label="Sljedeći video">&#10095;</button>
     </div>
     <div class="hero-actions ps-video-cta reveal">
       <a href="upit.html" class="btn btn-primary">Zatraži ponudu</a>
@@ -365,26 +389,74 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{
   document.querySelector('.burger').setAttribute('aria-expanded','false');
 }));
 
-// ---------- jedan video (bez carousela): klik zamjenjuje facade s YouTube iframeom ----------
+// ---------- video carousel (3x video-facade, centar uvecan; isti obrazac kao na index.html #proces) ----------
 (function(){
-  const facade = document.getElementById('solidVideo');
-  if(!facade) return;
-  const btn = facade.querySelector('.vf-btn');
-  btn.addEventListener('click', ()=>{
-    const id = btn.getAttribute('data-yt');
-    const ifr = document.createElement('iframe');
-    ifr.src = 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
-    ifr.title = btn.getAttribute('aria-label') || 'Video';
-    ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    ifr.allowFullscreen = true;
-    ifr.style.position = 'absolute';
-    ifr.style.inset = '0';
-    ifr.style.width = '100%';
-    ifr.style.height = '100%';
-    ifr.style.border = '0';
-    facade.innerHTML = '';
-    facade.appendChild(ifr);
-  }, {once:true});
+  const wrap = document.getElementById('solidVideoCarousel');
+  if(!wrap) return;
+  const slides = Array.prototype.slice.call(wrap.querySelectorAll('.vc-slide'));
+  if(!slides.length) return;
+
+  function bindFacade(fWrap){
+    const btn = fWrap.querySelector('.vf-btn');
+    if(!btn) return;
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-yt');
+      const ifr = document.createElement('iframe');
+      ifr.src = 'https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+      ifr.title = btn.getAttribute('aria-label') || 'Video';
+      ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      ifr.allowFullscreen = true;
+      fWrap.innerHTML = '';
+      fWrap.appendChild(ifr);
+    }, {once:true});
+  }
+
+  const izvornik = slides.map(s => s.querySelector('.video-facade').innerHTML);
+  slides.forEach(s => bindFacade(s.querySelector('.video-facade')));
+
+  let active = slides.findIndex(s => s.classList.contains('is-center'));
+  if(active < 0) active = 0;
+
+  function raspored(){
+    const lijevo = (active - 1 + slides.length) % slides.length;
+    const desno = (active + 1) % slides.length;
+    slides.forEach(s => { s.classList.remove('is-center'); s.style.order = ''; });
+    slides[lijevo].style.order = '1';
+    slides[active].style.order = '2';
+    slides[active].classList.add('is-center');
+    slides[desno].style.order = '3';
+  }
+  raspored();
+
+  function fiksirajVisinu(){
+    const centerFacade = wrap.querySelector('.vc-slide.is-center .video-facade');
+    if(!centerFacade) return;
+    const w = centerFacade.getBoundingClientRect().width;
+    if(w > 0) wrap.style.height = Math.round(w * 9 / 16) + 'px';
+  }
+  fiksirajVisinu();
+  let rszTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(rszTimer);
+    rszTimer = setTimeout(fiksirajVisinu, 150);
+  });
+
+  function goTo(i){
+    const next = (i + slides.length) % slides.length;
+    if(next === active) return;
+    const staro = slides[active];
+    const fWrap = staro.querySelector('.video-facade');
+    if(fWrap.querySelector('iframe')){
+      fWrap.innerHTML = izvornik[active];
+      bindFacade(fWrap);
+    }
+    active = next;
+    raspored();
+  }
+
+  wrap.querySelector('.vc-prev').addEventListener('click', () => goTo(active - 1));
+  wrap.querySelector('.vc-next').addEventListener('click', () => goTo(active + 1));
+  slides.forEach((s, i) => s.addEventListener('click', () => { if(i !== active) goTo(i); }));
 })();
 
 // ---------- tab-podizbornik: Opće informacije / Boje / Mogućnost ugradnje ----------
