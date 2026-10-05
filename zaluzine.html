@@ -24,6 +24,9 @@
 .zl-note{margin-top:18px;font-size:13px;color:var(--muted)}
 @media(max-width:900px){.zl-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.zl-grid{grid-template-columns:1fr}}
+/* video: full content width instead of the global 760px cap (this page only) */
+.video-facade.zl-video{max-width:none;margin:0}
+.hero-actions.zl-video-cta{margin-top:32px}
 </style>
 </head>
 <body>
@@ -325,15 +328,20 @@
 <section id="video" class="dark">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Žaluzine · video</div>
-      <h2>Pogledajte video.</h2>
+      <div class="eyebrow">Žaluzine · SkyFlow</div>
+      <h2>Svjetlo i toplina pod vašom kontrolom.</h2>
+      <p class="lead">Zakretanjem lamela sami birate koliko svjetla ulazi u prostor, a toplina ostaje vani. Električni pogon sa senzorima vjetra i sunca te upravljanjem s mobitela, u 12 modela za prozore, fasade i velike staklene površine.</p>
     </div>
-    <div class="video-facade reveal" id="zaluzineVideo" style="margin-top:0">
-      <button type="button" class="vf-btn" data-yt="2PcvWC-yGtM" aria-label="Pokreni video o žaluzinama SkyFlow">
+    <div class="video-facade zl-video reveal" id="zaluzineVideo">
+      <button type="button" class="vf-btn" data-yt="2PcvWC-yGtM" aria-label="Pokreni video: žaluzine SkyFlow, ALUPROF">
         <img src="images/zaluzine-hero.webp" alt="" loading="lazy">
         <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Pogledajte video o žaluzinama</span>
+        <span class="vf-label">Žaluzine SkyFlow · ALUPROF · 3:21</span>
       </button>
+    </div>
+    <div class="hero-actions zl-video-cta reveal">
+      <a href="upit.html" class="btn btn-primary">Zatraži ponudu</a>
+      <a href="index.html#konfigurator" class="btn btn-ghost">Konfiguriraj svoju pergolu</a>
     </div>
   </div>
 </section>
