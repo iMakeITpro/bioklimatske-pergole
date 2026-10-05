@@ -28,7 +28,7 @@ IZLAZ_DIR = os.path.join(ROOT, 'projekti')
 LOKALNI_FILEOVI = [
     'index.html', 'sunbreaker-400.html', 'sunbreaker-500.html', 'sunbreaker-700.html',
     'vertoline.html', 'klizne-stijene.html', 'shutters.html',
-    'sjenila.html', 'zaluzine.html', 'refleksol-rolo-sjenila.html', 'zip-tende.html', 'rolo.html', 'veranda.html', 'upit.html',
+    'sjenila.html', 'zaluzine.html', 'refleksol-rolo-sjenila.html', 'veranda-rolo-sjenila.html', 'zip-tende.html', 'rolo.html', 'veranda.html', 'upit.html',
     'jamstveni-uvjeti.html', 'uvjeti-koristenja.html', 'izjava-o-privatnosti.html',
     'kolacici.html', 'css/styles.css',
 ]
