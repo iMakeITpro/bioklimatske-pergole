@@ -10,6 +10,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css?v=32">
+<style>
+/* video: full content width instead of the global 760px cap (this page only) */
+.video-facade.gr-video{max-width:none;margin:0}
+.hero-actions.gr-video-cta{margin-top:32px}
+</style>
 </head>
 <body>
 
@@ -107,15 +112,20 @@
 <section id="video" class="dark">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Grilje · video</div>
-      <h2>Pogledajte video.</h2>
+      <div class="eyebrow">Grilje · Sistem Slide</div>
+      <h2>Prilagodite svjetlinu svome prostoru.</h2>
+      <p class="lead">Klizni aluminijski paneli s lamelama koje se zakreću od 0 do 170°, podijeljeni u dvije zone, pa sami birate koliko svjetla i privatnosti želite. Kao bočna stijena pergole, na terasi, balkonu ili lođi.</p>
     </div>
-    <div class="video-facade reveal" id="shuttersVideo" style="margin-top:0">
-      <button type="button" class="vf-btn" data-yt="wJywS5g7ABw" aria-label="Pokreni video o griljama">
+    <div class="video-facade gr-video reveal" id="shuttersVideo">
+      <button type="button" class="vf-btn" data-yt="wJywS5g7ABw" aria-label="Pokreni video: bočno zatvaranje griljama, TARASOLA">
         <img src="https://i.ytimg.com/vi/wJywS5g7ABw/hqdefault.jpg" alt="" loading="lazy">
         <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Pogledajte video o griljama</span>
+        <span class="vf-label">Bočno zatvaranje griljama · TARASOLA · 2:16</span>
       </button>
+    </div>
+    <div class="hero-actions gr-video-cta reveal">
+      <a href="upit.html" class="btn btn-primary">Zatraži ponudu</a>
+      <a href="index.html#konfigurator" class="btn btn-ghost">Konfiguriraj svoju pergolu</a>
     </div>
   </div>
 </section>

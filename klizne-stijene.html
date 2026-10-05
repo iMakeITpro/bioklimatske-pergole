@@ -10,6 +10,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css?v=32">
+<style>
+/* video: full content width instead of the global 760px cap (this page only) */
+.video-facade.ks-video{max-width:none;margin:0}
+.hero-actions.ks-video-cta{margin-top:32px}
+</style>
 </head>
 <body>
 
@@ -107,15 +112,20 @@
 <section id="video" class="dark">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="eyebrow">Klizne stijene · video</div>
-      <h2>Pogledajte video.</h2>
+      <div class="eyebrow">Klizne stijene · Sistem Slide</div>
+      <h2>Potpuna zaštita od vjetra i kiše uz prekrasan ambijent.</h2>
+      <p class="lead">Bezokvirne staklene klizne stijene štite od vjetra i kiše, a svjetlo i pogled ostaju netaknuti. Vanjski prostor koristite od ranog proljeća do kasne jeseni, na terasi, lođi, balkonu ili u vrtu restorana.</p>
     </div>
-    <div class="video-facade reveal" id="klizneVideo" style="margin-top:0">
-      <button type="button" class="vf-btn" data-yt="DxqnXF8azsA" aria-label="Pokreni video o kliznim stijenama">
+    <div class="video-facade ks-video reveal" id="klizneVideo">
+      <button type="button" class="vf-btn" data-yt="DxqnXF8azsA" aria-label="Pokreni video: bočno zatvaranje staklenim kliznim stijenama, TARASOLA">
         <img src="images/klizne-stijene-hero.webp" alt="" loading="lazy">
         <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Pogledajte video o kliznim stijenama</span>
+        <span class="vf-label">Bočno zatvaranje staklom · TARASOLA · 2:13</span>
       </button>
+    </div>
+    <div class="hero-actions ks-video-cta reveal">
+      <a href="upit.html" class="btn btn-primary">Zatraži ponudu</a>
+      <a href="index.html#konfigurator" class="btn btn-ghost">Konfiguriraj svoju pergolu</a>
     </div>
   </div>
 </section>
