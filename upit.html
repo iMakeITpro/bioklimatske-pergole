@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=34">
+<link rel="stylesheet" href="css/styles.css?v=35">
 <script src="js/slanje.js?v=2"></script>
 </head>
 <body>
@@ -63,61 +63,103 @@
 </header>
 
 <!-- UPIT -->
-<section id="upit" class="alt" style="padding-top:clamp(48px,6vw,80px)">
-  <div class="wrap">
-    <div class="form-split reveal">
-      <div class="fs-l">
-        <div>
-          <div class="eyebrow" id="upitNaslov">Besplatna procjena</div>
-          <h2>Izlazak na teren i 3D vizualizacija — bez obveze.</h2>
-          <p>Popunjavanje traje 40 sekundi. Javljamo se u roku 2 radna dana.</p>
-          <ul class="fs-list">
-            <li><b>1.</b> Telefonski razgovor unutar 24h — provjera je li projekt izvediv</li>
-            <li><b>2.</b> Izlazak na teren i mjerenje unutar 2 radna dana od prihvaćanja ponude</li>
-            <li><b>3.</b> Fotorealistična 3D vizualizacija na vašem objektu</li>
-            <li><b>4.</b> Fiksna ponuda stavku po stavku, vrijedi 30 dana</li>
-          </ul>
-        </div>
-        <div class="fs-contact">
-          <a href="tel:+385993637777">099 363 7777</a>
-          <small>Radnim danom 08–18 h · subotom 09–13 h · odgovaramo i na WhatsApp</small>
-        </div>
+<section id="upit" class="up">
+  <div class="wrap up-grid">
+    <div class="up-main">
+      <div class="up-head">
+        <div class="up-crumb" id="upCrumb"><a href="index.html">Početna</a><span>/</span><span>Zatraži ponudu</span></div>
+        <h1 id="upNaslov">Zatražite <span class="pm-gold">ponudu</span></h1>
+        <p class="lead">Ostavite kontakt, javljamo se unutar 1 radnog dana.</p>
       </div>
-      <div class="fs-r">
+      <div class="up-box">
         <form id="frm" onsubmit="return sendForm(event)">
           <div class="mrav" aria-hidden="true"><label>Ne ispunjavajte<input type="text" name="botcheck" id="upBot" tabindex="-1" autocomplete="off"></label></div>
-          <div class="frow">
-            <div class="fg"><label for="ime">Ime i prezime *</label><input id="ime" required placeholder="Ana Anić"></div>
-            <div class="fg"><label for="tel">Telefon *</label><input id="tel" type="tel" required placeholder="09x xxx xxxx"></div>
-          </div>
-          <div class="frow">
-            <div class="fg"><label for="mail">E-mail *</label><input id="mail" type="email" required placeholder="ana@primjer.hr"></div>
-            <div class="fg"><label for="loc">Lokacija objekta *</label><input id="loc" required placeholder="Grad ili mjesto"></div>
-          </div>
-          <div class="frow">
-            <div class="fg"><label for="pov">Okvirna površina</label>
-              <select id="pov"><option>Do 15 m²</option><option selected>15 – 25 m²</option><option>25 – 40 m²</option><option>40 – 60 m²</option><option>Više od 60 m²</option><option>Ne znam još</option></select>
+          <fieldset class="up-fs">
+            <legend><span class="up-n">1</span><span class="up-t">Vaši podaci</span><small>obavezno</small></legend>
+            <p class="up-hint">Samo ovo nam treba da vas kontaktiramo.</p>
+            <div class="frow">
+              <div class="fg"><label for="ime">Ime i prezime</label><input id="ime" required autocomplete="name" placeholder="Ana Anić"></div>
+              <div class="fg"><label for="tel">Telefon</label><input id="tel" type="tel" required autocomplete="tel" placeholder="09x xxx xxxx"></div>
             </div>
-            <div class="fg"><label for="bud">Okvirni budžet</label>
-              <select id="bud"><option>15.000 – 20.000 €</option><option selected>20.000 – 30.000 €</option><option>30.000 – 50.000 €</option><option>Više od 50.000 €</option><option>Trebam prvo procjenu</option></select>
+            <div class="frow">
+              <div class="fg"><label for="mail">E-mail</label><input id="mail" type="email" required autocomplete="email" placeholder="ana@primjer.hr"></div>
+              <div class="fg"><label for="loc">Lokacija objekta</label><input id="loc" required autocomplete="address-level2" placeholder="Grad ili mjesto"></div>
             </div>
-          </div>
-          <div class="frow">
+          </fieldset>
+          <fieldset class="up-fs">
+            <legend><span class="up-n">2</span><span class="up-t">O projektu</span><small>neobavezno</small></legend>
+            <p class="up-hint">Ako ne znate, preskočite.</p>
+            <!-- samo kad se dolazi bez proizvoda -->
+            <div class="fg" id="upInteres">
+              <span class="up-lbl" id="intLbl">Što vas zanima?</span>
+              <div class="up-chips" role="group" aria-labelledby="intLbl">
+                <label class="up-chip"><input type="checkbox" name="interes" value="Bioklimatska pergola"><span>Bioklimatska pergola</span></label>
+                <label class="up-chip"><input type="checkbox" name="interes" value="Klizne stijene"><span>Klizne stijene</span></label>
+                <label class="up-chip"><input type="checkbox" name="interes" value="Sjenila za sunce"><span>Sjenila za sunce</span></label>
+                <label class="up-chip"><input type="checkbox" name="interes" value="Ne znam još"><span>Ne znam još, savjetujte me</span></label>
+              </div>
+            </div>
+            <div class="fg">
+              <span class="up-lbl" id="dimLbl">Okvirne dimenzije</span>
+              <div class="up-dims" role="group" aria-labelledby="dimLbl">
+                <div class="up-unit"><input id="sir" inputmode="decimal" placeholder="Širina" aria-label="Širina u metrima"></div>
+                <span aria-hidden="true">×</span>
+                <div class="up-unit"><input id="dub" inputmode="decimal" placeholder="Dubina" aria-label="Dubina u metrima"></div>
+              </div>
+            </div>
             <div class="fg"><label for="rok">Kada želite montažu?</label>
               <select id="rok"><option>Što prije</option><option selected>U sljedeća 3 mjeseca</option><option>Sljedeća sezona</option><option>Još istražujem</option></select>
             </div>
-            <div class="fg"><label for="obj">Tip objekta</label>
-              <select id="obj"><option selected>Obiteljska kuća</option><option>Vila / apartman za najam</option><option>Ugostiteljski objekt</option><option>Hotel</option><option>Poslovni prostor</option></select>
-            </div>
-          </div>
-          <div class="fg"><label for="por">Napomena (podloga, izloženost vjetru, posebni zahtjevi)</label><textarea id="por" placeholder="Npr. postojeća betonska terasa 4×5 m, izloženo buri, želim ZIP tende s dvije strane…"></textarea></div>
-          <label class="chk"><input type="checkbox" required><span>Suglasan/na sam da me TT Gradnja kontaktira radi izrade ponude, sukladno <a href="izjava-o-privatnosti.html" style="color:var(--brass);text-decoration:underline">Izjavi o privatnosti</a>. Podatke ne dijelimo s trećim stranama.</span></label>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Pošalji upit →</button>
-          <div class="f-note">🔒 &nbsp;Bez newslettera, bez prodaje podataka. Prosječno vrijeme odgovora: 3 h 20 min.</div>
-          <div class="form-ok" id="ok">✓ <b>Upit zaprimljen.</b> Javljamo se na navedeni broj danas do 18 h. Ako vam odgovara ranije, slobodno nazovite 099 363 7777.</div>
+            <div class="fg"><label for="por">Napomena</label><textarea id="por" placeholder="Podloga, izloženost buri, posebni zahtjevi…"></textarea></div>
+          </fieldset>
+          <label class="chk"><input type="checkbox" required><span>Suglasan/na sam da me TT Gradnja kontaktira radi izrade ponude, sukladno <a href="izjava-o-privatnosti.html" style="color:var(--brass);text-decoration:underline">Izjavi o privatnosti</a>. Podaci se ne objavljuju javno niti dijele s trećim stranama.</span></label>
+          <button type="submit" class="btn btn-primary" id="upGumb" style="width:100%;justify-content:center">Pošalji upit →</button>
+          <div class="f-note">Javljamo se unutar 1 radnog dana.</div>
+          <div class="form-ok up-err" id="upGreska"><b>Slanje nije uspjelo.</b> Nazovite nas na 099 363 7777 ili pišite na info@bioklimatskepergole.hr.</div>
         </form>
+        <div class="up-done" id="ok" hidden>
+          <div class="up-tick" aria-hidden="true">✓</div>
+          <h2 id="okNaslov">Upit je zaprimljen.</h2>
+          <p>Javljamo se na <b id="okTel"></b> unutar 1 radnog dana. Ako vam odgovara ranije, nazovite 099 363 7777.</p>
+          <dl class="up-sum" id="okSazetak"></dl>
+        </div>
       </div>
     </div>
+
+    <aside class="up-side" aria-label="Odabrani proizvod i sljedeći koraci">
+      <div class="up-prod" id="upProizvod" hidden>
+        <img id="upSlika" src="" alt="">
+        <div class="up-pb">
+          <div class="eyebrow" id="upKat"></div>
+          <h3 id="upIme"></h3>
+          <div class="up-links">
+            <a href="#" id="upNatrag"></a>
+            <label class="up-swap"><span>Promijeni:</span><select id="upPromijeni" aria-label="Promijeni proizvod"></select></label>
+          </div>
+        </div>
+      </div>
+      <div class="up-prod" id="upOpcenito">
+        <div class="up-pb">
+          <div class="eyebrow">Niste sigurni koji model?</div>
+          <h3>Usporedite modele</h3>
+          <p>Okvirnu cijenu za Sunbreaker 400 i 500 dobivate u konfiguratoru u 60 sekundi.</p>
+          <div class="up-links"><a href="index.html#konfigurator">Otvori konfigurator →</a></div>
+        </div>
+      </div>
+      <div class="up-steps">
+        <h3>Što slijedi</h3>
+        <ol>
+          <li><div><b>Telefonski razgovor</b><small>Unutar 1 radnog dana.</small></div></li>
+          <li><div><b>Izlazak i mjerenje</b><small>Unutar 2 radna dana od prihvaćanja ponude.</small></div></li>
+          <li><div><b>Fiksna ponuda</b><small>Stavku po stavku, vrijedi 30 dana.</small></div></li>
+        </ol>
+      </div>
+      <div class="up-contact">
+        <div class="eyebrow">Radije razgovarate?</div>
+        <a href="tel:+385993637777" class="up-num">099 363 7777</a>
+        <small>ili <a href="tel:+38535412388">035 412 388</a> · <a href="mailto:info@bioklimatskepergole.hr">info@bioklimatskepergole.hr</a></small>
+      </div>
+    </aside>
   </div>
 </section>
 
@@ -189,51 +231,101 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{
   document.querySelector('.burger').setAttribute('aria-expanded','false');
 }));
 // product pages link here as ?proizvod=<page slug>; only known slugs are shown (whitelist, never raw URL text)
+const PERGOLA = 'Bioklimatska pergola', SLIDE = 'Sistem Slide', SJENILA = 'Sjenila za sunce';
 const PROIZVODI = {
-  'sunbreaker-400r':'Sunbreaker 400R', 'sunbreaker-500r':'Sunbreaker 500R', 'sunbreaker-700':'Sunbreaker 700',
-  'pergola-solid':'Pergola Solid', 'zaluzine':'Žaluzine', 'tende':'Tende', 'brisoleji':'Brisoleji',
-  'shutters':'Grilje', 'sistem-slide':'Sistem Slide', 'vertoline':'Vertoline', 'klizne-stijene':'Klizne stijene',
-  'bocna-rolo-sjenila':'Bočna rolo sjenila', 'refleksol-rolo-sjenila':'Refleksol rolo sjenila',
-  'veranda-rolo-sjenila':'Veranda rolo sjenila', 'sjenila':'Sjenila za sunce'
+  'sunbreaker-400':  {ime:'Sunbreaker 400',  kat:PERGOLA, slika:'https://www.ttgradnja.hr/wp-content/uploads/2025/03/bioklimatska-pergola-sb500.webp'},
+  'sunbreaker-400r': {ime:'Sunbreaker 400R', kat:PERGOLA, slika:'https://aluprof.com/app/default/assets/products_images/20365PergolaSB400PRORFinal.png.webp?v=1790671691'},
+  'sunbreaker-500':  {ime:'Sunbreaker 500',  kat:PERGOLA, slika:'https://www.ttgradnja.hr/wp-content/uploads/2025/03/bioklimatska-pergola-sb500.webp'},
+  'sunbreaker-500r': {ime:'Sunbreaker 500R', kat:PERGOLA, slika:'https://www.ttgradnja.hr/wp-content/uploads/2022/05/bioklimatska-pergola-sb500r-slide1.webp'},
+  'sunbreaker-700':  {ime:'Sunbreaker 700',  kat:PERGOLA, slika:'https://tarasola.co.uk/wp-content/uploads/2025/05/Technic_Pro_slider-1900x1004.jpg'},
+  'pergola-solid':   {ime:'Pergola Solid',   kat:'Pergola', slika:'https://aluprof.com/app/default/assets/products_images/83446Pergola_SOLID_FSM_4x3x2_orto.jpg.webp'},
+  'vertoline':       {ime:'Vertoline',       kat:'Dodatak za pergole', slika:'images/vertoline.webp'},
+  'sistem-slide':    {ime:'Sistem Slide',    kat:SLIDE, slika:'https://www.ttgradnja.hr/wp-content/uploads/2022/05/pergola-system-slide1.webp'},
+  'klizne-stijene':  {ime:'Klizne stijene',  kat:SLIDE, slika:'images/klizne-stijene-hero.webp'},
+  'shutters':        {ime:'Grilje',          kat:SLIDE, slika:'images/shutters-hero.webp'},
+  'sjenila':         {ime:'Sjenila za sunce', kat:SJENILA, slika:''},
+  'zaluzine':        {ime:'Žaluzine',        kat:SJENILA, slika:'images/zaluzine-hero.webp'},
+  'refleksol-rolo-sjenila': {ime:'Refleksol rolo sjenila', kat:SJENILA, slika:'images/refleksol-hero.webp'},
+  'veranda-rolo-sjenila':   {ime:'Veranda rolo sjenila',   kat:SJENILA, slika:'images/veranda-hero.webp'},
+  'bocna-rolo-sjenila':     {ime:'Bočna rolo sjenila',     kat:SJENILA, slika:'images/bora-hero.webp'},
+  'tende':           {ime:'Tende',           kat:SJENILA, slika:'images/tende-hero.webp'},
+  'brisoleji':       {ime:'Brisoleji',       kat:SJENILA, slika:'images/brisoleji-hero.webp'}
 };
-const proizvodKljuc = new URLSearchParams(location.search).get('proizvod');
-const proizvod = Object.hasOwn(PROIZVODI, proizvodKljuc) ? PROIZVODI[proizvodKljuc] : '';
-if(proizvod){
-  document.getElementById('upitNaslov').textContent = 'Ponuda za ' + proizvod;
-  document.title = 'Ponuda za ' + proizvod + ' | TT Gradnja – bioklimatske pergole SELT';
+const $ = id => document.getElementById(id);
+const pocetniKljuc = new URLSearchParams(location.search).get('proizvod');
+let kljuc = Object.hasOwn(PROIZVODI, pocetniKljuc) ? pocetniKljuc : '';
+
+$('upPromijeni').innerHTML = Object.entries(PROIZVODI).map(([k,p]) => `<option value="${k}">${p.ime}</option>`).join('') + '<option value="">Ne znam još</option>';
+$('upPromijeni').onchange = e => {
+  kljuc = e.target.value;
+  history.replaceState(null, '', kljuc ? '?proizvod=' + kljuc : location.pathname);
+  prikaziProizvod();
+};
+
+function prikaziProizvod(){
+  const p = PROIZVODI[kljuc];
+  $('upProizvod').hidden = !p;
+  $('upOpcenito').hidden = !!p;
+  $('upInteres').hidden = !!p;
+  $('upGumb').textContent = p ? 'Pošalji upit za ' + p.ime + ' →' : 'Pošalji upit →';
+  document.title = (p ? 'Ponuda za ' + p.ime : 'Zatražite ponudu') + ' | TT Gradnja – bioklimatske pergole SELT';
+  if(!p){
+    $('upNaslov').innerHTML = 'Zatražite <span class="pm-gold">ponudu</span>';
+    $('upCrumb').innerHTML = '<a href="index.html">Početna</a><span>/</span><span>Zatraži ponudu</span>';
+    return;
+  }
+  $('upNaslov').innerHTML = 'Ponuda za <span class="pm-gold">' + p.ime + '</span>';
+  $('upCrumb').innerHTML = '<a href="index.html">Početna</a><span>/</span><a href="' + kljuc + '.html">' + p.ime + '</a><span>/</span><span>Zatraži ponudu</span>';
+  $('upSlika').hidden = !p.slika;
+  $('upSlika').src = p.slika; $('upSlika').alt = p.ime;
+  $('upKat').textContent = p.kat;
+  $('upIme').textContent = p.ime;
+  $('upNatrag').href = kljuc + '.html';
+  $('upNatrag').textContent = '← Natrag na ' + p.ime;
+  $('upPromijeni').value = kljuc;
 }
+prikaziProizvod();
+
 const yrEl = document.getElementById('yr');
 if(yrEl) yrEl.textContent = new Date().getFullYear();
 
 async function sendForm(e){
   e.preventDefault();
-  if(document.getElementById('upBot').value){ return false; } // bot
-  const gumb = e.target.querySelector('button[type=submit]');
+  if($('upBot').value){ return false; } // bot
+  const gumb = $('upGumb');
   const izvorniTekst = gumb.textContent;
   gumb.disabled = true; gumb.textContent = 'Šaljem…';
-  const v = id => { const el=document.getElementById(id); return el ? el.value.trim() : ''; };
+  $('upGreska').style.display = 'none';
+  const v = id => $(id).value.trim();
+  const p = PROIZVODI[kljuc];
+  const proizvod = p ? p.ime : '';
+  const interes = [...document.querySelectorAll('input[name=interes]:checked')].map(i => i.value).join(', ');
+  const dimenzije = v('sir') || v('dub') ? (v('sir') || '?') + ' × ' + (v('dub') || '?') + ' m' : '';
   const r = await posaljiObrazac({
-    subject: 'Upit sa stranice — ' + v('ime'),
+    subject: 'Upit sa stranice — ' + (proizvod ? proizvod + ' — ' : '') + v('ime'),
     from_name: 'Bioklimatske pergole — obrazac',
     Ime: v('ime'), Telefon: v('tel'), Email: v('mail'), Lokacija: v('loc'),
-    Povrsina: v('pov'), Budzet: v('bud'), Rok: v('rok'), Tip_objekta: v('obj'),
     Proizvod: proizvod || '—',
+    Interes: p ? '—' : (interes || '—'),
+    Dimenzije: dimenzije || '—',
+    Rok: v('rok'),
     Napomena: v('por') || '—',
     Izvor: location.href
   });
-  const ok = document.getElementById('ok');
-  if(r.ok){
-    ok.style.display = 'block';
-    gumb.textContent = '✓ Poslano';
-    ok.scrollIntoView({behavior:'smooth', block:'center'});
-  }else{
+  if(!r.ok){
     gumb.disabled = false; gumb.textContent = izvorniTekst;
-    ok.style.display = 'block';
-    ok.style.background = 'rgba(201,122,107,.10)';
-    ok.style.borderColor = 'rgba(201,122,107,.4)';
-    ok.style.color = '#8C4436';
-    ok.innerHTML = '<b>Slanje nije uspjelo.</b> Nazovite nas na 099 363 7777 ili pišite na info@bioklimatskepergole.hr — javljamo se isti radni dan.';
+    $('upGreska').style.display = 'block';
+    return false;
   }
+  // sazetak se gradi preko textContent jer sadrzi korisnikov unos
+  $('okNaslov').textContent = proizvod ? 'Upit za ' + proizvod + ' je zaprimljen.' : 'Upit je zaprimljen.';
+  $('okTel').textContent = v('tel');
+  const sazetak = $('okSazetak');
+  [['Proizvod', proizvod || interes || '—'], ['Ime', v('ime')], ['Lokacija', v('loc')], ['Dimenzije', dimenzije || '—'], ['Montaža', v('rok')]]
+    .forEach(([k, x]) => { const dt = document.createElement('dt'), dd = document.createElement('dd'); dt.textContent = k; dd.textContent = x; sazetak.append(dt, dd); });
+  $('frm').hidden = true;
+  $('ok').hidden = false;
+  $('ok').scrollIntoView({behavior:'smooth', block:'center'});
   return false;
 }
 </script>
