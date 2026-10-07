@@ -639,6 +639,12 @@ footer a:hover{color:var(--brass-lt)}
   /* render izlazi do 150px desno preko ruba sadrzaja, ali samo koliko ima mjesta do ruba ekrana */
   .sub-hero.has-render .wrap>.hero-render{margin-right:calc(-1 * max(0px, min(150px, (100vw - 1184px) / 2 - 70px)))}
 }
+/* mobitel, dugi naslov i lead (Sjenila za sunce): CTA ispred slike da ostane u prvom ekranu (390x664) */
+@media(max-width:899px){
+  .sub-hero.cta-first .wrap{display:flex;flex-direction:column}
+  .sub-hero.cta-first .hero-actions{order:1}
+  .sub-hero.cta-first .hero-photo{order:2;min-height:0}
+}
 .sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
 
 /* interactive hotspot image on model pages — hover/tap on a pin reveals a feature description */
