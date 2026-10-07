@@ -601,25 +601,43 @@ footer a:hover{color:var(--brass-lt)}
 /* stranice koje pod sub-hero uvlace i veci sadrzaj (npr. interaktivni hotspot prikaz)
    ne trebaju punu "hero" razliku prema headeru - svodimo na obicni section padding */
 .sub-hero.has-demo{padding-top:clamp(32px,4vw,56px)}
-/* SB400R: tekst i CTA lijevo, render proizvoda desno (ostale podstranice zasad imaju
-   sliku punom sirinom i CTA ispod nje). Render je packshot na bijeloj podlozi (Aluprof):
-   bez okvira - multiply stapa bijelo s pozadinom sekcije (na okviru, ne na img, jer .reveal
-   tijekom animacije stvara izolirani stacking context), a 5:2 + object-fit:cover reze samo
-   prazni bijeli rub iznad i ispod proizvoda. ::after je meka sjena pod proizvodom */
-.sub-hero.has-render{padding-bottom:clamp(32px,4vw,56px)}
-.sub-hero.has-render h1{font-size:clamp(34px,4.4vw,68px);font-weight:400;margin-bottom:26px}
-.sub-hero.has-render .lead{font-size:17px;line-height:1.58}
-.sub-hero.has-render .hero-actions{margin-top:28px}
-.hero-render{position:relative;aspect-ratio:5/2;margin-top:40px;mix-blend-mode:multiply}
-.hero-render img{width:100%;height:100%;object-fit:cover;display:block}
+/* split hero (SB400R, SB500R, Sistem Slide, Pergola Solid, Vertoline): tekst i CTA lijevo,
+   slika desno, CTA u prvom ekranu (ostale podstranice zasad imaju sliku punom sirinom i CTA
+   ispod nje). has-render = packshot render (5:2, bleed desno), has-photo = slika 7:5 do ruba
+   sadrzaja. Tekst je u .hero-copy da se moze vertikalno centrirati uz sliku, a CTA ostaje
+   zaseban da na mobitelu bude ispod slike */
+.sub-hero:is(.has-render,.has-photo){padding-bottom:clamp(32px,4vw,56px)}
+.sub-hero:is(.has-render,.has-photo) h1{font-size:clamp(30px,4.4vw,68px);font-weight:400;margin-bottom:26px}
+.sub-hero:is(.has-render,.has-photo) .lead{font-size:17px;line-height:1.58}
+.sub-hero:is(.has-render,.has-photo) .hero-actions{margin-top:28px}
+.hero-render,.hero-photo{position:relative;margin-top:40px}
+.hero-render img,.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+/* render je packshot na bijeloj podlozi: multiply stapa bijelo s pozadinom sekcije (na okviru,
+   ne na img, jer .reveal tijekom animacije stvara izolirani stacking context), a 5:2 + cover
+   reze samo prazni bijeli rub iznad i ispod proizvoda. --render-zoom povecava render ciji
+   proizvod ne ispunjava sirinu slike (visak bijelog ruba se odreze). ::after je meka sjena */
+.hero-render{aspect-ratio:5/2;overflow:hidden;mix-blend-mode:multiply}
+.hero-render img{transform:scale(var(--render-zoom,1))}
 .hero-render::after{content:'';position:absolute;left:18%;width:70%;top:69%;height:22%;background:radial-gradient(closest-side,rgba(18,16,14,.1),transparent);pointer-events:none}
-/* render se proteze kroz sve redove, a zadnji 1fr red upija njegov visak da redovi
-   s tekstom ostanu zbijeni gore */
+/* na mobitelu 16:9 (nize) da CTA ispod slike ostane u prvom ekranu; 7:5 tek uz tekst */
+.hero-photo{aspect-ratio:16/9}
+/* render na bijelom u foto rasporedu: contain da se proizvod ne odreze, multiply skriva bijelo */
+.hero-photo.on-white{mix-blend-mode:multiply}
+.hero-photo.on-white img{object-fit:contain}
+/* slika se proteze kroz sva 4 reda; dva 1fr reda oko teksta i CTA-a upijaju visak visine
+   slike pa je tekst vertikalno centriran */
 @media(min-width:900px){
-  .sub-hero.has-render .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.66fr);grid-template-rows:repeat(4,auto) 1fr;column-gap:20px}
-  .sub-hero.has-render .wrap>*{grid-column:1}
+  .sub-hero:is(.has-render,.has-photo) .wrap{display:grid;grid-template-rows:1fr auto auto 1fr}
+  .sub-hero.has-render .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1.66fr);column-gap:20px}
+  .sub-hero.has-photo .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1.83fr);column-gap:50px}
+  /* --photo-ratio za siroku fotografiju ciji bi proizvod 7:5 odrezao sa strane (SB700) */
+  .hero-photo{aspect-ratio:var(--photo-ratio,7/5)}
+  .sub-hero:is(.has-render,.has-photo) .hero-copy{grid-column:1;grid-row:2}
+  /* uski stupac: "Pogledaj projekte" prelazi ispod glavnog CTA-a umjesto da izlazi iz stupca */
+  .sub-hero:is(.has-render,.has-photo) .hero-actions{grid-column:1;grid-row:3;flex-wrap:wrap;gap:14px 22px}
+  .sub-hero:is(.has-render,.has-photo) .wrap>.reveal{grid-column:2;grid-row:1/-1;align-self:center;margin-top:0}
   /* render izlazi do 150px desno preko ruba sadrzaja, ali samo koliko ima mjesta do ruba ekrana */
-  .sub-hero.has-render .wrap>.hero-render{grid-column:2;grid-row:1/-1;align-self:center;margin-top:0;margin-right:calc(-1 * max(0px, min(150px, (100vw - 1184px) / 2 - 70px)))}
+  .sub-hero.has-render .wrap>.hero-render{margin-right:calc(-1 * max(0px, min(150px, (100vw - 1184px) / 2 - 70px)))}
 }
 .sub-note{margin-top:26px;padding:18px 22px;border-left:2px solid var(--brass);background:#fff;font-size:14.5px;color:var(--muted);max-width:70ch}
 
