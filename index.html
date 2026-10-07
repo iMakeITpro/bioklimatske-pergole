@@ -203,7 +203,7 @@
           <li>Senzor vjetra s autozatvaranjem</li>
           <li>Upravljanje mobilnom aplikacijom</li>
         </ul>
-        <a href="upit.html" class="btn btn-ghost">Zatraži ponudu →</a>
+        <a href="upit.html?proizvod=sunbreaker-700" class="btn btn-ghost">Zatraži ponudu</a>
       </div>
     </div>
     <p class="price-note reveal">Premium bioklimatske pergole dostupne su u tri razine — Sunbreaker 400, 500 i 700 — prilagođene veličini terase, izloženosti vjetru i budžetu. TT Gradnja, ovlašteni zastupnik za SELT by Aluprof u Hrvatskoj, isporučuje aluminijsku konstrukciju s motoriziranim rotirajućim lamelama, integriranom odvodnjom i otpornošću na vjetar preko 200 km/h, uz ugradnju i puštanje u rad diljem obale i kontinenta.</p>
@@ -236,7 +236,7 @@
             <label for="m500"><b>Sunbreaker 500</b><small>Dubina do 7 m · širina do 5 m</small></label>
           </div>
         </div>
-        <p class="cfg-note">Treba vam Sunbreaker 700 ili veće od ovoga? <a href="upit.html" style="font-weight:700;color:var(--brass-lt)">Zatražite ponudu na upit →</a></p>
+        <p class="cfg-note">Treba vam Sunbreaker 700 ili veće od ovoga? <a href="upit.html" style="font-weight:700;color:var(--brass-lt)">Zatražite ponudu na upit</a></p>
 
         <div class="fld">
           <label>2. Dimenzije</label>
@@ -1289,6 +1289,9 @@ function postaviRasponeDimenzija(){
   const sredinaS = Math.round((sir.sirinaMin + sir.sirinaMax) / 2 / sir.sirinaKorak) * sir.sirinaKorak;
   elS.value = isNaN(trenutnaS) ? sredinaS : Math.min(sir.sirinaMax, Math.max(sir.sirinaMin, trenutnaS));
 }
+// model page / project CTAs link here as ?model=400|500 — preselect it before the first range setup
+const modelIzUrla = document.getElementById('m' + new URLSearchParams(location.search).get('model'));
+if(modelIzUrla && modelIzUrla.name === 'model') modelIzUrla.checked = true;
 document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
 postaviRasponeDimenzija();
 

@@ -165,6 +165,9 @@ def izgradi_stranicu(head, foot, zapis):
         head, count=1,
     )
 
+    # template (sunbreaker-400.html) mobile bar preselects SB400 in the configurator — use this project's model
+    foot = foot.replace('index.html?model=400#', f'index.html?model={model}#')
+
     kartice = '\n'.join(
         izgradi_karticu(g['full'], g['thumb'], model, lokacija) for g in zapis['foto_galerija']
     )
