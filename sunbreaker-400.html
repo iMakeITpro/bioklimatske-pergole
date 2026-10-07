@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=32">
+<link rel="stylesheet" href="css/styles.css?v=33">
 </head>
 <body>
 
@@ -920,6 +920,12 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
     timer = setInterval(() => show(active + 1), DELAY);
   }
   function go(i){ show(i); start(); }
+
+  // on mobile the thumbnails render under the image but come first in the DOM; keep focus order visual
+  const narrow = window.matchMedia('(max-width: 640px)');
+  const syncTabOrder = () => thumbs.forEach(t => { t.tabIndex = narrow.matches ? -1 : 0; });
+  syncTabOrder();
+  narrow.addEventListener('change', syncTabOrder);
 
   root.querySelector('.pv-prev').addEventListener('click', () => go(active - 1));
   root.querySelector('.pv-next').addEventListener('click', () => go(active + 1));

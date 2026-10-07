@@ -199,7 +199,7 @@ section{padding:clamp(64px,8vw,110px) 0}
 /* Overview and cross-sections (SB400): fade slider + thumbnail column; arrows share .pg-arrow with the projects gallery */
 .pv{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:18px}
 /* arrows overlay the image; width capped so frame + caption fit under the 81px sticky header on short laptop screens */
-.pv-wrap{position:relative;flex:1;min-width:0;max-width:calc((100vh - 170px) * 928 / 800)}
+.pv-wrap{position:relative;flex:1;min-width:0;max-width:max(320px, calc((100vh - 170px) * 928 / 800))}
 .pv-wrap .pg-arrow{position:absolute;z-index:2;top:calc(50% - 35px);background:rgba(255,255,255,.9)}
 .pv-prev{left:10px}
 .pv-next{right:10px}

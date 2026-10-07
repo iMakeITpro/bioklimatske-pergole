@@ -25,13 +25,8 @@ PROJEKTI_JSON = os.path.join(ROOT, 'alati', 'projekti.json')
 PREDLOZAK = os.path.join(ROOT, 'sunbreaker-400.html')
 IZLAZ_DIR = os.path.join(ROOT, 'projekti')
 
-LOKALNI_FILEOVI = [
-    'index.html', 'sunbreaker-400.html', 'sunbreaker-500.html', 'sunbreaker-700.html',
-    'vertoline.html', 'klizne-stijene.html', 'shutters.html',
-    'sjenila.html', 'zaluzine.html', 'refleksol-rolo-sjenila.html', 'veranda-rolo-sjenila.html', 'bocna-rolo-sjenila.html', 'tende.html', 'brisoleji.html', 'upit.html',
-    'jamstveni-uvjeti.html', 'uvjeti-koristenja.html', 'izjava-o-privatnosti.html',
-    'kolacici.html', 'css/styles.css',
-]
+# every root page, read from disk so a new page can't be missed and get a broken '../' link
+LOKALNI_FILEOVI = sorted(f for f in os.listdir(ROOT) if f.endswith('.html')) + ['css/styles.css']
 
 
 def prefiksiraj_putanje(html_str):
