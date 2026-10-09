@@ -147,7 +147,9 @@
       <div class="sf-text">
         <div class="eyebrow">Sunbreaker 500 · posebnosti</div>
         <h2>Što izdvaja ovaj sustav.</h2>
-        <p class="lead">Bioklimatska pergola SB500 omogućuje izradu samostojećih jednostrukih konstrukcija, kao i složenih višemodulnih sustava — s pojedinačnom površinom do 35 m².</p>
+        <p style="margin-top:16px">Bioklimatska pergola SB500 omogućuje izradu samostojećih jednostrukih konstrukcija, kao i složenih višemodulnih sustava. Koristi se ne samo u komercijalnim objektima, već i kod obiteljskih kuća. Konstrukcija je izrađena od ekstrudiranog aluminija i čeličnih elemenata, dok je krov sastavljen od pomičnih lamela s mogućnošću podešavanja kuta nagiba. Istaknutost modula je višekratnik razmaka među lamelama (25 cm). Lamele ograničavaju prodor sunčeve svjetlosti, a njihovo zakretanje pokreće se daljinskim upravljačem. U zatvorenom položaju lamele stvaraju vodonepropustan krov koji štiti terasu od kiše. Odvodnja vode odvija se putem integriranih bočnih oluka i ispusta koji su estetski skriveni unutar konstrukcije.</p>
+        <p style="margin-top:16px">Sustav pergole SB500 omogućuje izradu konstrukcija širine modula do 5 metara, uz mogućnost proširenja dodatnim bočnim zatvaranjima pomoću SLIDE sustava i ZIIIP rolo zavjesa.</p>
+        <p style="margin-top:16px">Model dolazi u 33 standardne boje iz SELT/RAL palete bez doplate, a najčešće se biraju bijela, grafitna i antracitna, koje se uklapaju u većinu vanjskih ambijenata. Po želji, pergolu je moguće naručiti i u drugoj boji iz RAL palete ili u dekoru drva (uz nadoplatu).</p>
         <ul class="check-list">
           <li>Ekstrudirana aluminijska konstrukcija s elementima od nehrđajućeg čelika</li>
           <li>Sustav odvodnje vode integriran s konstrukcijom — oluci i cijevi skriveni unutar profila</li>
@@ -164,6 +166,48 @@
       </div>
       <div class="sf-photo">
         <img src="images/sunbreaker-500-detalj.jpg" alt="Bioklimatska pergola Sunbreaker 500, slobodnostojeća izvedba uz bazen" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW AND PROFILE CROSS-SECTIONS -->
+<section id="pregled500" class="alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Sunbreaker 500 · pregled</div>
+      <h2>Pregled sustava i presjeci profila.</h2>
+      <p class="lead">Pogled na konstrukciju te presjeci grede, stupa i lamele s dimenzijama profila.</p>
+    </div>
+
+    <div class="pv reveal" id="sb500Pregled" role="group" aria-roledescription="carousel" aria-label="Pregled sustava i presjeci profila">
+      <div class="pv-thumbs">
+        <button type="button" class="pv-thumb" aria-current="true" aria-label="Prikaži: pregled konstrukcije"><img src="images/sb500-pregled-1.webp" width="2560" height="1440" alt="" style="object-fit:contain"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek grede"><img src="images/sb500-pregled-2.webp" width="928" height="800" alt="" loading="lazy"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek stupa"><img src="images/sb500-pregled-3.webp" width="928" height="800" alt="" loading="lazy"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek lamele"><img src="images/sb500-pregled-4.webp" width="928" height="800" alt="" loading="lazy"></button>
+      </div>
+      <div class="pg-wrap pv-wrap">
+        <button type="button" class="pg-arrow pv-prev" aria-label="Prethodna slika">&#10094;</button>
+        <div class="pv-viewport">
+          <figure class="pv-slide is-active">
+            <img src="images/sb500-pregled-1.webp" width="2560" height="1440" alt="Bioklimatska pergola Sunbreaker 500 — pregled konstrukcije">
+            <figcaption>Pregled konstrukcije</figcaption>
+          </figure>
+          <figure class="pv-slide">
+            <img src="images/sb500-pregled-2.webp" width="928" height="800" alt="Presjek grede Sunbreakera 500, širina 150 mm, visina 290 mm" loading="lazy">
+            <figcaption>Presjek grede · 290 × 150 mm</figcaption>
+          </figure>
+          <figure class="pv-slide">
+            <img src="images/sb500-pregled-3.webp" width="928" height="800" alt="Presjek stupa Sunbreakera 500, širina 150 mm, visina 150 mm" loading="lazy">
+            <figcaption>Presjek stupa · 150 × 150 mm</figcaption>
+          </figure>
+          <figure class="pv-slide">
+            <img src="images/sb500-pregled-4.webp" width="928" height="800" alt="Presjek lamele Sunbreakera 500, širina 266,5 mm, visina 60 mm" loading="lazy">
+            <figcaption>Presjek lamele · 266,5 × 60 mm</figcaption>
+          </figure>
+        </div>
+        <button type="button" class="pg-arrow pv-next" aria-label="Sljedeća slika">&#10095;</button>
       </div>
     </div>
   </div>
@@ -614,6 +658,75 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
   wrap.querySelector('.vc-prev').addEventListener('click', () => goTo(active - 1));
   wrap.querySelector('.vc-next').addEventListener('click', () => goTo(active + 1));
   slides.forEach((s, i) => s.addEventListener('click', () => { if(i !== active) goTo(i); }));
+})();
+
+// ---------- overview and cross-sections (#sb500Pregled): fade slider + thumbnails, 5 s autoplay ----------
+(function(){
+  const root = document.getElementById('sb500Pregled');
+  if(!root) return;
+  const slides = Array.prototype.slice.call(root.querySelectorAll('.pv-slide'));
+  const thumbs = Array.prototype.slice.call(root.querySelectorAll('.pv-thumb'));
+  if(!slides.length) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DELAY = 5000;
+  let active = 0, timer = null, hover = false, focus = false, visible = false;
+
+  function show(i){
+    active = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => s.classList.toggle('is-active', n === active));
+    thumbs.forEach((t, n) => {
+      if(n === active) t.setAttribute('aria-current', 'true');
+      else t.removeAttribute('aria-current');
+    });
+  }
+  function stop(){ clearInterval(timer); timer = null; }
+  function start(){
+    stop();
+    // autoplay only while the slider is in view, not hovered/focused, and without reduced motion
+    if(reduced || hover || focus || !visible) return;
+    timer = setInterval(() => show(active + 1), DELAY);
+  }
+  function go(i){ show(i); start(); }
+
+  // on mobile the thumbnails render under the image but come first in the DOM; keep focus order visual
+  const narrow = window.matchMedia('(max-width: 640px)');
+  const syncTabOrder = () => thumbs.forEach(t => { t.tabIndex = narrow.matches ? -1 : 0; });
+  syncTabOrder();
+  narrow.addEventListener('change', syncTabOrder);
+
+  root.querySelector('.pv-prev').addEventListener('click', () => go(active - 1));
+  root.querySelector('.pv-next').addEventListener('click', () => go(active + 1));
+  thumbs.forEach((t, n) => t.addEventListener('click', () => go(n)));
+
+  // Pause only for a real mouse hover and for keyboard focus. Touch fires compat mouse events with no
+  // matching mouseleave, and a mouse click leaves the button focused, so both would pause autoplay for good.
+  root.addEventListener('pointerenter', e => { if(e.pointerType === 'mouse'){ hover = true; start(); } });
+  root.addEventListener('pointerleave', e => { if(e.pointerType === 'mouse'){ hover = false; start(); } });
+  root.addEventListener('focusin', e => { focus = e.target.matches(':focus-visible'); start(); });
+  root.addEventListener('focusout', () => { focus = false; start(); });
+  root.addEventListener('keydown', e => {
+    if(e.key === 'ArrowLeft') go(active - 1);
+    else if(e.key === 'ArrowRight') go(active + 1);
+  });
+
+  // swipe on touch devices: single finger, mostly horizontal; pinch and cancelled gestures are ignored
+  const vp = root.querySelector('.pv-viewport');
+  let x0 = null, y0 = null;
+  vp.addEventListener('touchstart', e => {
+    if(e.touches.length !== 1){ x0 = null; return; }
+    x0 = e.touches[0].clientX;
+    y0 = e.touches[0].clientY;
+  }, {passive:true});
+  vp.addEventListener('touchcancel', () => { x0 = null; }, {passive:true});
+  vp.addEventListener('touchend', e => {
+    if(x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    const dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(active + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+
+  new IntersectionObserver(en => { visible = en[0].isIntersecting; start(); }, {threshold:.25}).observe(root);
 })();
 
 // ---------- tab-podizbornik: Opće informacije / Boje / Mogućnost ugradnje ----------
