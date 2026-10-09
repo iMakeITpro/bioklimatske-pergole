@@ -58,6 +58,18 @@ nav .sub .has-sub::after{display:none}
 nav .sub .has-sub>a{display:flex;align-items:center;justify-content:space-between;gap:18px}
 nav .sub .has-sub>a .caret{margin-left:0}
 nav .sub .sub{top:-9px;left:100%;min-width:220px}
+/* desktop: strelica je nacrtani chevron (znak u HTML-u je skriven), veca i tamnija od znaka;
+   kad je izbornik otvoren okrene se prema gore i postane brass. Mobilni izbornik ostaje na znaku. */
+@media(min-width:1025px){
+  nav .caret{display:inline-block;vertical-align:middle;font-size:0;width:8px;height:8px;margin-left:9px;color:var(--ink-2);opacity:.8;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+    transform:translateY(-3px) rotate(45deg);transition:transform .25s ease,color .2s ease,opacity .2s ease}
+  nav .has-sub:is(:hover,:focus-within)>a>.caret{transform:translateY(3px) rotate(225deg);color:var(--brass);opacity:1}
+  /* drugi razina: chevron udesno, pomakne se kad se flyout otvori */
+  nav .sub .caret{transform:translateX(-3px) rotate(-45deg)}
+  nav .sub .has-sub:is(:hover,:focus-within)>a>.caret{transform:translateX(0) rotate(-45deg)}
+}
+@media(min-width:1025px) and (prefers-reduced-motion:reduce){nav .caret{transition:none}}
 /* naslov kartice kao poveznica */
 .tier h3 a{color:inherit;transition:color .25s}
 .tier h3 a:hover{color:var(--brass)}
