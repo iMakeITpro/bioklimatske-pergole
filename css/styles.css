@@ -167,7 +167,10 @@ section{padding:clamp(64px,8vw,110px) 0}
 .split-feature .sf-text .check-list{grid-template-columns:1fr;gap:12px;margin-top:22px;max-width:none;font-size:14.5px}
 .split-feature .sf-photo{aspect-ratio:4/3;overflow:hidden}
 .split-feature .sf-photo img{width:100%;height:100%;object-fit:cover;display:block}
+/* wide photo shown whole: native ratio, shifted right by the card overlap (margin-right of .sf-text) so nothing is hidden or cropped */
+.split-feature .sf-photo.fit{aspect-ratio:2560/1453;margin-left:64px}
 @media(max-width:860px){
+  .split-feature .sf-photo.fit{margin-left:0}
   .split-feature{grid-template-columns:1fr}
   .split-feature .sf-photo{order:1}
   .split-feature .sf-text{order:2;margin-right:0;max-width:none}
