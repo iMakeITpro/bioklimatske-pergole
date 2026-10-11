@@ -189,9 +189,7 @@ section{padding:clamp(64px,8vw,110px) 0}
 @media(max-width:640px){.feat-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.info-grid,.check-list{grid-template-columns:1fr}}
 
-/* tab-podizbornik (Opće informacije / Boje / Mogućnost ugradnje) — btn koristi postojeci .fbtn/.filters, uvecan za ovaj kontekst */
-.filters{gap:14px;margin-bottom:40px}
-.fbtn{padding:16px 32px;font-size:15px;font-weight:600;letter-spacing:.02em}
+/* tab-podizbornik (Opće informacije / Boje / Mogućnost ugradnje) — izgled u .filters/.fbtn */
 .ppanel[hidden]{display:none}
 
 /* specifikacije: label/vrijednost kartice umjesto excel-tablice (jedan model = usporedna tablica nepregledna) */
@@ -368,8 +366,8 @@ td{color:var(--muted)}
 .no{color:var(--muted-d)}
 
 /* gallery */
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
-.fbtn{padding:9px 20px;border:1px solid var(--line-d);background:transparent;font-size:13px;font-weight:500;cursor:pointer;transition:.25s;font-family:var(--sans);border-radius:var(--r)}
+.filters{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.fbtn{padding:16px 32px;border:1px solid var(--line-d);background:transparent;font-size:16px;font-weight:600;cursor:pointer;transition:.25s;font-family:var(--sans);border-radius:var(--r)}
 .fbtn:hover{border-color:var(--brass)}
 .fbtn.act{background:var(--ink);color:#fff;border-color:var(--ink)}
 .grid-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
