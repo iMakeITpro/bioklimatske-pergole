@@ -79,6 +79,58 @@
   </div>
 </section>
 
+<!-- INTERAKTIVNI PRIKAZ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="hotspot-demo reveal">
+      <div class="eyebrow" style="margin:0 0 16px">Interaktivni prikaz</div>
+      <div class="hotspot-frame">
+        <img src="https://www.ttgradnja.hr/wp-content/uploads/2025/03/bioklimatska-pergola-sb500.webp" alt="Bioklimatska pergola — interaktivni prikaz značajki" class="hotspot-img" loading="lazy">
+
+        <div class="hotspot-pin tip-right" style="top:35%;left:34.3%">
+          <button type="button" class="hs-btn" aria-expanded="false" aria-label="LED rasvjeta — prikaži detalje"></button>
+          <span class="hs-ring" aria-hidden="true"></span>
+          <span class="hs-ring hs-ring2" aria-hidden="true"></span>
+          <div class="hotspot-tip" role="tooltip">
+            <b>LED rasvjeta</b>
+            <p>Visokokvalitetna LED rasvjeta u obliku spotova ili traka savršen je alat za stvaranje dojmljive atmosfere kad god to poželite.</p>
+          </div>
+        </div>
+
+        <div class="hotspot-pin tip-right" style="top:27.5%;left:54.3%">
+          <button type="button" class="hs-btn" aria-expanded="false" aria-label="Automatski sustavi za natkrivanje — prikaži detalje"></button>
+          <span class="hs-ring" aria-hidden="true"></span>
+          <span class="hs-ring hs-ring2" aria-hidden="true"></span>
+          <div class="hotspot-tip" role="tooltip">
+            <b>Automatski sustavi za natkrivanje</b>
+            <p>Opustite se i uživajte u potpunoj kontroli nad krovnim sustavom putem daljinskog upravljača ili pametnog telefona.</p>
+          </div>
+        </div>
+
+        <div class="hotspot-pin tip-right" style="top:14.3%;left:16.9%">
+          <button type="button" class="hs-btn" aria-expanded="false" aria-label="Senzori za vremenske uvjete — prikaži detalje"></button>
+          <span class="hs-ring" aria-hidden="true"></span>
+          <span class="hs-ring hs-ring2" aria-hidden="true"></span>
+          <div class="hotspot-tip" role="tooltip">
+            <b>Senzori za vremenske uvjete</b>
+            <p>Omogućuju automatsko podešavanje krova i rolo zavjesa prema aktualnim vremenskim uvjetima.</p>
+          </div>
+        </div>
+
+        <div class="hotspot-pin tip-right" style="top:68%;left:44.4%">
+          <button type="button" class="hs-btn" aria-expanded="false" aria-label="Konstrukcija — prikaži detalje"></button>
+          <span class="hs-ring" aria-hidden="true"></span>
+          <span class="hs-ring hs-ring2" aria-hidden="true"></span>
+          <div class="hotspot-tip" role="tooltip">
+            <b>Konstrukcija</b>
+            <p>Izrađena je od ekstrudiranih aluminijskih profila i elemenata od nehrđajućeg čelika. Mogućnost modularnog proširenja i korištenja sustava kliznih staklenih stijena.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- POSEBNOSTI -->
 <section id="posebnosti">
   <div class="wrap">
@@ -508,6 +560,25 @@ function sendForm(e){
   document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
   return false;
 }
+
+// ---------- hotspot demo: hover on desktop (plain CSS), tap on touch (this JS) ----------
+(function(){
+  const pins = document.querySelectorAll('.hotspot-pin');
+  if(!pins.length) return;
+  function closeAll(){
+    pins.forEach(p=>{ p.classList.remove('is-open'); p.querySelector('.hs-btn').setAttribute('aria-expanded','false'); });
+  }
+  pins.forEach(pin=>{
+    const btn = pin.querySelector('.hs-btn');
+    btn.addEventListener('click', e=>{
+      e.stopPropagation();
+      const wasOpen = pin.classList.contains('is-open');
+      closeAll();
+      if(!wasOpen){ pin.classList.add('is-open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+  document.addEventListener('click', closeAll);
+})();
 
 // ---------- reveal (isti obrazac kao na index.html) ----------
 const io = new IntersectionObserver(en=>{
