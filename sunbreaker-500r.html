@@ -106,35 +106,40 @@
   </div>
 </section>
 
-<!-- OVERVIEW AND DETAILS -->
+<!-- OVERVIEW AND PROFILE CROSS-SECTIONS -->
 <section id="pregled500r" class="alt">
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="eyebrow">Sunbreaker 500R · pregled</div>
-      <h2>Pregled sustava i detalji.</h2>
-      <p class="lead">Pogled na krovni modul te detalji mehanizma lamela i odvodnje vode.</p>
+      <h2>Pregled sustava i presjeci profila.</h2>
+      <p class="lead">Pogled na konstrukciju te presjeci grede, stupa i lamele s dimenzijama profila.</p>
     </div>
 
-    <div class="pv reveal" id="sb500rPregled" role="group" aria-roledescription="carousel" aria-label="Pregled sustava i detalji">
+    <div class="pv reveal" id="sb500rPregled" role="group" aria-roledescription="carousel" aria-label="Pregled sustava i presjeci profila">
       <div class="pv-thumbs">
-        <button type="button" class="pv-thumb" aria-current="true" aria-label="Prikaži: pregled krovnog modula"><img src="images/sb500r-pregled-1.webp" width="928" height="800" alt=""></button>
-        <button type="button" class="pv-thumb" aria-label="Prikaži: mehanizam lamela"><img src="images/sb500r-pregled-2.webp" width="860" height="800" alt="" loading="lazy"></button>
-        <button type="button" class="pv-thumb" aria-label="Prikaži: odvodnja vode"><img src="images/sb500r-pregled-3.webp" width="994" height="925" alt="" loading="lazy"></button>
+        <button type="button" class="pv-thumb" aria-current="true" aria-label="Prikaži: pregled konstrukcije"><img src="images/sb500-pregled-1.webp" width="2560" height="1440" alt="" style="object-fit:contain"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek grede"><img src="images/sb500-pregled-2.webp" width="928" height="800" alt="" loading="lazy"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek stupa"><img src="images/sb500-pregled-3.webp" width="928" height="800" alt="" loading="lazy"></button>
+        <button type="button" class="pv-thumb" aria-label="Prikaži: presjek lamele"><img src="images/sb500-pregled-4.webp" width="928" height="800" alt="" loading="lazy"></button>
       </div>
       <div class="pg-wrap pv-wrap">
         <button type="button" class="pg-arrow pv-prev" aria-label="Prethodna slika">&#10094;</button>
         <div class="pv-viewport">
           <figure class="pv-slide is-active">
-            <img src="images/sb500r-pregled-1.webp" width="928" height="800" alt="Bioklimatska pergola Sunbreaker 500R — krovni modul s okvirom">
-            <figcaption>Pregled krovnog modula</figcaption>
+            <img src="images/sb500-pregled-1.webp" width="2560" height="1440" alt="Bioklimatska pergola Sunbreaker 500R — pregled konstrukcije">
+            <figcaption>Pregled konstrukcije</figcaption>
           </figure>
           <figure class="pv-slide">
-            <img src="images/sb500r-pregled-2.webp" width="860" height="800" alt="Mehanizam zakretanja lamela Sunbreakera 500R, kut 90° i 120°" loading="lazy" style="object-fit:cover">
-            <figcaption>Mehanizam lamela · 90° / 120°</figcaption>
+            <img src="images/sb500-pregled-2.webp" width="928" height="800" alt="Presjek grede Sunbreakera 500R, širina 150 mm, visina 290 mm" loading="lazy">
+            <figcaption>Presjek grede · 290 × 150 mm</figcaption>
           </figure>
           <figure class="pv-slide">
-            <img src="images/sb500r-pregled-3.webp" width="994" height="925" alt="Sustav odvodnje kišnice na pergoli Sunbreaker 500R" loading="lazy" style="object-fit:cover">
-            <figcaption>Odvodnja vode</figcaption>
+            <img src="images/sb500-pregled-3.webp" width="928" height="800" alt="Presjek stupa Sunbreakera 500R, širina 150 mm, visina 150 mm" loading="lazy">
+            <figcaption>Presjek stupa · 150 × 150 mm</figcaption>
+          </figure>
+          <figure class="pv-slide">
+            <img src="images/sb500-pregled-4.webp" width="928" height="800" alt="Presjek lamele Sunbreakera 500R, širina 266,5 mm, visina 60 mm" loading="lazy">
+            <figcaption>Presjek lamele · 266,5 × 60 mm</figcaption>
           </figure>
         </div>
         <button type="button" class="pg-arrow pv-next" aria-label="Sljedeća slika">&#10095;</button>
@@ -410,7 +415,7 @@ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>{
   }, {once:true});
 })();
 
-// ---------- overview and details (#sb500rPregled): fade slider + thumbnails, 5 s autoplay ----------
+// ---------- overview and cross-sections (#sb500rPregled): fade slider + thumbnails, 5 s autoplay ----------
 (function(){
   const root = document.getElementById('sb500rPregled');
   if(!root) return;
