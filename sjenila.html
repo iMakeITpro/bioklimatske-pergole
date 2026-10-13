@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/styles.css?v=45">
 <style>
 /* category cards for the Sun shades hub (this page only) */
-.hb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.hb-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .hb-card{background:#fff;border:1px solid var(--line-d);display:flex;flex-direction:column;color:inherit;text-decoration:none;transition:border-color .28s ease}
 .hb-card:hover{border-color:var(--brass)}
 .hb-card:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
@@ -21,12 +21,24 @@
 .hb-body{padding:24px 26px 26px;display:flex;flex-direction:column;gap:12px;flex:1}
 .hb-body h3{margin:0}
 .hb-body p{font-size:14.5px}
-.hb-params{list-style:none;margin-top:auto;padding-top:16px;border-top:1px solid var(--line-d);display:grid;gap:7px;font-size:13.5px;color:var(--ink-2)}
-.hb-params span{display:inline-block;min-width:78px;margin-right:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d)}
-.hb-more{font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--brass)}
+.hb-more{margin-top:auto;font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--brass)}
 .hero-actions.hb-cta{margin-top:32px}
-@media(max-width:980px){.hb-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.hb-grid{grid-template-columns:1fr}}
+/* desktop: hero + all 6 cards fit above the fold (about 1440x800), cards go horizontal in 2x3 */
+@media(min-width:981px){
+.sub-hero{padding:26px 0 24px}
+.sub-hero .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.sub-hero .eyebrow{margin-bottom:12px}
+.sub-hero h1{font-size:clamp(30px,3vw,40px);margin-bottom:14px}
+.sub-hero .lead{max-width:none;font-size:17px}
+.hero-actions.hb-cta{margin-top:0;flex-shrink:0}
+#kategorije{padding:24px 0 40px}
+.hb-grid{gap:16px}
+.hb-card{flex-direction:row}
+.hb-img{flex:0 0 40%;aspect-ratio:auto;position:relative;border-bottom:0;border-right:1px solid var(--line-d)}
+.hb-img img{position:absolute;inset:0} /* card height follows the text, not the photo ratio */
+.hb-body{padding:16px 22px;justify-content:center;gap:8px}
+}
 </style>
 </head>
 <body>
@@ -82,9 +94,11 @@
 
 <section class="sub-hero">
   <div class="wrap">
-    <div class="eyebrow">Sjenila za sunce</div>
-    <h1>Sjenila za sunce za terase, prozore i fasade</h1>
-    <p class="lead">Šest vrsta vanjskih sjenila iz SELT by Aluprof programa: od žaluzina i rolo sjenila do tendi i brisoleja. Odaberite kategoriju prema tome što zasjenjujete, a pomoći ćemo vam odabrati model.</p>
+    <div class="hb-copy">
+      <div class="eyebrow">Sjenila za sunce</div>
+      <h1>Sjenila za sunce za terase, prozore i fasade</h1>
+      <p class="lead">Šest vrsta vanjskih sjenila iz SELT by Aluprof programa: od žaluzina i rolo sjenila do tendi i brisoleja. Odaberite kategoriju prema tome što zasjenjujete, a pomoći ćemo vam odabrati model.</p>
+    </div>
     <div class="hero-actions hb-cta">
       <a href="upit.html?proizvod=sjenila" class="btn btn-primary">Zatraži ponudu</a>
     </div>
@@ -94,22 +108,12 @@
 <!-- CATEGORIES -->
 <section id="kategorije">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Sjenila za sunce · kategorije</div>
-      <h2>Šest kategorija sjenila.</h2>
-      <p class="lead">Svaka kategorija ima vlastitu stranicu s modelima, tehničkim podacima i galerijom izvedbi.</p>
-    </div>
     <div class="hb-grid">
       <a class="hb-card reveal" href="zaluzine.html" target="_blank" rel="noopener">
         <div class="hb-img"><img src="images/zaluzine-hero.webp" alt="Obiteljska kuća s tamnim vanjskim žaluzinama na velikim staklenim stijenama pročelja" loading="lazy"></div>
         <div class="hb-body">
           <h3>Žaluzine</h3>
-          <p>Vanjske fasadne i unutarnje žaluzine za prozore, pročelja i velike staklene plohe. Zakretanjem lamela birate koliko svjetla ulazi, a toplina ostaje vani.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>12 modela s lamelama C i Z</li>
-            <li><span>Pogon</span>Ručni ili električni</li>
-            <li><span>Primjena</span>Prozori, pročelja, staklene plohe</li>
-          </ul>
+          <p>Vanjske i unutarnje žaluzine za prozore, pročelja i staklene plohe.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
@@ -117,12 +121,7 @@
         <div class="hb-img"><img src="images/refleksol-hero.webp" alt="Tamno rolo sjenilo spušteno preko velikog otvora na bijelom pročelju kuće uz terasu" loading="lazy"></div>
         <div class="hb-body">
           <h3>Refleksol rolo sjenila</h3>
-          <p>Tkanina u kaseti zaustavlja sunce na pročelju, a ZiiiP sustavi s patentnim zatvaračem drže je napetom i na jačem vjetru. Dostupna su i unutarnja rolo sjenila.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>15 modela</li>
-            <li><span>Pogon</span>Ručni ili električni</li>
-            <li><span>Primjena</span>Pročelja, prozori, balkoni, terase</li>
-          </ul>
+          <p>Tkanina u kaseti za pročelja i prozore, ZiiiP sustav drži je napetom.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
@@ -130,12 +129,7 @@
         <div class="hb-img"><img src="images/veranda-hero.webp" alt="Krovna terasa pod staklenim krovom sa sjenilom na čeličnoj konstrukciji, drvenim podom i stolicama" loading="lazy"></div>
         <div class="hb-body">
           <h3>Veranda rolo sjenila</h3>
-          <p>Električna sjenila za staklene krovove i zimske vrtove. Tkanina se napeto vodi po bočnim vodilicama na vodoravnim i kosim staklenim plohama.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>2 modela, Veranda i Veranda FTS</li>
-            <li><span>Pogon</span>Električni</li>
-            <li><span>Primjena</span>Staklene krovove, zimske vrtove</li>
-          </ul>
+          <p>Električna sjenila za staklene krovove i zimske vrtove.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
@@ -143,12 +137,7 @@
         <div class="hb-img"><img src="images/bora-hero.webp" alt="Sivo bočno sjenilo izvučeno između stupa i zida natkrivene terase moderne kuće" loading="lazy"></div>
         <div class="hb-body">
           <h3>Bočna rolo sjenila</h3>
-          <p>Okomita kaseta na zidu iz koje se tkanina izvlači do stupa ili zida nasuprot. Zasjenjuje bočnu stranu terase ili balkona i može poslužiti kao pregrada.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>Bora, 3 izvedbe prihvata</li>
-            <li><span>Pogon</span>Ručni</li>
-            <li><span>Primjena</span>Bočna strana terase ili balkona</li>
-          </ul>
+          <p>Tkanina se izvlači sa zida do stupa i zasjenjuje bok terase.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
@@ -156,12 +145,7 @@
         <div class="hb-img"><img src="images/tende-hero.webp" alt="Bež tenda izvučena nad terasom kuće, ispod nje par u vrtnim foteljama" loading="lazy"></div>
         <div class="hb-body">
           <h3>Tende</h3>
-          <p>Tende s kasetom ili bez nje za terase, balkone i prozore, širine do 7 m. Izvučete ih kad sunce pritisne, a uvučene zauzimaju malo mjesta na pročelju.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>10 modela</li>
-            <li><span>Pogon</span>Ručni ili električni</li>
-            <li><span>Primjena</span>Terase, balkoni, prozori</li>
-          </ul>
+          <p>Tende s kasetom ili bez nje za terase, balkone i prozore do 7 m.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
@@ -169,12 +153,7 @@
         <div class="hb-img"><img src="images/brisoleji-hero.webp" alt="Poslovna zgrada s okomitim aluminijskim brisolejima boje terakote na pročelju" loading="lazy" style="object-position:70% 50%"></div>
         <div class="hb-body">
           <h3>Brisoleji</h3>
-          <p>Aluminijske lamele ispred staklenih ploha i otvora. Sunbreaker 210 dolazi s pokretnim lamelama ili fiksnima, s kutom određenim pri montaži.</p>
-          <ul class="hb-params">
-            <li><span>Ponuda</span>2 modela, Sunbreaker 210</li>
-            <li><span>Pogon</span>Pokretne lamele ručno ili električno, fiksne bez pogona</li>
-            <li><span>Primjena</span>Fasade, terase, staklena krovišta</li>
-          </ul>
+          <p>Aluminijske lamele ispred staklenih ploha, pokretne ili fiksne.</p>
           <span class="hb-more">Pogledaj modele →</span>
         </div>
       </a>
