@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "ClaudeInChromeDomain(www.ttgradnja.hr)",
+      "ClaudeInChromeDomain(aluprof.com)",
+      "ClaudeInChromeDomain(localhost:8765)",
+      "ClaudeInChromeDomain(127.0.0.1:5500)",
+      "ClaudeInChromeDomain(www.youtube.com)",
+      "ClaudeInChromeDomain(imakeitpro.github.io)",
+      "ClaudeInChromeDomain(127.0.0.1:8765)",
+      "mcp__claude-in-chrome__browser_batch",
+      "ClaudeInChromeDomain(localhost:8766)",
+      "ClaudeInChromeDomain(127.0.0.1:8766)"
+    ],
+    "ask": [
+      "Bash(git push*main*)"
+    ]
+  }
+}
