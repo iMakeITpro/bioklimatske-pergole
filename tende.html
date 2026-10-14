@@ -28,9 +28,6 @@
 .td-params span{display:inline-block;min-width:124px;margin-right:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d)}
 .td-note{margin-top:14px;font-size:13px;color:var(--muted);max-width:92ch}
 .td-note:first-of-type{margin-top:18px}
-/* video: full content width instead of the global 760px cap (this page only) */
-.video-facade.td-video{max-width:none;margin:0}
-.hero-actions.td-video-cta{margin-top:32px}
 @media(max-width:900px){.td-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.td-grid{grid-template-columns:1fr}}
 </style>
@@ -313,27 +310,6 @@
   </div>
 </section>
 
-<!-- VIDEO -->
-<section id="video" class="dark">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Palladio · SELT</div>
-      <h2>Palladio tenda na djelu.</h2>
-      <p class="lead">Promotivni film proizvođača SELT prikazuje Palladio tende izvučene nad palubom brodice. Isti model za kuće i terase dostupan je s ručnim ili električnim pogonom, širine do 7 m i istaka do 3,6 m.</p>
-    </div>
-    <div class="video-facade td-video reveal" id="tendeVideo">
-      <button type="button" class="vf-btn" data-yt="QEnp3fjuI5A" aria-label="Pokreni video: tenda Palladio, SELT">
-        <img src="images/tende-04.webp" alt="" loading="lazy">
-        <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="vf-label">Palladio · SELT · 0:56</span>
-      </button>
-    </div>
-    <div class="hero-actions td-video-cta reveal">
-      <a href="upit.html?proizvod=tende" class="btn btn-primary">Zatraži ponudu</a>
-    </div>
-  </div>
-</section>
-
 <!-- GALERIJA -->
 <section id="galerija" class="alt">
   <div class="wrap">
@@ -437,23 +413,6 @@ document.querySelectorAll('nav a[href]').forEach(a=>a.addEventListener('click',(
   document.body.classList.remove('nav-open');
   document.querySelector('.burger').setAttribute('aria-expanded','false');
 }));
-
-// ---------- video facade (isti obrazac kao na zaluzine.html) ----------
-(function(){
-  const fWrap = document.getElementById('tendeVideo');
-  if(!fWrap) return;
-  const btn = fWrap.querySelector('.vf-btn');
-  if(!btn) return;
-  btn.addEventListener('click', ()=>{
-    const ifr = document.createElement('iframe');
-    ifr.src = 'https://www.youtube-nocookie.com/embed/'+btn.getAttribute('data-yt')+'?autoplay=1&rel=0';
-    ifr.title = btn.getAttribute('aria-label') || 'Video';
-    ifr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    ifr.allowFullscreen = true;
-    fWrap.innerHTML = '';
-    fWrap.appendChild(ifr);
-  }, {once:true});
-})();
 
 // ---------- galerija Tende (#galTende): lightbox ----------
 (function(){
