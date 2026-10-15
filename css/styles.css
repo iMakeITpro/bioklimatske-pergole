@@ -6,7 +6,7 @@
   --r:2px; --max:1240px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:81px}
 body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 h1,h2,h3,.serif{font-family:var(--serif);font-weight:300;letter-spacing:-.02em;line-height:1.08}
@@ -119,6 +119,8 @@ nav .sub .sub{top:-9px;left:100%;min-width:220px}
 .trust.trust-light .tr-i{border-color:var(--line-d)}
 .trust.trust-light .tr-i b{color:var(--brass-dk)}
 .trust.trust-light .tr-i span{color:var(--muted)}
+/* 3-item variant inside model page content */
+.trust .wrap.trust-3{grid-template-columns:repeat(3,minmax(0,1fr));padding:0}
 
 /* ---------- sections ---------- */
 section{padding:clamp(64px,8vw,110px) 0}
@@ -546,8 +548,9 @@ footer a:hover{color:var(--brass-lt)}
 
   /* mobilna navigacija */
   .burger{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
-  nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line-d);box-shadow:0 16px 32px rgba(18,16,14,.14)}
+  nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line-d);box-shadow:0 16px 32px rgba(18,16,14,.14);max-height:calc(100vh - 81px);max-height:calc(100dvh - 81px);overflow-y:auto;overscroll-behavior:contain}
   body.nav-open nav{display:block}
+  body.nav-open .mcta{visibility:hidden}
   nav ul{flex-direction:column;gap:0;padding:8px 28px 16px}
   nav a{display:block;padding:14px 2px}
   nav .sub{display:flex;position:static;min-width:0;background:transparent;border:0;box-shadow:none;padding:0 0 10px 18px;opacity:1;visibility:visible;transform:none;transition:none}
@@ -583,6 +586,9 @@ footer a:hover{color:var(--brass-lt)}
   .trust .wrap{grid-template-columns:1fr 1fr}
   .tr-i:nth-child(odd){border-left:0}
   .tr-i:nth-child(n+3){border-top:1px solid var(--line)}
+  .trust .wrap.trust-3{grid-template-columns:1fr}
+  .trust-3 .tr-i{border-left:0}
+  .trust-3 .tr-i+.tr-i{border-top:1px solid var(--line-d)}
   .grid-g,.frow,.steps{grid-template-columns:1fr}
   .card.big{grid-column:span 1}
   .mcta{display:flex}
