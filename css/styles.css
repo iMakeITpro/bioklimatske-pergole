@@ -59,7 +59,7 @@ nav .sub .has-sub>a{display:flex;align-items:center;justify-content:space-betwee
 nav .sub .has-sub>a .caret{margin-left:0}
 nav .sub .sub{top:-9px;left:100%;min-width:220px}
 /* desktop: strelica je nacrtani chevron (znak u HTML-u je skriven), veca i tamnija od znaka;
-   kad je izbornik otvoren okrene se prema gore i postane brass. Mobilni izbornik ostaje na znaku. */
+   kad je izbornik otvoren okrene se prema gore i postane brass. */
 @media(min-width:1025px){
   nav .caret{display:inline-block;vertical-align:middle;font-size:0;width:8px;height:8px;margin-left:9px;color:var(--ink-2);opacity:.8;
     border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
@@ -550,6 +550,7 @@ footer a:hover{color:var(--brass-lt)}
   .burger{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px}
   nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line-d);box-shadow:0 16px 32px rgba(18,16,14,.14);max-height:calc(100vh - 81px);max-height:calc(100dvh - 81px);overflow-y:auto;overscroll-behavior:contain}
   body.nav-open nav{display:block}
+  body.nav-open{overflow:hidden} /* page does not scroll behind the open menu */
   body.nav-open .mcta{visibility:hidden}
   nav ul{flex-direction:column;gap:0;padding:8px 28px 16px}
   nav a{display:block;padding:14px 2px}
@@ -559,7 +560,11 @@ footer a:hover{color:var(--brass-lt)}
   /* podstranice drugog razine su uvijek raširene i uvučene, bez strelice */
   nav .sub .sub{top:auto;left:auto;min-width:0;padding:0 0 4px 16px}
   nav .sub .has-sub>a{display:block}
-  nav .sub .has-sub>a .caret{display:none}
+  /* submenus are always expanded here, so no carets */
+  nav .caret{display:none}
+  /* "Sistem Slide" has no href: shown as a non-clickable group title */
+  nav .sub a:not([href]){cursor:default;padding:14px 2px 6px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  nav .sub a:not([href]):hover{background:none;color:var(--muted)}
 
   /* tap targeti i unos na mobitelu/tabletu */
   .fbtn{padding:15px 20px}
