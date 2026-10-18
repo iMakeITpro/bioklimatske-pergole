@@ -53,8 +53,8 @@
 }
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=47">
-<script src="js/nav.js?v=1" defer></script>
+<link rel="stylesheet" href="css/styles.css?v=48">
+<script src="js/nav.js?v=2" defer></script>
 <script src="js/slanje.js?v=2"></script>
 <script src="js/cjenik.js?v=3"></script>
 <script src="js/recenzije.js?v=2"></script>
@@ -171,7 +171,7 @@
           <li>Senzor vjetra s autozatvaranjem</li>
           <li>Upravljanje mobilnom aplikacijom</li>
         </ul>
-        <a href="#konfigurator" class="btn btn-primary">Izračunaj okvirnu ponudu</a>
+        <a href="#konfigurator" class="btn btn-primary">Izračunaj&nbsp;okvirnu ponudu</a>
       </div>
 
       <div class="tier reveal">
@@ -188,7 +188,7 @@
           <li>Senzor vjetra s autozatvaranjem</li>
           <li>Upravljanje mobilnom aplikacijom</li>
         </ul>
-        <a href="#konfigurator" class="btn btn-ghost">Izračunaj okvirnu ponudu</a>
+        <a href="#konfigurator" class="btn btn-ghost">Izračunaj&nbsp;okvirnu ponudu</a>
       </div>
 
       <!-- Treci stupac: Sunbreaker 700 (bivši Tarasola Technic View Pro) — drugi partner, ultra-premium.
@@ -983,6 +983,7 @@
   <button type="button" class="lightbox-nav lightbox-next" id="lbNext" aria-label="Sljedeća fotografija">&#10095;</button>
 </div>
 
+<script src="js/galerija.js?v=1"></script>
 <script>
 // ---------- hero video ----------
 // Poster nosi prvi prikaz. Video se dohvaca tek nakon sto se stranica iscrta.
@@ -1685,23 +1686,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   });
 });
 
-// ---------- galerija: postupno prikazivanje (6 -> 18 -> sve) ----------
-(function(){
-  var steps = [6, 18, Infinity];
-  var idx = 0;
-  var cards = document.querySelectorAll('#gal .card');
-  var btn = document.getElementById('galMoreBtn');
-  function render(){
-    var show = steps[idx];
-    cards.forEach(function(c, i){ c.style.display = i < show ? '' : 'none'; });
-    if (btn && show >= cards.length) btn.style.display = 'none';
-  }
-  render();
-  if (btn) btn.addEventListener('click', function(){
-    idx = Math.min(idx + 1, steps.length - 1);
-    render();
-  });
-})();
+// ---------- galerija: postupno prikazivanje (6 -> 18 -> sve), js/galerija.js ----------
+galMore(document.querySelectorAll('#gal .card'), document.getElementById('galMoreBtn'));
 
 // ---------- galerija: lightbox ----------
 (function(){

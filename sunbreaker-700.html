@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=47">
+<link rel="stylesheet" href="css/styles.css?v=48">
 <link rel="preconnect" href="https://tarasola.co.uk">
-<script src="js/nav.js?v=1" defer></script>
+<script src="js/nav.js?v=2" defer></script>
 <style>
 .hero-actions.sb7-video-cta{margin-top:32px}
 </style>
@@ -328,6 +328,9 @@
       </div>
       <button type="button" class="pg-arrow pg-next" id="gal700Next" aria-label="Sljedeće fotografije">&#10095;</button>
     </div>
+    <div class="gal-more pg-more">
+      <button type="button" id="gal700More" class="btn btn-ghost">Pogledaj više</button>
+    </div>
   </div>
 </section>
 
@@ -416,6 +419,7 @@
   <a href="upit.html?proizvod=sunbreaker-700" class="c2">Zatraži ponudu</a>
 </div>
 
+<script src="js/galerija.js?v=1"></script>
 <script>
 
 // ---------- video carousel (3x video-facade, centar uvecan; isti obrazac kao na index.html #proces) ----------
@@ -513,8 +517,16 @@
   if (!cards.length || !prevBtn || !nextBtn) return;
   var WINDOW = 6;
   var start = 0;
+  // <=1024px: same progressive reveal as index.html #gal (js/galerija.js); arrows are hidden in CSS
+  var mobile = window.matchMedia('(max-width: 1024px)');
+  var showMore = galMore(cards, document.getElementById('gal700More'));
 
   function render(){
+    if (mobile.matches){
+      cards.forEach(function(card){ card.style.order = ''; });
+      showMore();
+      return;
+    }
     cards.forEach(function(card){ card.style.display = 'none'; card.style.order = ''; });
     for (var i = 0; i < WINDOW; i++){
       var card = cards[(start + i) % cards.length];
@@ -523,6 +535,7 @@
     }
   }
   render();
+  mobile.addEventListener('change', render);
 
   prevBtn.addEventListener('click', function(){
     start = (start - WINDOW + cards.length) % cards.length;

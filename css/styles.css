@@ -212,6 +212,9 @@ section{padding:clamp(64px,8vw,110px) 0}
 .pg-arrow{flex:0 0 auto;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-d);background:#fff;color:var(--ink);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.25s}
 .pg-arrow:hover{background:var(--brass);border-color:var(--brass);color:#fff}
 @media(max-width:640px){.pg-wrap{gap:10px}.pg-arrow{width:36px;height:36px;font-size:13px}}
+/* <=1024px: projects gallery looks like index.html #gal (6 -> 18 -> all + "Pogledaj više", js/galerija.js), no arrows */
+.gal-more.pg-more{display:none}
+@media(max-width:1024px){.pg-wrap>:is(.pg-prev,.pg-next){display:none}.gal-more.pg-more{display:flex}}
 /* Overview and cross-sections (SB400): fade slider + thumbnail column; arrows share .pg-arrow with the projects gallery */
 .pv{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:18px}
 /* arrows overlay the image; width capped so frame + caption fit under the 81px sticky header on short laptop screens */
@@ -560,8 +563,13 @@ footer a:hover{color:var(--brass-lt)}
   /* podstranice drugog razine su uvijek raširene i uvučene, bez strelice */
   nav .sub .sub{top:auto;left:auto;min-width:0;padding:0 0 4px 16px}
   nav .sub .has-sub>a{display:block}
-  /* submenus are always expanded here, so no carets */
+  /* "Modeli" and "Sjenila za sunce" start collapsed; a tap on the title toggles them (js/nav.js).
+     Their caret is a drawn chevron: right when closed, down when open. Nested levels stay expanded, no caret */
   nav .caret{display:none}
+  nav>ul>.has-sub:not(.sub-open)>.sub{display:none}
+  nav>ul>.has-sub>a>.caret{display:inline-block;vertical-align:middle;font-size:0;width:7px;height:7px;margin:-2px 0 0 12px;opacity:.7;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .2s ease}
+  nav>ul>.has-sub.sub-open>a>.caret{transform:rotate(45deg)}
   /* "Sistem Slide" has no href: shown as a non-clickable group title */
   nav .sub a:not([href]){cursor:default;padding:14px 2px 6px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   nav .sub a:not([href]):hover{background:none;color:var(--muted)}
@@ -577,6 +585,7 @@ footer a:hover{color:var(--brass-lt)}
   .hd-phone{padding:11px 4px}
   .logo{padding:7px 0}
   .tier h3 a{display:inline-block;padding:13px 0}
+  .tier .btn{padding-left:12px;padding-right:12px;text-align:center}
   .rev-src,.card-cap{-webkit-tap-highlight-color:transparent}
 
   /* prikaz cijene na vrhu ekrana dok se skrola kroz opcije konfiguratora */
@@ -690,16 +699,18 @@ footer a:hover{color:var(--brass-lt)}
 .hotspot-pin.tip-left .hotspot-tip{right:calc(100% + 20px)}
 .hotspot-pin.tip-right .hotspot-tip{left:calc(100% + 20px)}
 .hotspot-pin:hover .hotspot-tip,.hotspot-pin:focus-within .hotspot-tip,.hotspot-pin.is-open .hotspot-tip{opacity:1;visibility:visible;pointer-events:auto}
-.hotspot-tip b{display:block;font-family:var(--sans);font-weight:700;text-transform:uppercase;font-size:12.5px;letter-spacing:.08em;color:var(--ink);margin-bottom:8px}
-.hotspot-tip p{font-size:13.5px;color:var(--muted);line-height:1.55}
-@media(max-width:640px){
-  /* on a narrow screen a tooltip anchored to an edge pin always overflows somewhere -
-     simpler and more reliable to show it as a fixed panel at the bottom. Selectors
-     repeated with .tip-left/.tip-right to match the specificity of the desktop rules
-     above (their right/left would otherwise win over this block regardless of order) */
-  .hotspot-tip,
-  .hotspot-pin.tip-left .hotspot-tip,
-  .hotspot-pin.tip-right .hotspot-tip{position:fixed;left:16px;right:16px;bottom:16px;top:auto;transform:none;width:auto;max-height:60vh;overflow:auto}
+.hotspot-tip b,.hs-card b{display:block;font-family:var(--sans);font-weight:700;text-transform:uppercase;font-size:12.5px;letter-spacing:.08em;color:var(--ink);margin-bottom:8px}
+.hotspot-tip p,.hs-card p{font-size:13.5px;color:var(--muted);line-height:1.55}
+/* <=1024px: a tooltip next to the pin covers the other pins or leaves the screen, so the open
+   pin's text goes into .hs-card under the image (filled by the hotspot script on each page) */
+.hs-card{display:none}
+@media(max-width:1024px){
+  .hotspot-tip{display:none}
+  .hs-card:not(:empty){display:block;margin-top:14px;padding:18px 22px;background:#fff;border:1px solid var(--line-d);border-left:2px solid var(--brass);
+    scroll-margin-bottom:calc(70px + env(safe-area-inset-bottom,0px))} /* clears the fixed .mcta bar when scrolled into view */
+  .hotspot-pin.is-open .hs-btn{background:var(--brass)}
+  .hs-btn::after{transition:transform .2s ease}
+  .hotspot-pin.is-open .hs-btn::after{color:#fff;transform:rotate(45deg)}
 }
 
 /* podstranica projekta — traka iznad galerije: natrag / naziv / CTA na

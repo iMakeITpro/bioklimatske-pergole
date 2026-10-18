@@ -9,9 +9,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=47">
+<link rel="stylesheet" href="css/styles.css?v=48">
 <link rel="preconnect" href="https://www.ttgradnja.hr">
-<script src="js/nav.js?v=1" defer></script>
+<script src="js/nav.js?v=2" defer></script>
 </head>
 <body>
 
@@ -469,6 +469,9 @@
       </div>
       <button type="button" class="pg-arrow pg-next" id="gal500Next" aria-label="Sljedeće fotografije">&#10095;</button>
     </div>
+    <div class="gal-more pg-more">
+      <button type="button" id="gal500More" class="btn btn-ghost">Pogledaj više</button>
+    </div>
   </div>
 </section>
 
@@ -572,6 +575,7 @@
   <a href="index.html?model=500#konfigurator" class="c2">Izračunaj cijenu</a>
 </div>
 
+<script src="js/galerija.js?v=1"></script>
 <script>
 const yrEl = document.getElementById('yr');
 if(yrEl) yrEl.textContent = new Date().getFullYear();
@@ -593,6 +597,18 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
     });
   });
   document.addEventListener('click', closeAll);
+  // <=1024px: the open pin's text shows in a card under the image (css/styles.css), not over it
+  const frame = document.querySelector('.hotspot-frame');
+  const card = document.createElement('div');
+  card.className = 'hs-card';
+  card.setAttribute('aria-live', 'polite');
+  card.addEventListener('click', e => e.stopPropagation());
+  frame.after(card);
+  new MutationObserver(() => {
+    const open = frame.querySelector('.hotspot-pin.is-open .hotspot-tip');
+    card.innerHTML = open ? open.innerHTML : '';
+    if(open && getComputedStyle(card).display !== 'none') card.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }).observe(frame, {subtree:true, attributes:true, attributeFilter:['class']});
 })();
 
 // ---------- video carousel (3x video-facade, centar uvecan; isti obrazac kao na index.html #proces) ----------
@@ -759,8 +775,16 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
   if (!cards.length || !prevBtn || !nextBtn) return;
   var WINDOW = 6;
   var start = 0;
+  // <=1024px: same progressive reveal as index.html #gal (js/galerija.js); arrows are hidden in CSS
+  var mobile = window.matchMedia('(max-width: 1024px)');
+  var showMore = galMore(cards, document.getElementById('gal500More'));
 
   function render(){
+    if (mobile.matches){
+      cards.forEach(function(card){ card.style.order = ''; });
+      showMore();
+      return;
+    }
     cards.forEach(function(card){ card.style.display = 'none'; card.style.order = ''; });
     for (var i = 0; i < WINDOW; i++){
       var card = cards[(start + i) % cards.length];
@@ -769,6 +793,7 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
     }
   }
   render();
+  mobile.addEventListener('change', render);
 
   prevBtn.addEventListener('click', function(){
     start = (start - WINDOW + cards.length) % cards.length;
