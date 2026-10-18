@@ -48,3 +48,15 @@
     }
   });
 })();
+
+// ---------- floating call/quote bar (.mcta): hidden while the page's top block (hero / project bar) is on screen,
+// so it never covers the hero CTA. index.html has its own version (also hides it in the configurator) ----------
+(function(){
+  const bar = document.querySelector('.mcta');
+  const top = document.querySelector('.proj-bar, body > header ~ section');
+  if(!bar || !top || document.querySelector('.hero')) return;
+  bar.classList.add('mcta-off');
+  // same 12% visibility rule as index.html — isIntersecting stays true while a single pixel shows
+  new IntersectionObserver(es => bar.classList.toggle('mcta-off', es[0].intersectionRatio > 0.12),
+    {threshold:[0, .12, .3, .6]}).observe(top);
+})();
