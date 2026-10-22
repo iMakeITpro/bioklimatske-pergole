@@ -745,7 +745,6 @@
   <button type="button" class="lightbox-close" id="lb400Close" aria-label="Zatvori">&times;</button>
   <button type="button" class="lightbox-nav lightbox-prev" id="lb400Prev" aria-label="Prethodna fotografija">&#10094;</button>
   <img class="lightbox-img" id="lb400Img" alt="">
-  <a class="lightbox-cap-top" id="lb400Model" href=""></a>
   <div class="lightbox-cap" id="lb400Cap"></div>
   <button type="button" class="lightbox-nav lightbox-next" id="lb400Next" aria-label="Sljedeća fotografija">&#10095;</button>
 </div>
@@ -810,6 +809,7 @@
 </div>
 
 <script src="js/galerija.js?v=1"></script>
+<script src="js/lightbox.js?v=1"></script>
 <script>
 const yrEl = document.getElementById('yr');
 if(yrEl) yrEl.textContent = new Date().getFullYear();
@@ -1039,67 +1039,8 @@ if(yrEl) yrEl.textContent = new Date().getFullYear();
   });
 })();
 
-// ---------- galerija SB400 (#gal400): lightbox ----------
-(function(){
-  var cards = Array.prototype.slice.call(document.querySelectorAll('#gal400 .card'));
-  var lb = document.getElementById('lightbox400');
-  if (!cards.length || !lb) return;
-  var lbImg = document.getElementById('lb400Img');
-  var lbCap = document.getElementById('lb400Cap');
-  var lbModel = document.getElementById('lb400Model');
-  var current = 0;
-
-  function open(i){
-    current = (i + cards.length) % cards.length;
-    var card = cards[current];
-    var img = card.querySelector('img');
-    var loc = card.querySelector('.card-cap span');
-    var model = card.querySelector('.card-cap .model-tag');
-    var galerija = card.getAttribute('data-galerija');
-    lbImg.style.background = ''; lbImg.style.minHeight = '';
-    lbImg.src = card.getAttribute('href') || img.currentSrc || img.src;
-    lbImg.alt = img.alt || '';
-    lbCap.textContent = (model ? model.textContent + ' · ' : '') + (loc ? loc.textContent : '');
-    if (galerija){
-      lbModel.href = galerija;
-      lbModel.textContent = 'Pogledaj sve fotografije';
-      lbModel.hidden = false;
-    } else {
-      lbModel.hidden = true;
-    }
-    lb.classList.add('open');
-    lb.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('lightbox-open');
-  }
-  function close(){
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('lightbox-open');
-  }
-
-  cards.forEach(function(card, i){
-    card.addEventListener('click', function(e){
-      e.preventDefault();
-      open(i);
-    });
-    card.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        open(i);
-      }
-    });
-  });
-  document.getElementById('lb400Close').addEventListener('click', close);
-  document.getElementById('lb400Prev').addEventListener('click', function(){ open(current - 1); });
-  document.getElementById('lb400Next').addEventListener('click', function(){ open(current + 1); });
-  lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
-  document.addEventListener('keydown', function(e){
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowLeft') open(current - 1);
-    else if (e.key === 'ArrowRight') open(current + 1);
-  });
-})();
+// ---------- galerija: lightbox, js/lightbox.js ----------
+lightbox({ gal: '#gal400 .card', box: 'lightbox400', p: 'lb400' });
 
 function sendForm(e){
   e.preventDefault();

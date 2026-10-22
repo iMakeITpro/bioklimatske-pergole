@@ -977,12 +977,12 @@
   <button type="button" class="lightbox-close" id="lbClose" aria-label="Zatvori">&times;</button>
   <button type="button" class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Prethodna fotografija">&#10094;</button>
   <img class="lightbox-img" id="lbImg" alt="">
-  <a class="lightbox-cap-top" id="lbModel" href=""></a>
   <div class="lightbox-cap" id="lbCap"></div>
   <button type="button" class="lightbox-nav lightbox-next" id="lbNext" aria-label="Sljedeća fotografija">&#10095;</button>
 </div>
 
 <script src="js/galerija.js?v=1"></script>
+<script src="js/lightbox.js?v=1"></script>
 <script>
 // ---------- hero video ----------
 // Poster nosi prvi prikaz. Video se dohvaca tek nakon sto se stranica iscrta.
@@ -1688,71 +1688,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 // ---------- galerija: postupno prikazivanje (6 -> 18 -> sve), js/galerija.js ----------
 galMore(document.querySelectorAll('#gal .card'), document.getElementById('galMoreBtn'));
 
-// ---------- galerija: lightbox ----------
-(function(){
-  var cards = Array.prototype.slice.call(document.querySelectorAll('#gal .card'));
-  var lb = document.getElementById('lightbox');
-  if (!cards.length || !lb) return;
-  var lbImg = document.getElementById('lbImg');
-  var lbCap = document.getElementById('lbCap');
-  var lbModel = document.getElementById('lbModel');
-  var current = 0;
-
-  function open(i){
-    current = (i + cards.length) % cards.length;
-    var card = cards[current];
-    var img = card.querySelector('img');
-    var loc = card.querySelector('.card-cap span');
-    var model = card.querySelector('.card-cap .model-tag');
-    var galerija = card.getAttribute('data-galerija');
-    // Čita puni URL s href-a kartice (ne s img.src) - "fallback za slike" niže u ovoj
-    // skripti briše img src ako thumbnail ne uspije učitati, a href ostaje netaknut.
-    lbImg.style.background = ''; lbImg.style.minHeight = '';
-    lbImg.src = card.getAttribute('href') || img.currentSrc || img.src;
-    lbImg.alt = img.alt || '';
-    lbCap.textContent = (model ? model.textContent + ' · ' : '') + (loc ? loc.textContent : '');
-    if (galerija){
-      lbModel.href = galerija;
-      lbModel.textContent = 'Pogledaj sve fotografije';
-      lbModel.hidden = false;
-    } else {
-      lbModel.hidden = true;
-    }
-    lb.classList.add('open');
-    lb.setAttribute('aria-hidden', 'false');
-    // lightbox-open na body: zaključava scroll i sakriva sticky header/mobilnu CTA traku
-    // (inače im se burger/telefon ikona vizualno sudara s lightbox close/nav gumbima).
-    document.body.classList.add('lightbox-open');
-  }
-  function close(){
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('lightbox-open');
-  }
-
-  cards.forEach(function(card, i){
-    card.addEventListener('click', function(e){
-      e.preventDefault();
-      open(i);
-    });
-    card.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        open(i);
-      }
-    });
-  });
-  document.getElementById('lbClose').addEventListener('click', close);
-  document.getElementById('lbPrev').addEventListener('click', function(){ open(current - 1); });
-  document.getElementById('lbNext').addEventListener('click', function(){ open(current + 1); });
-  lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
-  document.addEventListener('keydown', function(e){
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    else if (e.key === 'ArrowLeft') open(current - 1);
-    else if (e.key === 'ArrowRight') open(current + 1);
-  });
-})();
+// ---------- galerija: lightbox, js/lightbox.js ----------
+lightbox({ gal: '#gal .card', box: 'lightbox', p: 'lb' });
 
 
 // ---------- reveal ----------

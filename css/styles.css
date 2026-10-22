@@ -396,11 +396,6 @@ td{color:var(--muted)}
 .lightbox.open{opacity:1;visibility:visible}
 .lightbox-img{max-width:100%;max-height:calc(100vh - 130px);max-height:calc(100svh - 130px);object-fit:contain;box-shadow:0 30px 80px rgba(0,0,0,.5)}
 .lightbox-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt)}
-.lightbox-cap-top{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--brass-lt);text-decoration:none}
-.lightbox-cap-top:hover{text-decoration:underline}
-a.lightbox-cap-top{left:50%;right:auto;top:22px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--brass);color:#fff;font-weight:600;border-radius:var(--r);box-shadow:0 10px 26px rgba(0,0,0,.4);transition:.25s ease}
-a.lightbox-cap-top::after{content:'→';font-size:13px;line-height:1}
-a.lightbox-cap-top:hover{text-decoration:none;background:#9a7a49;transform:translateX(-50%) translateY(-2px);box-shadow:0 14px 32px rgba(176,141,87,.45)}
 .lightbox-close,.lightbox-nav{position:absolute;z-index:2;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
 .lightbox-close:hover,.lightbox-nav:hover{background:var(--brass);border-color:var(--brass)}
 .lightbox-close{top:20px;right:24px;width:44px;height:44px;font-size:26px;line-height:1}
@@ -415,7 +410,6 @@ a.lightbox-cap-top:hover{text-decoration:none;background:#9a7a49;transform:trans
   .lightbox-next{right:6px}
   /* on mobile the captions no longer float pinned to the screen edge (top/bottom:26px
      from the full viewport) - as normal column flex items they now sit right next to the image */
-  .lightbox-cap-top,a.lightbox-cap-top{position:static;left:auto;right:auto;top:auto;transform:none;order:1}
   .lightbox-img{order:2;max-height:calc(100vh - 260px);max-height:calc(100svh - 260px)}
   .lightbox-cap{position:static;left:auto;right:auto;bottom:auto;order:3}
 }
