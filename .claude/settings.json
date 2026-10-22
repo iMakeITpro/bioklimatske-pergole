@@ -11,7 +11,10 @@
       "ClaudeInChromeDomain(127.0.0.1:8765)",
       "mcp__claude-in-chrome__browser_batch",
       "ClaudeInChromeDomain(localhost:8766)",
-      "ClaudeInChromeDomain(127.0.0.1:8766)"
+      "ClaudeInChromeDomain(127.0.0.1:8766)",
+      "Bash(gh run *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ],
     "ask": [
       "Bash(git push*main*)"
