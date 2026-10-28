@@ -839,3 +839,26 @@ footer a:hover{color:var(--brass-lt)}
   .up-side{position:static}
   .up .frow{row-gap:0}
 }
+
+/* usporedba modela: do 1024px jedan model + strelice, od 1025px ostaje tablica */
+.cmp-m{display:none}
+@media(max-width:1024px){
+  #cmpTbl{display:none}
+  .cmp-m{display:block}
+  .cmp-nav{display:flex;align-items:center;background:var(--ink);color:#fff}
+  .cmp-nav button{width:56px;height:56px;background:none;border:0;color:#fff;font-size:28px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .cmp-nav button:active{background:var(--brass)}
+  .cmp-nav button:disabled{opacity:.25;cursor:default}
+  .cmp-t{flex:1;text-align:center;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+  .cmp-dots{display:flex;gap:6px;justify-content:center;padding:8px;background:#fff;border:1px solid var(--line-d);border-width:0 1px}
+  .cmp-dots i{width:7px;height:7px;border-radius:50%;background:#ccc}
+  .cmp-dots i.on{background:var(--brass)}
+  .cmp-r{display:flex;justify-content:space-between;gap:12px;padding:16px;font-size:15px;background:#fff;border:1px solid var(--line-d);border-width:1px 1px 0}
+  .cmp-r:last-child{border-bottom-width:1px}
+  .cmp-r span:first-child{font-weight:600;color:var(--ink)}
+  .cmp-r span:last-child{color:var(--muted);text-align:right}
+  /* hint: strelice se blago "dišu" dok korisnik ne pomakne model */
+  .cmp-nav.hint button:not(:disabled){animation:cmpHint 1.8s ease-in-out infinite}
+}
+@keyframes cmpHint{0%,100%{opacity:1}50%{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.cmp-nav.hint button{animation:none!important}}

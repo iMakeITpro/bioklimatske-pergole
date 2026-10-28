@@ -53,7 +53,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="css/styles.css?v=48">
+<link rel="stylesheet" href="css/styles.css?v=49">
 <script src="js/nav.js?v=3" defer></script>
 <script src="js/slanje.js?v=3"></script>
 <script src="js/cjenik.js?v=3"></script>
@@ -375,7 +375,7 @@
       <h2>Usporedba modela.</h2>
       <p class="lead">Podaci iz tehničke dokumentacije i ispitnih izvještaja prema EN 13561 i EN 1090.</p>
     </div>
-    <div class="tbl-wrap reveal">
+    <div class="tbl-wrap reveal" id="cmpTbl">
       <table>
         <thead>
           <tr><th>Parametar</th><th>Sunbreaker 400</th><th>Sunbreaker 500</th><th>Sunbreaker 700</th></tr>
@@ -982,6 +982,40 @@
 
 <script src="js/galerija.js?v=1"></script>
 <script src="js/lightbox.js?v=1"></script>
+<script>
+// Usporedba modela do 1024px: tablica se iz istih redaka pretvara u prikaz jednog modela sa strelicama/swipeom
+(function(){
+  const t = document.querySelector('#cmpTbl table');
+  if(!t) return;
+  const imena = [...t.tHead.rows[0].cells].slice(1).map(c=>c.textContent);
+  const redovi = [...t.tBodies[0].rows].map(r=>[...r.cells]);
+  const m = document.createElement('div');
+  m.className = 'cmp-m';
+  m.innerHTML = '<div class="cmp-nav hint"><button type="button" aria-label="Prethodni model">\u2039</button><div class="cmp-t" aria-live="polite"></div><button type="button" aria-label="Sljedeci model">\u203a</button></div><div class="cmp-dots"></div><div class="cmp-rows"></div>';
+  t.closest('.tbl-wrap').after(m);
+  const nav = m.firstChild, [pr, sl] = nav.querySelectorAll('button');
+  const naslov = m.querySelector('.cmp-t'), tocke = m.querySelector('.cmp-dots'), tijelo = m.querySelector('.cmp-rows');
+  let i = 0;
+  function crtaj(){
+    naslov.textContent = imena[i];
+    pr.disabled = i === 0; sl.disabled = i === imena.length - 1;
+    tocke.innerHTML = imena.map((_,k)=>'<i'+(k===i?' class="on"':'')+'></i>').join('');
+    tijelo.innerHTML = '';
+    redovi.forEach(c=>{
+      const r = document.createElement('div'); r.className = 'cmp-r';
+      const a = document.createElement('span'); a.textContent = c[0].textContent;
+      const b = document.createElement('span'); b.textContent = c[i+1].textContent; b.className = c[i+1].className;
+      r.append(a,b); tijelo.append(r);
+    });
+  }
+  function ide(d){ i = Math.min(imena.length-1, Math.max(0, i+d)); nav.classList.remove('hint'); crtaj(); }
+  pr.onclick = ()=>ide(-1); sl.onclick = ()=>ide(1);
+  let x0 = 0;
+  m.addEventListener('touchstart', e=>{ x0 = e.touches[0].clientX; }, {passive:true});
+  m.addEventListener('touchend', e=>{ const d = e.changedTouches[0].clientX - x0; if(Math.abs(d) > 50) ide(d < 0 ? 1 : -1); });
+  crtaj();
+})();
+</script>
 <script>
 // ---------- hero video ----------
 // Poster nosi prvi prikaz. Video se dohvaca tek nakon sto se stranica iscrta.
