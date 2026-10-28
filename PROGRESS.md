@@ -1,8 +1,9 @@
 # PROGRESS
 ## Now
-Rad na dev grani: ujednačavanje Sunbreaker stranica (SB500/SB500R/SB700/Solid) — specs, boje (33 RAL), FAQ, fotke. Zadnje: SB500R zamjena overview fotke; u tijeku nekomitirane izmjene u sunbreaker-500.html i nove slike (sb500-hero/sf.webp).
+Priprema prijenosa WordPress → Odoo: canonical na svim stranicama, dataLayer događaji za GTM, nacrt 301 mape (docs/301-mapa-nacrt.csv). Popis preostalog dijeli se s Odoo kolegom.
 ## Next
-- Dovršiti i commitati sunbreaker-500.html + nove slike (mp4/slike: git add -f ako treba)
-- Po potrebi release dev → main (samo na izričiti zahtjev)
+- Odluke: apex ili www, adrese bez pandana u 301 mapi
+- Odoo kolega: 301 unos, cookie banner (CMP + Consent Mode v2), GTM, CNAME/domena (DNS je na Cloudflareu)
+- Poslije go-livea: skinuti noindex, zamijeniti Web3Forms ključ klijentovim
 ## Decisions
-- 
+- Canonical koristi apex domenu https://bioklimatskepergole.hr

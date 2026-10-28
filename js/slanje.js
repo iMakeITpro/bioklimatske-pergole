@@ -20,3 +20,9 @@ async function posaljiObrazac(podaci){
     return {ok:false, razlog:String(e)};
   }
 }
+
+/* Analitika: most prema Google Tag Manageru. Bez GTM-a samo puni dataLayer polje (nema efekta).
+   Konfigurator salje event 'konfigurator:upit-poslan', stranica upita puni dataLayer sama. */
+document.addEventListener('konfigurator:upit-poslan', e => {
+  (window.dataLayer = window.dataLayer || []).push(Object.assign({event:'konfigurator_upit_poslan'}, e.detail));
+});
