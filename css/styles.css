@@ -569,7 +569,7 @@ footer a:hover{color:var(--brass-lt)}
   nav .sub a:not([href]):hover{background:none;color:var(--muted)}
 
   /* tap targeti i unos na mobitelu/tabletu */
-  .fbtn{padding:15px 20px}
+  .fbtn{padding:15px 20px;color:inherit}
   .fg input,.fg select,.fg textarea{font-size:16px}
 
   /* dodirne mete: poveznice u podnozju i zaglavlju bile su visoke 17-24px */
