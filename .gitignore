@@ -37,3 +37,5 @@ dostavljeno/
 CHANGELOG.md
 docs/PRD.md
 docs/PRD-konfigurator.md
+
+__pycache__/
