@@ -171,7 +171,7 @@
           <li>Senzor vjetra s autozatvaranjem</li>
           <li>Upravljanje mobilnom aplikacijom</li>
         </ul>
-        <a href="#konfigurator" class="btn btn-primary">Izračunaj&nbsp;okvirnu ponudu</a>
+        <a href="#konfigurator" data-model="400" class="btn btn-primary">Izračunaj&nbsp;okvirnu ponudu</a>
       </div>
 
       <div class="tier reveal">
@@ -188,7 +188,7 @@
           <li>Senzor vjetra s autozatvaranjem</li>
           <li>Upravljanje mobilnom aplikacijom</li>
         </ul>
-        <a href="#konfigurator" class="btn btn-ghost">Izračunaj&nbsp;okvirnu ponudu</a>
+        <a href="#konfigurator" data-model="500" class="btn btn-ghost">Izračunaj&nbsp;okvirnu ponudu</a>
       </div>
 
       <!-- Treci stupac: Sunbreaker 700 (bivši Tarasola Technic View Pro) — drugi partner.
@@ -1314,6 +1314,11 @@ const modelIzUrla = document.getElementById('m' + new URLSearchParams(location.s
 if(modelIzUrla && modelIzUrla.name === 'model') modelIzUrla.checked = true;
 document.querySelectorAll('input[name=model]').forEach(el=>el.addEventListener('change', postaviRasponeDimenzija));
 postaviRasponeDimenzija();
+// index model cards (data-model) preselect their model when scrolling to the configurator
+document.querySelectorAll('a[data-model]').forEach(a=>a.addEventListener('click',()=>{
+  const r = document.getElementById('m' + a.dataset.model);
+  if(r){ r.checked = true; r.dispatchEvent(new Event('change', {bubbles:true})); }
+}));
 
 // ---------- drugi fix (ispravljeno 9.9.2026., nakon povratne informacije): klizac s par tocaka ----------
 // Prvotno rjesenje (8.9.2026.) je pri malom pomaku odmah "skakalo" izravno na sljedecu tocku — radilo je,
